@@ -1,0 +1,102 @@
+<!-- Top navigation -->
+<nav class="navbar fixed-top flex-md-nowrap py-2">
+  <div class="container container-lg">
+    <a class="navbar-brand col-sm-3 col-md-2 p-0" routerLink="/dashboard">
+      <img
+        class="d-inline-block align-text-top logo-img"
+        src="../../../assets/img/logo.png"
+        alt="Tech Shop Logo"
+        width="40"
+        height="35"
+        loading="lazy"
+      />
+      <span class="text-center logo-text text-white">Aley TechShop</span>
+    </a>
+
+    <div class="nav d-flex">
+      <div ngbDropdown class="d-inline-block py-2 px-2 text-white">
+        <span ngbDropdownToggle>Toggle dropdown</span>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem>Action - 1</button>
+          <button ngbDropdownItem>Another Action</button>
+          <button ngbDropdownItem>Something else is here</button>
+        </div>
+      </div>
+
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" href="#"
+            >Active</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Link</a>
+        </li>
+      </ul>
+      <div class="has-icon-left search-input">
+        <input
+          class="form-control shadow-none bg-transparent text-white"
+          placeholder="Search users"
+          id="timesheetinput1"
+          name="employeename"
+          type="text"
+        />
+        <button class="search-button bg-transparent text-white">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </div>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#"
+            >Cart <i class="fa fa-cart-plus text-white" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#"
+            >Account <i class="fa fa-user text-white" aria-hidden="true"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class="banner-area" id="home">
+  <div class="container">
+    <div
+      class="row fullscreen d-flex align-items-center justify-content-center"
+    >
+      <div class="banner-content col-lg-10 text-center">
+        <h5 class="text-white text-uppercase">Now you can feel the Heat</h5>
+        <h1 class="main-text">Smart New Future</h1>
+        <a href="#" class="btn btn-primary text-uppercase">Buy Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Main content -->
+<!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="inner-adjust">
+
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">User Profile</h1>
+        </div>
+        <div class="row" *ngIf="authService.userData as user">
+          <div class="col-md-12">
+            <div class="media">
+              <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
+                alt="{{user.displayName}}">
+              <div class="media-body">
+                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
+                <p>User ID: <strong>{{user.uid}}</strong></p>
+                <p>Email: <strong>{{user.email}}</strong></p>
+                <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main> -->

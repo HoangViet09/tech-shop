@@ -1,0 +1,56 @@
+h1 {
+  font-size: 5.5rem;
+}
+.logo {
+  &-img {
+    object-fit: cover;
+  }
+  &-text {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 600;
+    color: #003d29;
+  }
+}
+.nav {
+  &-container {
+    margin: 0px 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.search {
+  &-input {
+    outline: none;
+    position: relative;
+  }
+  &-button {
+    background-color: white;
+    border: none;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    outline: none;
+  }
+}
+
+.banner {
+  &-area {
+    background: url(../../../assets/img/header-bg.png.webp) center;
+    background-size: cover;
+    max-height: 600px;
+    height: 600px;
+  }
+  &-content {
+    transform: translateY(-70%);
+  }
+}
+.fullscreen {
+  height: 587px;
+}
+
+.main-text {
+  font-size: 5.5rem;
+  color: white;
+}
