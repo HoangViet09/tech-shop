@@ -54,3 +54,19 @@ h1 {
   font-size: 5.5rem;
   color: white;
 }
+
+.catagory {
+  &-area {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  &-container {
+    overflow: hidden;
+    width: 100%;
+    max-width: 1360px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
