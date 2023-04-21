@@ -1,3 +1,7 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/functions";
 $white: #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -35,6 +39,7 @@ $danger: #f55252 !default;
 $secondary: #616d89 !default;
 $light: #dbdee5 !default;
 $dark: #1a051d !default;
+$text-color: #fff !default;
 
 $theme-colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
