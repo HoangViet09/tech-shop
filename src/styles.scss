@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
 input {
   outline: none;
 }
@@ -7,6 +10,14 @@ input {
 $white-color: (
   "base": #ffffff,
 );
+body {
+  font-family: inter, sans-serif, Montserrat;
+}
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
 $black-color: (
   "base": #000000,
 );

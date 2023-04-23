@@ -1,6 +1,6 @@
 <!-- Top navigation -->
 <nav class="navbar fixed-top flex-md-nowrap py-2">
-  <div class="container container-lg">
+  <div class="container c ontainer-lg">
     <a class="navbar-brand col-sm-3 col-md-2 p-0" routerLink="/dashboard">
       <img
         class="d-inline-block align-text-top logo-img"
@@ -79,8 +79,11 @@
 </section>
 
 <!-- catagory area begin-->
-<section class="catagory-area">
-  <div class="match-height catagory-container">
+<section class="category-area">
+  <div class="match-height container category-container">
+    <div class="category-title">
+      <h3>Shop Our Top Category</h3>
+    </div>
     <div class="grid-hover">
       <div class="row">
         <div class="col-md-3 col-ms-6 col-12">
@@ -212,8 +215,41 @@
     <!-- catagory item -->
   </div>
 </section>
-
 <!-- catagory area end -->
+
+<!-- best deal section start -->
+<section class="bestdeal-area">
+  <div class="match-height container bestdeal-container">
+    <div class="bestdeal-title">
+      <h3>Todays Best Deals For You!</h3>
+    </div>
+    <swiper
+      [config]="config"
+      (swiper)="onSwiper($event)"
+      (slideChange)="onSlideChange()"
+    >
+      <ng-template swiperSlide
+        ><img src="../../../assets/img/head-phone.png" alt=""
+      /></ng-template>
+      <ng-template swiperSlide
+        ><img src="../../../assets/img/ipad.png" alt=""
+      /></ng-template>
+      <ng-template swiperSlide
+        ><img src="../../../assets/img/macbook.png" alt=""
+      /></ng-template>
+      <ng-template swiperSlide
+        ><img src="../../../assets/img/watch.png" alt=""
+      /></ng-template>
+      <ng-template swiperSlide
+        ><img src="../../../assets/img/watch1.png" alt=""
+      /></ng-template>
+      <!-- <div class="swiper-pagination">
+        <span class="swiper-pagination-progressbar-fill"></span>
+      </div> -->
+    </swiper>
+  </div>
+</section>
+<!-- best deal section end -->
 
 <!-- Main content -->
 <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">

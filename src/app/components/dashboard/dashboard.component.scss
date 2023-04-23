@@ -2,9 +2,14 @@
 h1 {
   font-size: 5.5rem;
 }
+
+.container {
+  max-width: 1320px;
+}
 .logo {
   &-img {
     object-fit: cover;
+    width: 50px;
   }
   &-text {
     margin-left: 10px;
@@ -56,34 +61,54 @@ h1 {
   color: white;
 }
 
-.catagory {
+// category style
+
+.category {
   &-area {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
   &-container {
     overflow: hidden;
     width: 100%;
-    max-width: 1360px;
     margin-right: auto;
     margin-left: auto;
     padding-right: 40px;
     padding-left: 40px;
   }
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-
-  height: 100%;
-
-  &-body img {
-    object-fit: cover;
-    flex-grow: 1;
+  &-title {
+    padding: 20px 0 20px 0;
+    h3 {
+      font-size: 35px;
+      line-height: 20px;
+      font-weight: 700;
+    }
   }
 }
 
+//bestdeal style
+
+.bestdeal {
+  &-container {
+    overflow: hidden;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+  &-area {
+    padding-bottom: 50px;
+  }
+  &-title {
+    padding: 20px 0 20px 0;
+    h3 {
+      font-size: 35px;
+      line-height: 20px;
+      font-weight: 700;
+    }
+  }
+}
 /* Gallery hover effects */
 
 .grid-hover {
@@ -159,8 +184,8 @@ h1 {
     }
 
     p {
-      margin: 5px 0 auto 0;
-      font-size: 68.5%;
+      margin: 0 0 auto 0;
+      font-size: 60.5%;
     }
   }
 }
