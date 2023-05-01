@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  Renderer2,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { SwiperOptions } from 'swiper';
 // import Swiper core and required modules
@@ -13,9 +20,22 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+  currentRate = 5;
+  constructor(
+    public authService: AuthService,
+    private el: ElementRef,
+    private renderer: Renderer2
+  ) {}
   ngOnInit(): void {}
-
+  @HostListener('mousemove', ['$event']) onMouseMove(event: MouseEvent) {
+    const cursor = this.el.nativeElement.querySelector('#cursor');
+    if (cursor) {
+      const x = event.pageX - cursor.clientWidth;
+      const y = event.pageY - cursor.clientHeight;
+      this.renderer.setStyle(cursor, 'top', `${y}px`);
+      this.renderer.setStyle(cursor, 'left', `${x}px`);
+    }
+  }
   config: SwiperOptions = {
     slidesPerView: 3,
     spaceBetween: 50,
