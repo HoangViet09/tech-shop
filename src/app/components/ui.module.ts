@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbRatingModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { SwiperModule } from 'swiper/angular';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,6 +21,12 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     ForgotPasswordComponent,
     VerifyEmailComponent,
   ],
-  imports: [CommonModule, NgbDropdownModule, SwiperModule, NgbRatingModule],
+  imports: [
+    CommonModule,
+    NgbDropdownModule,
+    SwiperModule,
+    NgbRatingModule,
+    NgbNavModule,
+  ],
 })
 export class UiModule {}
