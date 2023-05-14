@@ -1,67 +1,98 @@
-<div class="displayTable">
-  <div class="displayTableCell">
-    <div class="authBlock">
-      <h3>Sign In</h3>
-      <div class="formGroup">
-        <input
-          type="text"
-          class="formControl"
-          placeholder="Username"
-          #userName
-          required
-        />
-      </div>
+<div class="page-outline">
+  <div class="login-container container-sm">
+    <div class="login-content row">
+      <div class="login-content__left col-lg-6">
+        <div class="login-promotion">
+          <span class="login-promotion__title">ALEY</span>
+          <ng-select
+            [ariaSelected]="false"
+            [searchable]="false"
+            [closeOnSelect]="false"
+            [clearable]="false"
+            [(ngModel)]="selectedLanguage"
+          >
+            <ng-option [value]="1"
+              ><img
+                class="img-flag"
+                src="assets/img/flag/America.png"
+                alt="nation-flag"
+              />
+              EN</ng-option
+            >
+            <ng-option [value]="2"
+              ><img
+                class="img-flag"
+                src="assets/img/flag/VietNam.webp"
+                alt="nation-flag"
+              />
+              VI</ng-option
+            >
+          </ng-select>
+        </div>
+        <div class="auth-block">
+          <h3 class="auth-title">Sign In</h3>
 
-      <div class="formGroup">
-        <input
-          type="password"
-          class="formControl"
-          placeholder="Password"
-          #userPassword
-          required
-        />
-      </div>
+          <button
+            type="button"
+            class="auth-btn__google col-12"
+            (click)="authService.GoogleAuth()"
+          >
+            <img
+              class="img-flag"
+              src="assets/img/logo-brand/google.png"
+              alt=""
+            />
+            <span class="auth-btn__title">Log in with Google</span>
+          </button>
 
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input
-          type="button"
-          class="btn btnPrimary"
-          value="Log in"
-          (click)="authService.SignIn(userName.value, userPassword.value)"
-        />
-      </div>
+          <span class="or">or</span>
 
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
+          <div class="form-floating mb-3 col-12">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Your email"
+              #userName
+              required
+              id="floatingInput"
+            />
+            <label for="floatingInput">Your Email</label>
+          </div>
 
-      <!-- Calling GoogleAuth Api from AuthService -->
-      <div class="formGroup">
-        <button
-          type="button"
-          class="btn googleBtn"
-          (click)="authService.GoogleAuth()"
-        >
-          <i class="fab fa-google-plus-g"></i>
-          Log in with Google
-        </button>
-      </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              #userPassword
+              required
+              id="floatingPassword"
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
 
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
-    </div>
+          <div class="auth-text__forgot text-end">
+            <span style="cursor: pointer" (click)="navigateForGotFsw()"
+              >Forgot Password?</span
+            >
+          </div>
 
-    <div class="redirectToLogin">
-      <span
-        >Don't have an account?<span
-          class="redirect"
-          routerLink="/register-user"
-        >
-          Sign Up</span
-        ></span
-      >
+          <button
+            class="auth-btn__submit col-12"
+            (click)="authService.SignIn(userName.value, userPassword.value)"
+          >
+            Log In
+          </button>
+        </div>
+
+        <div class="auth-text__register">
+          <span>
+            Don't have an account?
+            <a (click)="navigateRegister()" class="link-register">Sign Up</a>
+          </span>
+        </div>
+      </div>
+      <div class="login-content__right col-lg-6 login-img"></div>
     </div>
   </div>
 </div>
