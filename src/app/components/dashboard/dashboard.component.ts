@@ -20,10 +20,9 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
   encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
-  isScrolled: Boolean = false;
-
-  active: number = 1;
   currentRate: number = 5;
+  active: number = 1;
+
   constructor(
     public authService: AuthService,
     private el: ElementRef,
@@ -39,14 +38,7 @@ export class DashboardComponent implements OnInit {
       this.renderer.setStyle(cursor, 'left', `${x}px`);
     }
   }
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
-    const windowHeight = window.innerHeight;
 
-    this.isScrolled = scrollTop + windowHeight > windowHeight + 100;
-  }
   config: SwiperOptions = {
     slidesPerView: 3,
     spaceBetween: 50,
