@@ -1,0 +1,116 @@
+.footer {
+  max-height: 100vh;
+  &-area {
+    overflow: hidden;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+  &-top {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+  }
+  &-payment__title {
+    margin-top: 0px;
+    margin-bottom: 23px;
+    font-family: Inter, sans-serif;
+    color: #000;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  &-payment-thumb__wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &-payment__item {
+    min-width: calc(25% - 10px);
+    min-height: 40px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b4b1b1;
+    border-radius: 5px;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+  &-list__title {
+    margin-top: 0px;
+    margin-bottom: 23px;
+    font-family: Inter, sans-serif;
+    color: #000;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  &-list {
+    padding-left: 0;
+    list-style: none;
+  }
+  &-list__item {
+    color: #0e0f18;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    &:hover {
+      color: #c34482;
+      transform: translateX(15px);
+    }
+  }
+  &-bottom {
+    padding: 33px 0;
+    border-top: 1px solid #b4b1b1ac;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.copy-right-menu__left {
+  display: flex;
+  justify-content: space-between;
+}
+.footer-bottom-left__item {
+  margin-right: 20px;
+}
+.footer-service__icon {
+  margin-right: 10px;
+  color: #c34482;
+  font-size: 25px;
+}
+.footer-service__text {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 140%;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.25s ease-out;
+  &:hover {
+    color: #c34482;
+  }
+}
+.footer-copyright__text {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 140%;
+  margin-right: 20px;
+}
+.footer-logo {
+  margin-bottom: 35px;
+  &__title {
+    color: #003d29;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 800;
+    vertical-align: bottom;
+  }
+}
+.paragraph {
+  margin-bottom: 40px;
+}

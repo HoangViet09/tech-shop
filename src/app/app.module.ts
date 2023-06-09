@@ -15,10 +15,17 @@ import { AppRoutingModule } from './app-routing.module';
 // service
 import { AuthService } from './shared/services/auth.service';
 import { UiModule } from './components/ui.module';
+import { FooterComponent } from './shared/ui/footer/footer.component';
+import { NavigationComponent } from './shared/ui/navigation/navigation.component';
+import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavigationComponent, FooterComponent],
   imports: [
+    NgbDropdownModule,
+    NgbNavModule,
+    NgSelectModule,
     UiModule,
     BrowserModule,
     FormsModule,

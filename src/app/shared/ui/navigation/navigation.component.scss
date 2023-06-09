@@ -1,0 +1,199 @@
+h1 {
+  font-size: 5.5rem;
+}
+.container {
+  max-width: 1320px;
+}
+
+.img-flag {
+  max-width: 25px;
+  max-height: 25px;
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+  vertical-align: middle;
+}
+
+.logo {
+  &-img {
+    object-fit: cover;
+    width: 50px;
+  }
+  &-text {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 600;
+    color: #003d29;
+  }
+}
+//custom style ng select begin
+.ng-select .ng-select-container {
+  background-color: inherit;
+}
+.ng-select.ng-select-opened > .ng-select-container {
+  background-color: #2c7cec;
+}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-option.ng-option-selected.ng-option-marked {
+  background-color: #2c7cec;
+}
+// .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+//   background-color: #2c7cec;
+// }
+//custom style ng select end
+.nav {
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-contact {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+  }
+  &-product {
+    justify-content: center;
+    align-items: center;
+    background-color: #ededed;
+    min-height: 50px;
+    &__item {
+      display: inline-block;
+      width: 12.5%;
+      min-height: 50px;
+      padding: 10px;
+      color: #747474;
+      text-align: center;
+      transition: all 0.25s linear;
+      &:hover {
+        color: #000;
+        background-color: #bdbbbb;
+      }
+    }
+    &__link {
+      text-decoration: none;
+      color: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 16px;
+    }
+  }
+  &-img {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  &-drd-img {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  &-promotion__content > a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+  }
+  &-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-select__language {
+    max-width: fit-content;
+    border-radius: 5px;
+    background-color: inherit;
+  }
+  &-container {
+    margin: 0px 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &-header {
+    &__item {
+      padding: 8px;
+      text-align: center;
+      color: inherit;
+    }
+    &__link {
+      text-decoration: none;
+      color: inherit;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 16px;
+      // letter-spacing: 10px;
+    }
+  }
+}
+nav {
+  background-color: white;
+  color: #000;
+  transition: all 0.3s ease-in-out;
+}
+
+nav.scrolled {
+  background-color: #012a1cd7;
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+}
+.search {
+  &-input {
+    outline: none;
+    position: relative;
+  }
+  &-button {
+    background-color: white;
+    border: none;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    outline: none;
+  }
+}
+
+//style for toggle
+.switch {
+  position: relative;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background: #000;
+  border-radius: 100rem;
+  transition: background-color 0.25s linear;
+}
+
+.switch:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 40px;
+  background-color: #fff;
+  top: 5px;
+  left: 5px;
+  transition: background-color 0.25s linear, transform 0.25s linear;
+}
+
+.switch-input {
+  display: none;
+}
+
+.switch-input:checked + .switch {
+  background-color: white;
+}
+
+.switch-input:checked + .switch:after {
+  transform: translateX(30px);
+  background-color: #000;
+}
+//style for toggle end

@@ -1,1 +1,7 @@
+<ng-container *ngIf="!isSignInRoute()">
+  <app-navigation></app-navigation>
+</ng-container>
 <router-outlet></router-outlet>
+<ng-container *ngIf="!isSignInRoute()">
+  <app-footer></app-footer>
+</ng-container>

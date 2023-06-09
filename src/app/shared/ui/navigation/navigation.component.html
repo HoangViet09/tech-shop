@@ -1,0 +1,197 @@
+<nav class="navbar fixed-top p-0" [ngClass]="{ scrolled: isScrollTop }">
+  <div
+    class="container container-lg py-2 px-4"
+    style="background-color: #2c7cec"
+  >
+    <div class="nav-top col-12">
+      <div class="nav-contact">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        +84382641194
+      </div>
+      <div class="nav-promotion__content">
+        <a href="" target="_blank">
+          Get 50% Off on Selected Items | shop now
+        </a>
+      </div>
+      <div class="nav-menu col-2">
+        <ng-select
+          class="nav-select__language"
+          [ariaSelected]="false"
+          [searchable]="false"
+          [closeOnSelect]="false"
+          [clearable]="false"
+          [(ngModel)]="selectedLanguage"
+        >
+          <ng-option [value]="1"
+            ><img
+              class="img-flag"
+              src="assets/img/flag/America.png"
+              alt="nation-flag"
+            />
+            EN</ng-option
+          >
+          <ng-option [value]="2"
+            ><img
+              class="img-flag"
+              src="assets/img/flag/VietNam.webp"
+              alt="nation-flag"
+            />
+            VI</ng-option
+          >
+        </ng-select>
+        <div>
+          <input type="checkbox" id="switch" class="switch-input" />
+          <label for="switch" class="switch"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container container-lg px-4 py-2">
+    <a class="navbar-brand col-sm-3 col-md-2 p-0" routerLink="/dashboard">
+      <img
+        class="d-inline-block align-text-top logo-img"
+        src="../../../assets/img/logo.png"
+        alt="Tech Shop Logo"
+        width="40"
+        height="35"
+        loading="lazy"
+      />
+      <span class="text-center logo-text">Aley TechShop</span>
+    </a>
+
+    <div class="nav d-flex col-6">
+      <ul class="nav col-4">
+        <li class="nav-header__item">
+          <a class="nav-header__link" href="#">Sản phẩm đã xem</a>
+        </li>
+      </ul>
+      <div class="has-icon-left search-input col-8">
+        <input
+          class="form-control shadow-none bg-transparent"
+          placeholder="Search products"
+          id="timesheetinput1"
+          name="employeename"
+          type="text"
+        />
+        <button class="search-button bg-transparent">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div>
+      <ul class="nav">
+        <li class="nav-header__item">
+          <img src="assets/img/cart.svg" alt="cart img" class="nav-img" />
+        </li>
+        <li class="nav-header__item">
+          <img
+            *ngIf="!authService.userData; else userData"
+            src="assets/img/user.svg"
+            alt="user img"
+            class="nav-img"
+            (click)="navigateSignIn()"
+          />
+
+          <ng-template #userData>
+            <div
+              class="d-inline-block"
+              ngbDropdown
+              display="dynamic"
+              #myDrop="ngbDropdown"
+            >
+              <img
+                src="{{ authService.userData.photoURL }}"
+                alt="user img"
+                class="nav-img"
+                ngbDropdownAnchor
+                (click)="myDrop.open()"
+              />
+
+              <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                <button ngbDropdownItem (click)="navigateUserInfo()">
+                  <img
+                    src="assets/img/user.svg"
+                    alt="sign out img"
+                    class="nav-drd-img"
+                    style="display: inline-block"
+                  />User profile
+                </button>
+                <button ngbDropdownItem (click)="navigateOrderList()">
+                  <img
+                    src="assets/img/box.svg"
+                    alt="sign out img"
+                    class="nav-drd-img"
+                    style="display: inline-block"
+                  />
+                  Order list
+                </button>
+                <button (click)="authService.SignOut()" ngbDropdownItem>
+                  <img
+                    src="assets/img/sign-out.svg"
+                    alt="sign out img"
+                    class="nav-drd-img"
+                    style="display: inline-block"
+                  />
+                  Log-out
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+
+        <!-- Main content -->
+        <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="inner-adjust">
+
+        <div class="pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">User Profile</h1>
+        </div>
+        <div class="row" *ngIf="authService.userData as user">
+          <div class="col-md-12">
+            <div class="media">
+              <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
+                alt="{{user.displayName}}">
+              <div class="media-body">
+                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
+                <p>User ID: <strong>{{user.uid}}</strong></p>
+                <p>Email: <strong>{{user.email}}</strong></p>
+                <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main> -->
+      </ul>
+    </div>
+  </div>
+  <div class="container container-lg px-4 nav-product">
+    <ul class="nav col-10">
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Phone</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Watch</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Laptop</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Screen</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Smart TV</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Tablet</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Speaker</a>
+      </li>
+      <li class="nav-product__item">
+        <a class="nav-product__link" href="#">Smart Home</a>
+      </li>
+    </ul>
+  </div>
+</nav>
