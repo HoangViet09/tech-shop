@@ -4,9 +4,12 @@ import {
   NgbDropdownModule,
   NgbRatingModule,
   NgbNavModule,
+  NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+
 import { SwiperModule } from 'swiper/angular';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -16,6 +19,7 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { VerifyEmailComponent } from './authentication/verify-email/verify-email.component';
 import { UserInfoComponent } from './account/user-info/user-info.component';
 import { OrderListComponent } from './account/order-list/order-list.component';
+import { ProductsPageComponent } from './products/products-page/products-page/products-page.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,7 @@ import { OrderListComponent } from './account/order-list/order-list.component';
     VerifyEmailComponent,
     UserInfoComponent,
     OrderListComponent,
+    ProductsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +41,8 @@ import { OrderListComponent } from './account/order-list/order-list.component';
     NgbDropdownModule,
     NgbNavModule,
     NgSelectModule,
+    NgbCollapseModule,
+    NgbDatepickerModule,
   ],
 })
 export class UiModule {}

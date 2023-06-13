@@ -8,4 +8,5 @@ export const environment = {
     messagingSenderId: '207005973083',
     appId: '1:207005973083:web:145e541c26016b12a19d7e',
   },
+  provinces_url: 'https://provinces.open-api.vn/api/',
 };

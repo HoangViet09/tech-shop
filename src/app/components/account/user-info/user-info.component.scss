@@ -5,4 +5,140 @@
   margin-top: 170px;
   padding-top: 50px;
   padding-bottom: 50px;
+
+  &-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 16px;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0.5px;
+      height: 100%;
+      background-color: #b0b0b0;
+    }
+    &__item {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #000;
+      padding: 10px 20px;
+      margin-bottom: 16px;
+      display: block;
+      overflow: hidden;
+      border-radius: 16px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: all 0.25s ease-in-out;
+
+      &:hover {
+        background-color: #058a5e;
+      }
+    }
+  }
+  &-info {
+    &__item {
+      margin-bottom: 16px;
+    }
+    &__label {
+      text-align: left;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    &__input {
+      border-radius: 16px;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    &__province {
+      display: flex;
+      max-width: calc(75% - 16px);
+    }
+  }
+  &-changepassword__btn {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 500;
+    color: #0840e9;
+    text-decoration: solid;
+  }
+  &-btn__submit {
+    padding: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #0840e9;
+    background-color: #0840e9;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+.active {
+  background-color: #003d29;
+  color: white;
+}
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+
+//custom radio
+.radio {
+  margin: 0.5rem;
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    + .radio-label {
+      &:before {
+        content: "";
+        background: #fcfcfc;
+        border-radius: 100%;
+        border: 1px solid #747675;
+        display: inline-block;
+        width: 1.4em;
+        height: 1.4em;
+        position: relative;
+        top: -0.2em;
+        margin-right: 1em;
+        vertical-align: top;
+        cursor: pointer;
+        text-align: center;
+        transition: all 250ms ease;
+      }
+    }
+    &:checked {
+      + .radio-label {
+        &:before {
+          background-color: #062789;
+          box-shadow: inset 0 0 0 4px #fefefe;
+        }
+      }
+    }
+    &:focus {
+      + .radio-label {
+        &:before {
+          outline: none;
+          border-color: #058a5e;
+        }
+      }
+    }
+
+    + .radio-label {
+      &:empty {
+        &:before {
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }

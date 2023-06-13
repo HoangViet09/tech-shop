@@ -18,14 +18,13 @@ export class NavigationComponent {
   onWindowScroll() {
     const currenScrollPosition =
       document.documentElement.scrollTop || document.body.scrollTop;
-    console.log(
-      'currenScrollPosition vs previosScrollPosition',
-      currenScrollPosition,
-      this.previosScrollPosition
-    );
-    if (currenScrollPosition > 120) {
-      this.isScrollTop = currenScrollPosition > this.previosScrollPosition;
-    }
+    if (currenScrollPosition < 120) return;
+    this.isScrollTop = currenScrollPosition > this.previosScrollPosition;
+    // console.log(
+    //   'currenScrollPosition vs previosScrollPosition',
+    //   currenScrollPosition,
+    //   this.previosScrollPosition
+    // );
 
     this.previosScrollPosition = currenScrollPosition;
   }

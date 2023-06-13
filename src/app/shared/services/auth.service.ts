@@ -15,9 +15,9 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 })
 export class AuthService {
   userData: any;
-  userDataSubject: Subject<any> = new BehaviorSubject<any>({}); // Save logged in user data
-  get userData$(): Observable<any> {
-    return this.userDataSubject.asObservable();
+  userAuthSubject: Subject<any> = new BehaviorSubject<any>({}); // Save logged in user data
+  get userAuth$(): Observable<any> {
+    return this.userAuthSubject;
   }
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
@@ -31,7 +31,7 @@ export class AuthService {
       .pipe(
         tap((res) => {
           // console.log(res);
-          this.userDataSubject.next(res);
+          this.userAuthSubject.next(res);
         })
       )
       .subscribe((user) => {
@@ -45,9 +45,9 @@ export class AuthService {
           JSON.parse(localStorage.getItem('user')!);
         }
       });
-    this.userData$.subscribe((res) => {
-      console.log(res);
-    });
+    // this.userAuth$.subscribe((res) => {
+    //   console.log(res);
+    // });
   }
 
   // Sign in with email/password

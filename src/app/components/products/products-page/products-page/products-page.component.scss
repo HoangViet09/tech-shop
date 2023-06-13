@@ -1,0 +1,16 @@
+.container {
+  max-width: 1320px;
+}
+.product {
+  margin-top: 170px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  &-filter-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-filter__icon {
+    width: 30px;
+    height: 30px;
+  }
+}

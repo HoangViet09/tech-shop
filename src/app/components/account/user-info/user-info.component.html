@@ -1,8 +1,254 @@
 <div class="account">
   <div class="container">
     <div class="row">
-      <div class="col-4">test</div>
-      <div class="col-8">test</div>
+      <div class="col-4">
+        <div class="account-sidebar">
+          <h2 class="account-name title">{{ userInfo[0]?.displayName }}</h2>
+          <div class="acount-sidebar__items">
+            <div class="account-sidebar__item active">Thông tin cá nhân</div>
+            <div class="account-sidebar__item">danh sách đơn hàng</div>
+            <div class="account-sidebar__item">thoát</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="account-info__tab">
+          <h2 class="account-info title">Thông tin tài khoản</h2>
+          <form
+            class="striped-rows"
+            [formGroup]="formUserInfo"
+            (submit)="onSubmitUserInfo(formUserInfo)"
+          >
+            <div class="form-group row account-info__item">
+              <label
+                class="col-md-3 account-info__label label-control"
+                for="displayName"
+                >Họ Tên</label
+              >
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  id="displayName"
+                  class="form-control account-info__input"
+                  name="displayName"
+                  formControlName="displayName"
+                  placeholder="Họ và Tên của bạn"
+                />
+              </div>
+            </div>
+            <!-- <div class="form-group row account-info__item">
+              <label
+                class="col-md-3 account-info__label label-control"
+                for="birthDate"
+                >Ngày tháng năm sinh</label
+              >
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  id="birthDate"
+                  class="form-control account-info__input"
+                  name="birthDate"
+                  placeholder="nhập ngày sinh của bạn (yyyy-mm-dd)"
+                  [(ngModel)]="model"
+                  ngbDatepicker
+                  #d="ngbDatepicker"
+                  (click)="d.toggle()"
+                />
+              </div>
+            </div> -->
+            <div class="form-group row account-info__item">
+              <label
+                class="col-md-3 account-info__label label-control"
+                for="striped-form-4"
+                >Email</label
+              >
+              <div class="col-md-9">
+                <input
+                  type="email"
+                  id="striped-form-4"
+                  class="form-control account-info__input"
+                  formControlName="email"
+                  name="email"
+                  placeholder="E-mail của bạn"
+                />
+              </div>
+            </div>
+            <div class="form-group row account-info__item">
+              <label
+                class="col-md-3 account-info__label label-control"
+                for="phoneNumber"
+                >Số điện thoại</label
+              >
+              <div class="col-md-9">
+                <input
+                  type="number"
+                  id="phoneNumber"
+                  class="form-control account-info__input"
+                  formControlName="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="Số điên thoại của bạn"
+                />
+              </div>
+            </div>
+            <div class="form-group row account-info__item">
+              <label
+                class="col-md-3 account-info__label label-control"
+                for="striped-form-2"
+                >Địa chỉ</label
+              >
+              <div class="col-md-9">
+                <input
+                  type="text"
+                  id="striped-form-2"
+                  class="form-control account-info__input"
+                  formControlName="address"
+                  name="address"
+                  placeholder="Địa chỉ của bạn"
+                />
+              </div>
+            </div>
+            <div class="form-group row account-info__item">
+              <label
+                class="col-md-3 account-info__label label-control"
+                for="striped-form-3"
+                >Tỉnh/Thành</label
+              >
+              <div class="account-info__province">
+                <div class="col-md-4 me-2">
+                  <ng-select
+                    [items]="provinces"
+                    bindLabel="name"
+                    autofocus
+                    bindValue="code"
+                    [(ngModel)]="provinceCode"
+                    (change)="startGetDataDictricts($event)"
+                    formControlName="province"
+                  >
+                  </ng-select>
+                </div>
+                <div class="col-md-4 me-2">
+                  <ng-select
+                    [items]="districts"
+                    bindLabel="name"
+                    autofocus
+                    bindValue="code"
+                    (change)="startGetDataWards($event)"
+                    formControlName="dicstrict"
+                    placeholder="Quận/huyện"
+                  >
+                  </ng-select>
+                </div>
+                <div class="col-md-4">
+                  <ng-select
+                    [items]="wards"
+                    bindLabel="name"
+                    autofocus
+                    bindValue="code"
+                    formControlName="ward"
+                    placeholder="Phường/xã"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row account-info__item last mb-3">
+              <label class="col-md-3 account-info__label label-control"
+                >Giới tính</label
+              >
+              <div class="col-md-9">
+                <div class="input-group col-md-6">
+                  <div class="radio d-inline-block me-2 mb-1">
+                    <input
+                      type="radio"
+                      id="striped-form-6"
+                      name="gender"
+                      formControlName="gender"
+                      value="male"
+                    />
+                    <label for="striped-form-6" class="radio-label">Nam</label>
+                  </div>
+                  <div class="radio d-inline-block">
+                    <input
+                      type="radio"
+                      id="striped-form-7"
+                      checked
+                      name="gender"
+                      formControlName="gender"
+                      value="feMale"
+                    />
+                    <label for="striped-form-7" class="radio-label">Nữ</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <button
+              type="button"
+              class="account-changepassword__btn"
+              (click)="collapse.toggle()"
+              [attr.aria-expanded]="!isCollapsed"
+            >
+              Thay đổi mật khẩu
+            </button>
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+              <div class="account-changepassword__area">
+                <div class="form-group row account-info__item">
+                  <label
+                    class="col-md-3 account-info__label label-control"
+                    for="currentPassword"
+                    >Mật khẩu hiện tại</label
+                  >
+                  <div class="col-md-9">
+                    <input
+                      type="password"
+                      id="currentPassword"
+                      class="form-control account-info__input"
+                      name="currentPassword"
+                      placeholder="Nhập mật khẩu hiện tại của bạn"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row account-info__item">
+                  <label
+                    class="col-md-3 account-info__label label-control"
+                    for="newPassword"
+                    >Mật khẩu mới</label
+                  >
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      id="newPassword"
+                      class="form-control account-info__input"
+                      name="newPassword"
+                      placeholder="mời nhập mật khẩu mới"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row account-info__item">
+                  <label
+                    class="col-md-3 account-info__label label-control"
+                    for="confirmPassword"
+                    >Nhập lại mật khẩu</label
+                  >
+                  <div class="col-md-9">
+                    <input
+                      type="text"
+                      id="confirmPassword"
+                      class="form-control account-info__input"
+                      name="confirmPassword"
+                      placeholder="Nhập lại mật khẩu"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <button type="submit" class="account-btn__submit">
+              <i class="ft-check-square mr-1"></i>Cập nhật thông tin
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
