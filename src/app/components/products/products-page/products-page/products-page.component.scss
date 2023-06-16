@@ -1,6 +1,13 @@
 .container {
   max-width: 1320px;
 }
+.filled {
+  color: #08ac0a;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .product {
   margin-top: 170px;
   padding-top: 50px;
@@ -8,9 +15,283 @@
   &-filter-header {
     display: flex;
     justify-content: space-between;
+    &__text {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  }
+  &-filter-group {
+    padding: 20px 10px 20px 10px;
+    position: relative;
+    &__header {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    &:not(:last-child) {
+      &::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: #eee;
+        bottom: 0;
+        left: 0;
+      }
+    }
   }
   &-filter__icon {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
+  }
+  &-checkbox-filter {
+    margin-bottom: 10px;
+  }
+  &-range-filter__inputs {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px 10px 0px;
+    margin-bottom: 10px;
+    & > input {
+      padding: 4px;
+      max-width: 40%;
+      height: 33px;
+      font-size: 12px;
+      font-weight: 400;
+      color: #565454;
+      border: 1px solid #a29f9f;
+      border-radius: 5px;
+    }
+  }
+  &-range-filter__line {
+    width: 10%;
+    text-align: center;
+    height: 1px;
+    background-color: #a29f9f;
+    margin: auto 0;
+  }
+  &-filter-group__btn-range {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    background-color: #02583b;
+    color: white;
+  }
+  &-sort {
+    &-bar {
+      padding: 10px 10px 10px 10px;
+      display: flex;
+      background-color: #ededed;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    &-header {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-right: 20px;
+      text-align: center;
+    }
+    &-option {
+      width: 40%;
+    }
+  }
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &-item {
+    max-width: calc(25% - 10px);
+    margin-right: 10px;
+    cursor: pointer;
+    &__container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+  &-thumbnail {
+    background-color: #e0dede;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    // width: 200px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    & img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: all 0.25s ease-in-out;
+    }
+  }
+
+  &-content-wrap {
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-content-title {
+    margin-top: 16px;
+    margin-bottom: 12px;
+    font-family: Inter, sans-serif;
+    color: #003d29;
+    font-size: 20px;
+    font-weight: 500;
+    display: -webkit-box; /* Required for Safari and Chrome */
+    -webkit-line-clamp: 2; /* Limit the text to 2 lines */
+    -webkit-box-orient: vertical; /* Set the box orientation to vertical */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Add an ellipsis (...) to indicate truncated text */
+  }
+  &-price {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  &-rating {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  &-description {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 16.5px;
+  }
+  &-icon__wrap {
+    margin-right: 10px;
+  }
+  &-icon__rating {
+    position: relative;
+    display: inline-block;
+    padding-right: 0.1rem;
+  }
+  &-btn__add {
+    border: 1px solid #3c3939;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    &:hover {
+      color: white;
+      background-color: #003d29;
+    }
+  }
+}
+
+.text-span {
+  position: relative;
+  top: -5px;
+  font-size: 13px;
+}
+
+//custom checkbox
+.checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  input[type="checkbox"] {
+    // basic checkbox - display none
+    display: none;
+    // checkbox checked
+    &:checked {
+      & ~ label {
+        // after
+        &:after {
+          border-top-style: none;
+          border-right-style: none;
+          -ms-transform: rotate(-45deg); // IE9
+          transform: rotate(-45deg);
+          height: 0.4rem;
+          width: 0.8rem;
+          border-color: #001c13;
+          border-radius: 0;
+          border-width: 2px;
+          top: 6px;
+          left: 4px;
+        }
+      }
+    }
+    // disabled checkbox
+    // &:disabled {
+    //   ~ label {
+    //     color: gray;
+    //     // before
+    //     &:before {
+    //       background-color: $body-bg !important;
+    //       box-shadow: none !important;
+    //     }
+    //   }
+    //   &:checked {
+    //     ~ label {
+    //       // after
+    //       &:after {
+    //         border-color: map-get($grey-color, lighten-1);
+    //       }
+    //     }
+    //   }
+    // }
+  }
+
+  label {
+    // label css in check box
+    margin-left: 1.75rem;
+    margin-bottom: 0;
+
+    // Before - Outer
+    &:before {
+      content: "";
+      height: 20px;
+      width: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 3px;
+      border: 1px solid #003d29;
+    }
+    // After - Inner
+    &:after {
+      content: " ";
+      height: 20px;
+      width: 20px;
+      border: 1px solid #001c13;
+      position: absolute;
+      border-radius: 3px;
+      top: 0px;
+      left: 0;
+      transition: 100ms ease-in-out;
+    }
+  }
+
+  // Small Checkbox
+  &.checkbox-sm {
+    // checked checkbox
+    input:checked ~ label:after {
+      height: 5px;
+      width: 8px;
+      top: 7px;
+      left: 6px;
+    }
+    label {
+      // unchecked checkbox
+      &::before,
+      &::after {
+        width: 15px;
+        height: 15px;
+        top: 3px;
+        left: 3px;
+      }
+    }
   }
 }

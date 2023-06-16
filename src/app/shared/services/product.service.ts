@@ -6,8 +6,10 @@ import { User } from 'firebase/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
+  CollectionReference,
 } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -20,27 +22,21 @@ export class ProductService {
   constructor(
     private db: AngularFireDatabase,
     public afs: AngularFirestore,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private route: ActivatedRoute
   ) {
     // this.userData$.subscribe((res) => {
     //   console.log(res);
     // });
   }
   getProducts() {
-    return (
-      this.afs
-        .collection(`/products/`)
-        .valueChanges()
-        //   .pipe(
-        //     tap((res) => {
-        //       // console.log(res);
-        //       this.userDataSubject.next(res);
-        //     })
-        //   )
-        .subscribe((res) => {
-          console.log(res);
-        })
-    );
+    return this.afs.collection(`/products/`).valueChanges();
+    //   .pipe(
+    //     tap((res) => {
+    //       // console.log(res);
+    //       this.userDataSubject.next(res);
+    //     })
+    //   )
   }
 
   getProduct(productId: string) {
@@ -52,12 +48,30 @@ export class ProductService {
       .subscribe((res) => {});
   }
 
-  getProductsByType(type: string) {
-    if (!type) return;
-    return this.afs
-      .collection(`/products/`, (ref) => ref.where('type    ', '==', type))
-      .valueChanges()
+  getProductsByType(
+    type: string,
+    brands?: string[],
+    maxPrice?: number,
+    minPrice?: number
+  ): Observable<any> {
+    let query = (ref: CollectionReference) => {
+      let collection = ref.where('product_type', '==', type);
 
-      .subscribe((res) => {});
+      if (brands && brands.length > 0) {
+        collection = collection.where('product_header.brand', 'in', brands);
+      }
+
+      if (maxPrice) {
+        collection = collection.where('price', '<=', maxPrice);
+      }
+
+      if (minPrice) {
+        collection = collection.where('price', '>', minPrice);
+      }
+
+      return collection;
+    };
+
+    return this.afs.collection('/products/', query).valueChanges();
   }
 }

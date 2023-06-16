@@ -37,4 +37,8 @@ export class NavigationComponent {
   navigateOrderList() {
     this.router.navigate(['account/order-list']);
   }
+  onClickProducts(type: string) {
+    if (!type) return;
+    this.router.navigate(['/products', type]);
+  }
 }

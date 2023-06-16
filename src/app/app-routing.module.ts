@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'account/user-info', component: UserInfoComponent },
   { path: 'account/order-list', component: OrderListComponent },
-  { path: 'products', component: ProductsPageComponent },
+  { path: 'products/:type', component: ProductsPageComponent },
 ];
 
 @NgModule({

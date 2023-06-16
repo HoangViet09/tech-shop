@@ -18,7 +18,7 @@
           class="nav-select__language"
           [ariaSelected]="false"
           [searchable]="false"
-          [closeOnSelect]="false"
+          [closeOnSelect]="true"
           [clearable]="false"
           [(ngModel)]="selectedLanguage"
         >
@@ -39,10 +39,10 @@
             VI</ng-option
           >
         </ng-select>
-        <div>
+        <!-- <div>
           <input type="checkbox" id="switch" class="switch-input" />
           <label for="switch" class="switch"></label>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@
     <div class="nav d-flex col-6">
       <ul class="nav col-4">
         <li class="nav-header__item">
-          <a class="nav-header__link" href="#">Sản phẩm đã xem</a>
+          <a class="nav-header__link" href="#">Products viewed</a>
         </li>
       </ul>
       <div class="has-icon-left search-input col-8">
@@ -168,29 +168,29 @@
   </div>
   <div class="container container-lg px-4 nav-product">
     <ul class="nav col-10">
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Phone</a>
+      <li class="nav-product__item" (click)="onClickProducts('Phone')">
+        <a class="nav-product__link">Phone</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Watch</a>
+      <li class="nav-product__item" (click)="onClickProducts('Watch')">
+        <a class="nav-product__link">Watch</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Laptop</a>
+      <li class="nav-product__item" (click)="onClickProducts('Laptop')">
+        <a class="nav-product__link">Laptop</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Screen</a>
+      <li class="nav-product__item" (click)="onClickProducts('Screen')">
+        <a class="nav-product__link">Screen</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Smart TV</a>
+      <li class="nav-product__item" (click)="onClickProducts('Smart-tv')">
+        <a class="nav-product__link">Smart TV</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Tablet</a>
+      <li class="nav-product__item" (click)="onClickProducts('Tablet')">
+        <a class="nav-product__link">Tablet</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Speaker</a>
+      <li class="nav-product__item" (click)="onClickProducts('Speaker')">
+        <a class="nav-product__link">Speaker</a>
       </li>
-      <li class="nav-product__item">
-        <a class="nav-product__link" href="#">Smart Home</a>
+      <li class="nav-product__item" (click)="onClickProducts('Smart-home')">
+        <a class="nav-product__link">Smart Home</a>
       </li>
     </ul>
   </div>

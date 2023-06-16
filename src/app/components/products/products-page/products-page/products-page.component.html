@@ -10,8 +10,125 @@
           />
           <div class="product-filter-header__text">BỘ LỌC TÌM KIẾM</div>
         </div>
+        <div class="product-filter-group">
+          <div class="product-filter-group__header">Theo Danh Mục</div>
+          <div class="product-filter-group__body">
+            <div class="product-checkbox-filter">
+              <div *ngIf="brand$ | async as brands">
+                <div *ngFor="let item of brands" class="checkbox checkbox-sm">
+                  <input
+                    type="checkbox"
+                    [id]="item"
+                    [value]="item"
+                    (change)="onCheckboxChange(checkbox)"
+                    #checkbox
+                  />
+                  <label [for]="item"
+                    ><span>{{ item }}</span></label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-filter-group">
+          <div class="product-filter-group__header">Theo Khoảng Giá</div>
+          <div class="product-filter-group__body">
+            <div class="product-range-filter__inputs">
+              <input
+                maxlength="13"
+                type="text"
+                name="lowestPrice"
+                id="lowestPrice"
+              />
+              <div class="product-range-filter__line"></div>
+              <input
+                maxlength="13"
+                type="text"
+                name="hightestPrice"
+                id="hightestPrice"
+              />
+            </div>
+          </div>
+          <button class="product-filter-group__btn-range">ÁP DỤNG</button>
+        </div>
       </div>
-      <div class="col-10 product-content"></div>
+      <div class="col-10 product-content">
+        <div class="product-sort-bar">
+          <span class="product-sort-header">Sắp xếp theo</span>
+          <div class="product-sort-option">
+            <ng-select
+              class="nav-select__language"
+              [ariaSelected]="false"
+              [searchable]="false"
+              [closeOnSelect]="true"
+              [clearable]="false"
+              [(ngModel)]="selectedSortOption"
+            >
+              <ng-option [value]="1"> Mặc định</ng-option>
+              <ng-option [value]="2"> Từ thấp đến cao</ng-option>
+              <ng-option [value]="3"> Từ cao đến thấp</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="product-list">
+          <div class="product-item" *ngFor="let item of dataProduct$ | async">
+            <div class="product-item__container">
+              <div class="product-thumbnail">
+                <img
+                  [src]="item.product_images[item.currentImageIndex || 0]"
+                  [alt]="item.name"
+                  (mouseover)="changeImage(item, 1)"
+                  (mouseout)="changeImage(item, 0)"
+                />
+              </div>
+
+              <div class="product-content">
+                <div class="product-content-wrap">
+                  <h3 class="product-content-title">
+                    {{ item.product_header.title }}
+                  </h3>
+                  <div class="product-price">
+                    <!-- <span class="text-span"></span> -->
+                    <span>{{
+                      item.product_header.price
+                        | currency : "VND" : "symbol" : "1.0"
+                    }}</span>
+                    <!-- <span class="text-span">.00</span> -->
+                  </div>
+                </div>
+                <div class="product-description">
+                  Table with air purifier, stained veneer/black
+                </div>
+                <div class="product-rating">
+                  <div class="product-icon__wrap">
+                    <ng-template #t let-fill="fill">
+                      <i
+                        class="fa fa-star product-icon__rating"
+                        aria-hidden="true"
+                      >
+                        <i
+                          *ngIf="fill > 0"
+                          class="fa fa-star filled"
+                          [style.width.%]="fill"
+                        ></i>
+                      </i>
+                    </ng-template>
+                    <ngb-rating
+                      [(rate)]="currentRate"
+                      [starTemplate]="t"
+                      [max]="5"
+                      [readonly]="true"
+                    ></ngb-rating>
+                  </div>
+                  <div class="total-rating">(123)</div>
+                </div>
+                <!-- <button class="btn product-btn__add">Add to Cart</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
