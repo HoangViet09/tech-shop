@@ -48,25 +48,39 @@ export class ProductService {
       .subscribe((res) => {});
   }
 
-  getProductsByType(
-    type: string,
+  getProductsByCondition(
+    type?: string,
     brands?: string[],
     maxPrice?: number,
-    minPrice?: number
+    minPrice?: number,
+    sort?: string
   ): Observable<any> {
+    console.log('run');
     let query = (ref: CollectionReference) => {
       let collection = ref.where('product_type', '==', type);
-
+      console.log(type);
       if (brands && brands.length > 0) {
         collection = collection.where('product_header.brand', 'in', brands);
+        console.log(brands);
       }
 
-      if (maxPrice) {
-        collection = collection.where('price', '<=', maxPrice);
+      if (maxPrice && minPrice) {
+        collection = collection
+          .where('product_header.price', '>', minPrice)
+          .where('product_header.price', '<=', maxPrice);
+        console.log('Price range:', minPrice, '-', maxPrice);
+      } else if (maxPrice) {
+        collection = collection.where('product_header.price', '<=', maxPrice);
+        console.log('Max price:', maxPrice);
+      } else if (minPrice) {
+        collection = collection.where('product_header.price', '>', minPrice);
+        console.log('Min price:', minPrice);
       }
-
-      if (minPrice) {
-        collection = collection.where('price', '>', minPrice);
+      if (sort === 'asc') {
+        collection = collection.orderBy('product_header.price', 'asc');
+      }
+      if (sort === 'desc') {
+        collection = collection.orderBy('product_header.price', 'desc');
       }
 
       return collection;

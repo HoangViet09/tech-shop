@@ -50,6 +50,7 @@
     margin-bottom: 10px;
   }
   &-range-filter__inputs {
+    position: relative;
     display: flex;
     justify-content: space-between;
     padding: 0px 10px 10px 0px;
@@ -182,6 +183,14 @@
       color: white;
       background-color: #003d29;
     }
+  }
+  &-btn__clearfilter {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    max-width: 15px;
+    max-height: 15px;
+    cursor: pointer;
   }
 }
 

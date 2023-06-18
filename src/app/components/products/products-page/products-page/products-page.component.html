@@ -20,7 +20,7 @@
                     type="checkbox"
                     [id]="item"
                     [value]="item"
-                    (change)="onCheckboxChange(checkbox)"
+                    (change)="onCheckboxChange($event, checkbox)"
                     #checkbox
                   />
                   <label [for]="item"
@@ -40,6 +40,8 @@
                 type="text"
                 name="lowestPrice"
                 id="lowestPrice"
+                #lowestPrice
+                (change)="onMinPriceInputChange($event)"
               />
               <div class="product-range-filter__line"></div>
               <input
@@ -47,10 +49,23 @@
                 type="text"
                 name="hightestPrice"
                 id="hightestPrice"
+                #hightestPrice
+                (change)="onMaxPriceInputChange($event)"
               />
+              <div
+                class="product-btn__clearfilter"
+                (click)="clearPriceInput(lowestPrice, hightestPrice)"
+              >
+                <img src="assets/img/icons/close.svg" alt="close btn" />
+              </div>
             </div>
           </div>
-          <button class="product-filter-group__btn-range">ÁP DỤNG</button>
+          <button
+            class="product-filter-group__btn-range"
+            (click)="filterByFrice()"
+          >
+            ÁP DỤNG
+          </button>
         </div>
       </div>
       <div class="col-10 product-content">
@@ -64,6 +79,7 @@
               [closeOnSelect]="true"
               [clearable]="false"
               [(ngModel)]="selectedSortOption"
+              (click)="onChangeSortValue()"
             >
               <ng-option [value]="1"> Mặc định</ng-option>
               <ng-option [value]="2"> Từ thấp đến cao</ng-option>
