@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { DocumentChangeAction } from '@angular/fire/compat/firestore';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ProductService } from 'src/app/shared/services/product.service';
 interface CheckboxChangeEvent {
@@ -23,7 +24,8 @@ export class ProductsPageComponent implements OnInit {
 
   constructor(
     private productS: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -186,5 +188,10 @@ export class ProductsPageComponent implements OnInit {
         );
         break;
     }
+  }
+
+  navigateDetailPage(productId: string) {
+    console.log('run');
+    this.router.navigate(['/products', this.type, productId]);
   }
 }

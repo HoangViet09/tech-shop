@@ -89,7 +89,10 @@
         </div>
         <div class="product-list">
           <div class="product-item" *ngFor="let item of dataProduct$ | async">
-            <div class="product-item__container">
+            <div
+              class="product-item__container"
+              (click)="navigateDetailPage(item.id)"
+            >
               <div class="product-thumbnail">
                 <img
                   [src]="item.product_images[item.currentImageIndex || 0]"

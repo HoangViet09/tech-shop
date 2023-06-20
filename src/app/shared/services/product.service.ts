@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-
+import { map } from 'rxjs/operators';
 import { User } from 'firebase/auth';
 import {
   AngularFirestore,
+  AngularFirestoreCollection,
   AngularFirestoreDocument,
   CollectionReference,
+  DocumentChangeAction,
 } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -15,37 +17,48 @@ import { ActivatedRoute } from '@angular/router';
   providedIn: 'root',
 })
 export class ProductService {
-  //   userDataSubject: Subject<any> = new BehaviorSubject<any>({}); // Save logged in user data
-  //   get userData$(): Observable<any> {
-  //     return this.userDataSubject.asObservable();
-  //   }
   constructor(
     private db: AngularFireDatabase,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     private route: ActivatedRoute
-  ) {
-    // this.userData$.subscribe((res) => {
-    //   console.log(res);
-    // });
-  }
+  ) {}
   getProducts() {
     return this.afs.collection(`/products/`).valueChanges();
-    //   .pipe(
-    //     tap((res) => {
-    //       // console.log(res);
-    //       this.userDataSubject.next(res);
-    //     })
-    //   )
   }
 
   getProduct(productId: string) {
-    if (!productId) return;
+    // if (!productId) return;
+    return this.afs.collection(`/products/`).doc(productId).valueChanges();
+  }
+  getProductSegment(type: string, productPrice: number) {
+    let query = (ref: CollectionReference) => {
+      let collection = ref.where('product_type', '==', type);
+      if (productPrice > 2000000) {
+        collection = collection
+          .where('product_header.price', '>', productPrice - 2000000)
+          .where('product_header.price', '<=', productPrice + 2000000);
+      } else {
+        collection = collection
+          .where('product_header.price', '>', productPrice)
+          .where('product_header.price', '<=', productPrice + 2000000);
+      }
+      return collection;
+    };
     return this.afs
-      .collection(`/products/`)
-      .doc(productId)
-      .valueChanges()
-      .subscribe((res) => {});
+      .collection('/products/', query)
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          return documentChanges.map(
+            (documentChange: DocumentChangeAction<any>) => {
+              const documentId = documentChange.payload.doc.id;
+              const documentData = documentChange.payload.doc.data();
+              return { id: documentId, ...documentData };
+            }
+          );
+        })
+      );
   }
 
   getProductsByCondition(
@@ -55,7 +68,6 @@ export class ProductService {
     minPrice?: number,
     sort?: string
   ): Observable<any> {
-    console.log('run');
     let query = (ref: CollectionReference) => {
       let collection = ref.where('product_type', '==', type);
       console.log(type);
@@ -86,6 +98,19 @@ export class ProductService {
       return collection;
     };
 
-    return this.afs.collection('/products/', query).valueChanges();
+    return this.afs
+      .collection('/products/', query)
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          return documentChanges.map(
+            (documentChange: DocumentChangeAction<any>) => {
+              const documentId = documentChange.payload.doc.id;
+              const documentData = documentChange.payload.doc.data();
+              return { id: documentId, ...documentData };
+            }
+          );
+        })
+      );
   }
 }
