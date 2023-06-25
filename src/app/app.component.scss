@@ -1,1 +1,21 @@
+html {
+  scroll-behavior: smooth;
+}
+.btn-scroll-top {
+  position: fixed;
+  z-index: 999;
+  opacity: 0;
+  right: 20px;
+  bottom: -50px; /* Start the button below the viewport */
+  padding: 10px;
+  transition: opacity 0.25s ease-in-out, bottom 0.5s ease-in-out; /* Add bottom transition */
+  & img {
+    max-width: 15px;
+    max-height: 15px;
+  }
+}
 
+.btn-scroll-top.show {
+  opacity: 1;
+  bottom: 20px; /* Slide the button up to the desired position */
+}

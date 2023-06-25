@@ -11,7 +11,8 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { UserInfoComponent } from './components/account/user-info/user-info.component';
 import { OrderListComponent } from './components/account/order-list/order-list.component';
 import { ProductsPageComponent } from './components/products/products-page/products-page/products-page.component';
-import { ProductDetailComponent } from './components/products/product-page/product-detail.component';
+import { ProductDetailComponent } from './components/products/product-detail/product-detail.component';
+import { CartComponent } from './components/cart/cart/cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'account/user-info', component: UserInfoComponent },
   { path: 'account/order-list', component: OrderListComponent },
+  { path: 'cart', component: CartComponent },
   { path: 'products', component: ProductsPageComponent },
   { path: 'products/:type', component: ProductsPageComponent },
   { path: 'products/:type/:id', component: ProductDetailComponent },

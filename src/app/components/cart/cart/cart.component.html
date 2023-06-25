@@ -1,0 +1,243 @@
+<div class="cart">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 cart-info">
+        <div class="cart-section">
+          <h2 class="cart-info-title">User address</h2>
+          <form class="striped-rows" [formGroup]="formUserInfo">
+            <div class="form-group row cart-info__item">
+              <div class="col-md-8">
+                <input
+                  type="text"
+                  id="displayName"
+                  class="form-control cart-info__input"
+                  name="displayName"
+                  formControlName="displayName"
+                  placeholder="Họ và Tên của bạn"
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="number"
+                  id="phoneNumber"
+                  class="form-control cart-info__input"
+                  formControlName="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="Số điên thoại của bạn"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row cart-info__item">
+              <div class="col-md-12">
+                <input
+                  type="email"
+                  id="striped-form-4"
+                  class="form-control cart-info__input"
+                  formControlName="email"
+                  name="email"
+                  placeholder="E-mail của bạn"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row cart-info__item">
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  id="striped-form-2"
+                  class="form-control cart-info__input"
+                  formControlName="address"
+                  name="address"
+                  placeholder="Địa chỉ của bạn"
+                />
+              </div>
+            </div>
+            <div class="form-group row cart-info__item">
+              <div class="cart-info__province">
+                <div class="col-md-4 me-2">
+                  <ng-select
+                    [items]="provinces"
+                    bindLabel="name"
+                    autofocus
+                    bindValue="code"
+                    [(ngModel)]="provinceCode"
+                    (change)="startGetDataDictricts($event)"
+                    formControlName="province"
+                    placeholder="Tỉnh/Thành phố"
+                  >
+                  </ng-select>
+                </div>
+                <div class="col-md-4 me-2">
+                  <ng-select
+                    [items]="districts"
+                    bindLabel="name"
+                    autofocus
+                    bindValue="code"
+                    (change)="startGetDataWards($event)"
+                    formControlName="dicstrict"
+                    placeholder="Quận/Huyện"
+                  >
+                  </ng-select>
+                </div>
+                <div class="col-md-4">
+                  <ng-select
+                    [items]="wards"
+                    bindLabel="name"
+                    autofocus
+                    bindValue="code"
+                    formControlName="ward"
+                    placeholder="Phường/xã"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row cart-info__item">
+              <div class="col-md-12">
+                <input
+                  type="text"
+                  id="striped-form-2"
+                  class="form-control cart-info__input"
+                  formControlName="notes"
+                  name="notes"
+                  placeholder="Ghi chú thêm (Ví dụ: chỉ giao vào giờ hành chính)"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="cart-section">
+          <h2 class="cart-checkout-title">Hình thức thanh toán</h2>
+          <div
+            class="cart-radio-item"
+            (click)="onCheckRadio(vnpayRadio.value)"
+            [ngClass]="radioSelectedValue == vnpayRadio.value ? 'checked' : ''"
+          >
+            <div class="cart-radio">
+              <div class="cart-radio-input-group">
+                <input
+                  type="radio"
+                  name="radio"
+                  id="VNPAY"
+                  value="VNPAY"
+                  #vnpayRadio
+                />
+
+                <label for="VNPAY"
+                  ><img
+                    src="assets/img/logo-brand/vnpay.svg"
+                    alt="logo-brand"
+                  />Thẻ ATM/Thẻ Tín Dụng</label
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="cart-return-text">
+          Nếu bạn không hài lòng với sản phẩm của chúng tôi. Bạn có thể hoàn trả
+          tại <a>đây</a>
+        </p>
+        <button class="cart-checkout-btn" (click)="onCheckout()">
+          Thanh toán
+          <span>{{ totalAmount | currency : "VND" : "symbol" : "1.0" }}</span>
+        </button>
+      </div>
+      <div class="col-md-4" *ngIf="userInfo">
+        <div class="cart-section">
+          <h2 class="cart-title">Cart</h2>
+          <div class="cart-items">
+            <div
+              class="cart-item"
+              *ngFor="let item of dataCart$ | async; index as i"
+            >
+              <span class="cart-item-remove" (click)="onRemoveCartItem(item)"
+                >X</span
+              >
+              <div class="cart-item__left col-md-4">
+                <div class="cart-item__thumbnail-block">
+                  <img
+                    [src]="item.productData.product_images[0]"
+                    alt="product img"
+                    class="cart-item__thumnail"
+                  />
+                  <span class="cart-item__thumbnail-quantity">{{
+                    item.productQuantity
+                  }}</span>
+                </div>
+              </div>
+              <div class="cart-item__right col-md-8">
+                <div class="cart-item__block">
+                  <div class="cart-item__info">
+                    <a href="" target="_blank" class="cart-item__title">{{
+                      item.productData.product_header.title
+                    }}</a>
+                    <!-- <div class="cart-item__variant">Xanh</div> -->
+                  </div>
+                  <div class="cart-item__actions">
+                    <div>
+                      <ng-select
+                        class="cart-item__select-color col-6"
+                        [items]="item.productData.product_header.color_option"
+                        bindLabel="color_label"
+                        bindValue="color_price"
+                        [ariaSelected]="false"
+                        [searchable]="false"
+                        [closeOnSelect]="true"
+                        [clearable]="false"
+                        [(ngModel)]="colorPriceValues[i]"
+                        (change)="onUpdateCart($event, item)"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="cart-item__actions-bottom">
+                      <div class="cart-item__btn-quantity">
+                        <button
+                          class="cart-item__btn-change-quantity__left"
+                          (click)="
+                            decreaseQuantityNumber(item.productQuantity, item)
+                          "
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          readonly
+                          [value]="item.productQuantity"
+                          class="cart-item__input-quantity"
+                          #quantityInput
+                        />
+                        <button
+                          class="cart-item__btn-change-quantity__right"
+                          (click)="
+                            increaseQuantityNumber(item.productQuantity, item)
+                          "
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div class="cart-item__price">
+                        <span>{{
+                          getProductColorPrice(
+                            item.colorProduct,
+                            item.productQuantity
+                          ) | currency : "VND" : "symbol" : "1.0"
+                        }}</span>
+                        <del>{{
+                          getProductColorPromotion(
+                            item.colorProduct,
+                            item.productQuantity
+                          ) | currency : "VND" : "symbol" : "1.0"
+                        }}</del>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

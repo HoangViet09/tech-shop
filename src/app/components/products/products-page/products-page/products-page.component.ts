@@ -191,7 +191,6 @@ export class ProductsPageComponent implements OnInit {
   }
 
   navigateDetailPage(productId: string) {
-    console.log('run');
     this.router.navigate(['/products', this.type, productId]);
   }
 }

@@ -20,7 +20,8 @@ import { VerifyEmailComponent } from './authentication/verify-email/verify-email
 import { UserInfoComponent } from './account/user-info/user-info.component';
 import { OrderListComponent } from './account/order-list/order-list.component';
 import { ProductsPageComponent } from './products/products-page/products-page/products-page.component';
-import { ProductDetailComponent } from './products/product-page/product-detail.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { CartComponent } from './cart/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ProductDetailComponent } from './products/product-page/product-detail.c
     OrderListComponent,
     ProductsPageComponent,
     ProductDetailComponent,
+    CartComponent,
   ],
   imports: [
     CommonModule,

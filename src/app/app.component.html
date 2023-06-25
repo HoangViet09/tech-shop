@@ -5,3 +5,11 @@
 <ng-container *ngIf="!isSignInRoute()">
   <app-footer></app-footer>
 </ng-container>
+<button
+  class="btn btn-primary"
+  type="button"
+  [ngClass]="{ 'btn-scroll-top': true, show: isScrollTopVisible }"
+  (click)="scrollToTop()"
+>
+  <img src="assets/img/icons/arrow-up.svg" alt="arrow up icon" />
+</button>

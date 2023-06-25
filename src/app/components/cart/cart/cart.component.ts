@@ -1,28 +1,27 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+  Component,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import Swal from 'sweetalert2';
 import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-user-info',
-  templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.scss'],
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class UserInfoComponent implements OnInit {
+export class CartComponent {
   model?: NgbDateStruct;
   userInfo?: any;
   userAuth?: any;
+  dataCart$!: Observable<any>;
   formUserInfo!: FormGroup;
   provinceCode?: string;
   provinces!: any[];
@@ -31,7 +30,10 @@ export class UserInfoComponent implements OnInit {
   defaultDicstrict: any = {};
   wards!: any[];
   defaultWard: any = {};
-  public isCollapsed: boolean = false;
+  radioSelectedValue: string = '';
+  colorPriceValues: Array<any> = [];
+  quantityNumber!: number;
+  totalAmount: number = 0;
   constructor(
     private auth: AuthService,
     private provinceS: ProvincesService,
@@ -51,6 +53,7 @@ export class UserInfoComponent implements OnInit {
       dicstrict: [''],
       ward: [''],
       gender: [''],
+      notes: [''],
     });
 
     this.fetchUserData();
@@ -64,15 +67,17 @@ export class UserInfoComponent implements OnInit {
     this.userS.userData$.subscribe((res) => {
       if (Object.keys(res).length === 0) return;
       this.userInfo = res;
+      this.fetchCartData();
+      this.getTotalAmount(this.userInfo[0].cart);
 
       this.defaultProvinces.code = this.userInfo[0].province;
       this.defaultDicstrict.code = this.userInfo[0].dicstrict;
       this.defaultWard.code = this.userInfo[0].ward;
-      console.log(this.defaultDicstrict, this.defaultProvinces);
       this.startGetDataDictricts(this.defaultProvinces);
       this.startGetDataWards(this.defaultDicstrict);
-
       console.log('fetch user data', this.userInfo);
+      this.getColorPrice(this.userInfo[0].cart);
+
       this.formUserInfo.patchValue({
         displayName: this.userInfo[0].displayName,
         email: this.userInfo[0].email,
@@ -86,8 +91,12 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
+  fetchCartData() {
+    this.dataCart$ = of(this.userInfo[0].cart);
+  }
+
   startGetDataDictricts(event: any): void {
-    console.log(event);
+    // console.log(event);
     if (event === undefined) {
       this.formUserInfo.get('dicstrict')?.patchValue('');
       this.formUserInfo.get('ward')?.patchValue('');
@@ -103,7 +112,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   startGetDataWards(event: any): void {
-    console.log(event);
+    // console.log(event);
     if (event === undefined) {
       this.formUserInfo.get('ward')?.patchValue('');
       this.wards = [];
@@ -114,22 +123,84 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  onSubmitUserInfo(formUserInfo: any): void {
-    // console.log(formUserInfo);
-    // console.log(this.userInfo.uid);
-    this.userS
-      .updateProfile(this.userAuth.uid, formUserInfo.value)
-      .then((res) => {
-        this.fetchUserData();
-        Swal.fire({
-          icon: 'success',
-          title: 'Update infomation successful!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  onCheckRadio(radioValue: string) {
+    console.log(radioValue);
+    this.radioSelectedValue = radioValue;
+  }
+
+  getColorPrice(cartItem: Array<any>) {
+    console.log('run', cartItem);
+
+    this.colorPriceValues = cartItem.map(
+      (item) => Object.values(item.colorProduct)[0]
+    );
+
+    // console.log(this.colorPriceValues);
+  }
+
+  getProductColorPrice(
+    productColorPrice: { [color: string]: number },
+    productQuantity: number
+  ) {
+    const price: number = Object.values(productColorPrice)[0];
+    return price * productQuantity;
+  }
+
+  getProductColorPromotion(
+    productColorPrice: { [color: string]: number },
+    productQuantity: number
+  ) {
+    const truePrice = Object.values(productColorPrice)[0] * productQuantity;
+    // console.log(Object.values(productColorPrice)[0], productQuantity);
+    return Math.round((truePrice * 1.15) / 100000) * 100000;
+  }
+
+  onUpdateCart(
+    event: { color_label: string; color_price: number },
+    cartItem: any
+  ) {
+    const colorObject = { [event.color_label]: event.color_price };
+    this.userS.updateCart(cartItem, this.userAuth.uid, colorObject);
+  }
+
+  onRemoveCartItem(event: Event) {
+    console.log(event);
+    this.userS.removeCartItem(event, this.userAuth.uid);
+  }
+
+  increaseQuantityNumber(quantityNumber: number, cartItem: any) {
+    if (quantityNumber >= 99) return;
+    this.quantityNumber = quantityNumber + 1;
+    this.userS.updateCart(
+      cartItem,
+      this.userAuth.uid,
+      undefined,
+      this.quantityNumber
+    );
+  }
+  decreaseQuantityNumber(quantityNumber: number, cartItem: any) {
+    if (quantityNumber <= 1) return;
+    this.quantityNumber = quantityNumber - 1;
+    console.log('number', this.quantityNumber);
+    this.userS.updateCart(
+      cartItem,
+      this.userAuth.uid,
+      undefined,
+      this.quantityNumber
+    );
+  }
+
+  getTotalAmount(arrCart: any[]) {
+    let arrAmount: any[] = arrCart.map((item) => {
+      return Object.values<number>(item.colorProduct)[0] * item.productQuantity;
+    });
+    arrAmount.forEach((item: number) => {
+      this.totalAmount += item;
+    });
+    return this.totalAmount;
+  }
+
+  onCheckout() {
+    console.log(this.userInfo, this.totalAmount);
   }
 }

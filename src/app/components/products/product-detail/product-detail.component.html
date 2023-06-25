@@ -33,37 +33,25 @@
             <!-- <span>-15 %</span> -->
           </div>
           <strong class="product-item-color__title">Lựa chọn màu</strong>
-          <div class="product-item-color__price">
-            <!-- <div *ngIf="brand$ | async as brands">
-                  <div *ngFor="let item of brands" class="checkbox checkbox-sm">
-                    <input
-                      type="checkbox"
-                      [id]="item"
-                      [value]="item"
-                      (change)="onCheckboxChange($event, checkbox)"
-                      #checkbox
-                    />
-                    <label [for]="item"
-                      ><span>{{ item }}</span></label
-                    >
-                  </div>
-              </div> -->
-            <!-- <ng-template
-              *ngFor="let item of dataProduct.product_header?.color_option"
-            > -->
+          <div class="product-item-color__price" #radioColor>
             <div
-              *ngFor="let item of dataProduct.product_header?.color_option"
-              class="checkbox-item"
-              (click)="onCheckedInput(checkboxColor)"
+              *ngFor="
+                let item of dataProduct.product_header?.color_option;
+                index as i
+              "
+              class="radio-item"
             >
-              <div class="checkbox checkbox-sm">
-                <div class="checkbox-group">
+              <div class="radio radio-sm">
+                <div class="input-group">
                   <input
-                    type="checkbox"
-                    [id]="item.color_price"
-                    #checkboxColor
+                    type="radio"
+                    name="radio"
+                    [value]="item.color_price"
+                    [id]="item.color_price + i"
                   />
-                  <label [for]="item.color_price">{{ item.color_label }}</label>
+                  <label [for]="item.color_price + i">{{
+                    item.color_label
+                  }}</label>
                 </div>
               </div>
               <span>{{
@@ -84,18 +72,29 @@
           </div>
           <div class="product-item-btn-group">
             <div class="product-btn-quantity">
-              <button class="btn-change-quantity__left">-</button>
+              <button
+                class="btn-change-quantity__left"
+                (click)="deCreaseQuantity()"
+              >
+                -
+              </button>
               <input
                 type="text"
-                value="1"
-                max="99"
-                min="1"
+                [value]="quantityNumber"
                 readonly
                 class="product-input-quantity"
+                #quantityInput
               />
-              <button class="btn-change-quantity__right">+</button>
+              <button
+                class="btn-change-quantity__right"
+                (click)="inCreaseQuantity()"
+              >
+                +
+              </button>
             </div>
-            <button class="product-btn-add">Add to cart</button>
+            <button (click)="addToCart()" class="product-btn-add">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

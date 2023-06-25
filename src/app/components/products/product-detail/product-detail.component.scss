@@ -17,6 +17,15 @@
     margin-right: auto;
     border-bottom: 1px solid #aba8a8;
     overflow: hidden;
+    & > .col-md-7 > .swiper .swiper-wrapper > .swiper-slide {
+      width: 100% !important;
+    }
+    & > .col-md-7 > .swiper > .swiper-scrollbar {
+      bottom: unset !important;
+    }
+    & > .col-md-7 > .swiper > .swiper-panigation > span {
+      background-color: #007aff;
+    }
   }
   &-desc {
     padding-bottom: 20px;
@@ -63,6 +72,7 @@
   }
   &-item-color__price {
     display: flex;
+    flex-wrap: wrap;
     padding-bottom: 10px;
     margin-bottom: 10px;
     margin-left: auto;
@@ -210,7 +220,7 @@
   cursor: pointer;
 }
 
-.checkbox-item {
+.radio-item {
   display: block;
   min-width: 20%;
   margin-right: 10px;
@@ -232,104 +242,179 @@
     width: 100%;
   }
 }
-.checkbox-group {
+// .checkbox-group {
+//   width: 100%;
+// }
+.radio-group {
   width: 100%;
 }
 
-//custom checkbox
-.checkbox {
-  position: relative;
+// //custom checkbox
+// .checkbox {
+//   position: relative;
 
-  input[type="checkbox"] {
-    // basic checkbox - display none
+//   input[type="checkbox"] {
+//     // basic checkbox - display none
+//     display: none;
+//     // checkbox checked
+//     &:checked {
+//       & ~ label {
+//         // after
+//         &:after {
+//           border-top-style: none;
+//           border-right-style: none;
+//           -ms-transform: rotate(-45deg); // IE9
+//           transform: rotate(-45deg);
+//           height: 0.4rem;
+//           width: 0.8rem;
+//           border-color: #001c13;
+//           border-radius: 0;
+//           border-width: 2px;
+//           top: 6px;
+//           left: 4px;
+//         }
+//       }
+//     }
+//     // disabled checkbox
+//     // &:disabled {
+//     //   ~ label {
+//     //     color: gray;
+//     //     // before
+//     //     &:before {
+//     //       background-color: $body-bg !important;
+//     //       box-shadow: none !important;
+//     //     }
+//     //   }
+//     //   &:checked {
+//     //     ~ label {
+//     //       // after
+//     //       &:after {
+//     //         border-color: map-get($grey-color, lighten-1);
+//     //       }
+//     //     }
+//     //   }
+//     // }
+//   }
+
+//   label {
+//     // label css in check box
+//     margin-left: 1.75rem;
+//     margin-bottom: 0;
+//     white-space: nowrap;
+//     width: 100%;
+//     // Before - Outer
+//     &:before {
+//       content: "";
+//       height: 20px;
+//       width: 20px;
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       border-radius: 3px;
+//       border: 1px solid #003d29;
+//     }
+//     // After - Inner
+//     &:after {
+//       content: " ";
+//       height: 20px;
+//       width: 20px;
+//       border: 1px solid #001c13;
+//       position: absolute;
+//       border-radius: 3px;
+//       top: 0px;
+//       left: 0;
+//       transition: 100ms ease-in-out;
+//     }
+//   }
+
+//   // Small Checkbox
+//   &.checkbox-sm {
+//     // checked checkbox
+//     input:checked ~ label:after {
+//       height: 5px;
+//       width: 8px;
+//       top: 7px;
+//       left: 6px;
+//     }
+//     label {
+//       // unchecked checkbox
+//       &::before,
+//       &::after {
+//         width: 15px;
+//         height: 15px;
+//         top: 3px;
+//         left: 3px;
+//       }
+//     }
+//   }
+// }
+
+.radio {
+  input[type="radio"] {
+    /* Basic Bootstrap Radio Buttons Hide */
     display: none;
-    // checkbox checked
+
+    // Checked Radio
     &:checked {
-      & ~ label {
-        // after
-        &:after {
-          border-top-style: none;
-          border-right-style: none;
-          -ms-transform: rotate(-45deg); // IE9
-          transform: rotate(-45deg);
-          height: 0.4rem;
-          width: 0.8rem;
-          border-color: #001c13;
-          border-radius: 0;
-          border-width: 2px;
-          top: 6px;
-          left: 4px;
-        }
+      ~ label::after {
+        opacity: 1;
+        transform: scale(1);
+        transition: all 0.3s cubic-bezier(0.35, 0.9, 0.4, 0.9);
       }
     }
-    // disabled checkbox
-    // &:disabled {
-    //   ~ label {
-    //     color: gray;
-    //     // before
-    //     &:before {
-    //       background-color: $body-bg !important;
-    //       box-shadow: none !important;
-    //     }
+    // Disabled Radio
+    // &:disabled{
+    //   &~label {
+    //     color: $gray-500;
     //   }
-    //   &:checked {
-    //     ~ label {
-    //       // after
-    //       &:after {
-    //         border-color: map-get($grey-color, lighten-1);
-    //       }
-    //     }
+    //   ~label::before {
+    //     background-color: $body-bg !important;
+    //     border: 1px solid $input-border-color !important;
+    //   }
+    //   ~label::after {
+    //     background-color: map-get($map: $grey-color, $key: lighten-1);
     //   }
     // }
   }
-
+  // Radio Buttons Label
   label {
-    // label css in check box
-    margin-left: 1.75rem;
+    position: relative;
+    display: flex;
+    align-items: center;
     margin-bottom: 0;
-    white-space: nowrap;
-    width: 100%;
-    // Before - Outer
-    &:before {
+
+    // Before - Outer Circle
+    &::before {
       content: "";
-      height: 20px;
+      border: 1px solid #060606;
+      border-radius: 50%;
       width: 20px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-radius: 3px;
-      border: 1px solid #003d29;
+      height: 20px;
+      margin-right: 0.5rem;
     }
-    // After - Inner
-    &:after {
-      content: " ";
-      height: 20px;
-      width: 20px;
-      border: 1px solid #001c13;
+    // After - Inner Circle
+    &::after {
       position: absolute;
-      border-radius: 3px;
-      top: 0px;
-      left: 0;
-      transition: 100ms ease-in-out;
+      content: "";
+      height: 12px;
+      width: 12px;
+      background-color: #003d29;
+      border-radius: 50%;
+      left: 4px;
+      opacity: 0;
+      transform: scale(3.6);
     }
   }
-
-  // Small Checkbox
-  &.checkbox-sm {
-    // checked checkbox
-    input:checked ~ label:after {
-      height: 5px;
-      width: 8px;
-      top: 7px;
-      left: 6px;
-    }
-    label {
-      // unchecked checkbox
-      &::before,
-      &::after {
+  // small radio
+  &.radio-sm {
+    input {
+      & ~ label::before {
         width: 15px;
         height: 15px;
-        top: 3px;
+      }
+      & ~ label::after {
+        width: 9px;
+        height: 9px;
         left: 3px;
       }
     }

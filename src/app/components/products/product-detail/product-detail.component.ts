@@ -1,8 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { WindowService } from 'src/app/shared/services/window.service';
 import { SwiperOptions } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 @Component({
   selector: 'app-product-page',
@@ -11,10 +21,15 @@ import { SwiperOptions } from 'swiper';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductDetailComponent implements OnInit {
+  @ViewChild('radioColor', { static: false }) radioColor:
+    | ElementRef<HTMLInputElement>
+    | undefined;
+  userId: any;
   productId!: string;
   productType!: string;
   dataProduct!: any;
   dataProductSegment!: any;
+  quantityNumber: number = 1;
   configHeaderImg: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
@@ -38,15 +53,21 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productS: ProductService,
-    private router: Router
+    private window: WindowService,
+    private authS: AuthService,
+    private userS: UserService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.productId = params['id'];
       this.productType = params['type'];
-      console.log(this.productId);
       this.fetchData();
+    });
+    this.window.scrollToTop();
+    this.authS.userAuth$.subscribe((res) => {
+      this.userId = res.uid;
     });
   }
 
@@ -71,14 +92,48 @@ export class ProductDetailComponent implements OnInit {
   onSlideChange() {
     console.log('slide change');
   }
-  onCheckedInput(input: HTMLInputElement) {
-    input.checked = !input.checked;
-  }
+  // onCheckedInput(input: HTMLInputElement) {
+  //   input.checked = true;
+  //   const checkedInput = input.querySelector(':checked');
+  //   if (checkedInput) {
+  //     const label = checkedInput.nextElementSibling;
+
+  //     console.log(label); // Output the label value of the checked radio input
+  //   }
+  // }
   getPromotionPrice(price: number) {
     return Math.round((price * 1.15) / 100000) * 100000;
   }
   navigateDetailPage(productId: string) {
-    console.log('run');
+    // console.log('run');
     this.router.navigate(['/products', this.productType, productId]);
+  }
+  inCreaseQuantity() {
+    if (this.quantityNumber >= 99) return;
+    return (this.quantityNumber = this.quantityNumber + 1);
+  }
+  deCreaseQuantity() {
+    if (this.quantityNumber <= 1) return;
+
+    return (this.quantityNumber = this.quantityNumber - 1);
+  }
+
+  addToCart() {
+    let colorChoosed: { [key: string]: number } = {};
+    const checkedInput: HTMLInputElement | null | undefined =
+      this.radioColor?.nativeElement.querySelector(':checked');
+    if (checkedInput?.nextElementSibling?.textContent) {
+      const objectKey = checkedInput.nextElementSibling.textContent;
+      const objectValue = checkedInput.value;
+      colorChoosed[objectKey] = Number(objectValue);
+      console.log(colorChoosed);
+    }
+    this.userS.addToCart(
+      this.userId,
+      this.productId,
+      this.quantityNumber,
+      colorChoosed,
+      this.dataProduct
+    );
   }
 }

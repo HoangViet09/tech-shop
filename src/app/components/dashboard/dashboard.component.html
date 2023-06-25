@@ -21,16 +21,16 @@
     <div class="grid-hover">
       <div class="row">
         <div class="col-md-3 col-ms-6 col-12">
-          <figure class="effect-zoe">
+          <figure class="effect-zoe" (click)="navigateToPage('Phone')">
             <img
               class="category-img"
-              src="../../../assets/img/06.png"
+              src="https://cdn.hoanghamobile.com/i/preview/Uploads/2023/02/27/thumb-xiaomi-13-lite.png"
               alt="img"
             />
             <figcaption>
               <h3>
-                Creative
-                <span>Zoe</span>
+                True
+                <span>Phone</span>
               </h3>
               <p class="icon-links">
                 <a href="javascript:;" class="mr-1"
@@ -44,14 +44,14 @@
                 ></a>
               </p>
               <p class="description">
-                Zoe never had the patience of her sisters. She deliberately
-                punched the bear in his face.
+                They provide instant access to information, news, and
+                entertainment through the internet.
               </p>
             </figcaption>
           </figure>
         </div>
         <div class="col-md-3 col-ms-6 col-12">
-          <figure class="effect-zoe">
+          <figure class="effect-zoe" (click)="navigateToPage('Speaker')">
             <img
               class="category-img"
               src="../../../assets/img/07.png"
@@ -74,14 +74,14 @@
                 ></a>
               </p>
               <p class="description">
-                Zoe never had the patience of her sisters. She deliberately
-                punched the bear in his face.
+                Headphones are audio devices worn over the ears to listen to
+                music, podcasts, and other audio content privately.
               </p>
             </figcaption>
           </figure>
         </div>
         <div class="col-md-3 col-ms-6 col-12">
-          <figure class="effect-zoe">
+          <figure class="effect-zoe" (click)="navigateToPage('Screen')">
             <img
               class="category-img"
               src="../../../assets/img/8.png"
@@ -104,14 +104,14 @@
                 ></a>
               </p>
               <p class="description">
-                Zoe never had the patience of her sisters. She deliberately
-                punched the bear in his face.
+                High-resolution screens offer sharp and vibrant visuals with
+                rich color reproduction
               </p>
             </figcaption>
           </figure>
         </div>
         <div class="col-md-3 col-ms-6 col-12">
-          <figure class="effect-zoe">
+          <figure class="effect-zoe" (click)="navigateToPage('Watch')">
             <img
               class="category-img"
               src="../../../assets/img/9.png"
@@ -134,8 +134,8 @@
                 ></a>
               </p>
               <p class="description">
-                Zoe never had the patience of her sisters. She deliberately
-                punched the bear in his face.
+                They can track workouts, provide exercise guidance, and monitor
+                progress towards fitness goals.
               </p>
             </figcaption>
           </figure>
@@ -162,229 +162,61 @@
       (swiper)="onSwiper($event)"
       (slideChange)="onSlideChange()"
     >
-      <ng-template swiperSlide style="margin-right: 0">
-        <div class="bestdeal-product">
-          <div class="bestdeal-product-thumbnail">
-            <img src="../../../assets/img/head-phone.png" alt="" />
-            <div class="bestdeal-product-wishlist">
-              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+      <ng-template
+        *ngFor="let item of dataProductToDay"
+        swiperSlide
+        style="margin-right: 0"
+      >
+        <div (click)="navigateDetailPage(item.product_type, item.id)">
+          <div class="bestdeal-product">
+            <div class="bestdeal-product-thumbnail">
+              <img [src]="item.product_images[0]" alt="product img" />
+              <div class="bestdeal-product-wishlist">
+                <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="bestdeal-content">
-          <div class="bestdeal-content-wrap">
-            <h3 class="bestdeal-content-title">abc</h3>
-            <div class="bestdeal-price">
-              <span class="text-span">$</span>
-              <span>100</span>
-              <span class="text-span">.00</span>
+          <div class="bestdeal-content">
+            <div class="bestdeal-content-wrap">
+              <h3 class="bestdeal-content-title">
+                {{ item.product_header.title }}
+              </h3>
+              <div class="bestdeal-price">
+                <span>{{
+                  item.product_header.price
+                    | currency : "VND" : "symbol" : "1.0"
+                }}</span>
+              </div>
             </div>
-          </div>
-          <div class="bestdeal-description">
-            Table with air purifier, stained veneer/black
-          </div>
-          <div class="bestdeal-rating">
-            <div class="bestdeal-icon__wrap">
-              <ng-template #t let-fill="fill">
-                <i class="fa fa-star bestdeal-icon__rating" aria-hidden="true">
+            <div class="bestdeal-description">
+              Table with air purifier, stained veneer/black
+            </div>
+            <div class="bestdeal-rating">
+              <div class="bestdeal-icon__wrap">
+                <ng-template #t let-fill="fill">
                   <i
-                    *ngIf="fill > 0"
-                    class="fa fa-star filled"
-                    [style.width.%]="fill"
-                  ></i>
-                </i>
-              </ng-template>
+                    class="fa fa-star bestdeal-icon__rating"
+                    aria-hidden="true"
+                  >
+                    <i
+                      *ngIf="fill > 0"
+                      class="fa fa-star filled"
+                      [style.width.%]="fill"
+                    ></i>
+                  </i>
+                </ng-template>
 
-              <ngb-rating
-                [(rate)]="currentRate"
-                [starTemplate]="t"
-                [max]="5"
-                [readonly]="true"
-              ></ngb-rating>
+                <ngb-rating
+                  [(rate)]="currentRate"
+                  [starTemplate]="t"
+                  [max]="5"
+                  [readonly]="true"
+                ></ngb-rating>
+              </div>
+              <div class="total-rating">(123)</div>
             </div>
-            <div class="total-rating">(123)</div>
+            <button class="btn bestdeal-btn__add">Add to Cart</button>
           </div>
-          <button class="btn bestdeal-btn__add">Add to Cart</button>
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="bestdeal-product">
-          <div class="bestdeal-product-thumbnail">
-            <img src="../../../assets/img/ipad.png" alt="" />
-            <div class="bestdeal-product-wishlist">
-              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="bestdeal-content">
-          <div class="bestdeal-content-wrap">
-            <h3 class="bestdeal-content-title">abc</h3>
-            <div class="bestdeal-price">
-              <span class="text-span">$</span>
-              <span>100</span>
-              <span class="text-span">.00</span>
-            </div>
-          </div>
-          <div class="bestdeal-description">
-            Table with air purifier, stained veneer/black
-          </div>
-          <div class="bestdeal-rating">
-            <div class="bestdeal-icon__wrap">
-              <ng-template #t let-fill="fill">
-                <i class="fa fa-star bestdeal-icon__rating" aria-hidden="true">
-                  <i
-                    *ngIf="fill > 0"
-                    class="fa fa-star filled"
-                    [style.width.%]="fill"
-                  ></i>
-                </i>
-              </ng-template>
-
-              <ngb-rating
-                [(rate)]="currentRate"
-                [starTemplate]="t"
-                [max]="5"
-                [readonly]="true"
-              ></ngb-rating>
-            </div>
-            <div class="total-rating">(123)</div>
-          </div>
-          <button class="btn bestdeal-btn__add">Add to Cart</button>
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="bestdeal-product">
-          <div class="bestdeal-product-thumbnail">
-            <img src="../../../assets/img/macbook.png" alt="" />
-            <div class="bestdeal-product-wishlist">
-              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="bestdeal-content">
-          <div class="bestdeal-content-wrap">
-            <h3 class="bestdeal-content-title">abc</h3>
-            <div class="bestdeal-price">
-              <span class="text-span">$</span>
-              <span>100</span>
-              <span class="text-span">.00</span>
-            </div>
-          </div>
-          <div class="bestdeal-description">
-            Table with air purifier, stained veneer/black
-          </div>
-          <div class="bestdeal-rating">
-            <div class="bestdeal-icon__wrap">
-              <ng-template #t let-fill="fill">
-                <i class="fa fa-star bestdeal-icon__rating" aria-hidden="true">
-                  <i
-                    *ngIf="fill > 0"
-                    class="fa fa-star filled"
-                    [style.width.%]="fill"
-                  ></i>
-                </i>
-              </ng-template>
-
-              <ngb-rating
-                [(rate)]="currentRate"
-                [starTemplate]="t"
-                [max]="5"
-                [readonly]="true"
-              ></ngb-rating>
-            </div>
-            <div class="total-rating">(123)</div>
-          </div>
-          <button class="btn bestdeal-btn__add">Add to Cart</button>
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="bestdeal-product">
-          <div class="bestdeal-product-thumbnail">
-            <img src="../../../assets/img/watch.png" alt="" />
-            <div class="bestdeal-product-wishlist">
-              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="bestdeal-content">
-          <div class="bestdeal-content-wrap">
-            <h3 class="bestdeal-content-title">abc</h3>
-            <div class="bestdeal-price">
-              <span class="text-span">$</span>
-              <span>100</span>
-              <span class="text-span">.00</span>
-            </div>
-          </div>
-          <div class="bestdeal-description">
-            Table with air purifier, stained veneer/black
-          </div>
-          <div class="bestdeal-rating">
-            <div class="bestdeal-icon__wrap">
-              <ng-template #t let-fill="fill">
-                <i class="fa fa-star bestdeal-icon__rating" aria-hidden="true">
-                  <i
-                    *ngIf="fill > 0"
-                    class="fa fa-star filled"
-                    [style.width.%]="fill"
-                  ></i>
-                </i>
-              </ng-template>
-
-              <ngb-rating
-                [(rate)]="currentRate"
-                [starTemplate]="t"
-                [max]="5"
-                [readonly]="true"
-              ></ngb-rating>
-            </div>
-            <div class="total-rating">(123)</div>
-          </div>
-          <button class="btn bestdeal-btn__add">Add to Cart</button>
-        </div>
-      </ng-template>
-      <ng-template swiperSlide>
-        <div class="bestdeal-product">
-          <div class="bestdeal-product-thumbnail">
-            <img src="../../../assets/img/watch1.png" alt="" />
-            <div class="bestdeal-product-wishlist">
-              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="bestdeal-content">
-          <div class="bestdeal-content-wrap">
-            <h3 class="bestdeal-content-title">abc</h3>
-            <div class="bestdeal-price">
-              <span class="text-span">$</span>
-              <span>100</span>
-              <span class="text-span">.00</span>
-            </div>
-          </div>
-          <div class="bestdeal-description">
-            Table with air purifier, stained veneer/black
-          </div>
-          <div class="bestdeal-rating">
-            <div class="bestdeal-icon__wrap">
-              <ng-template #t let-fill="fill">
-                <i class="fa fa-star bestdeal-icon__rating" aria-hidden="true">
-                  <i
-                    *ngIf="fill > 0"
-                    class="fa fa-star filled"
-                    [style.width.%]="fill"
-                  ></i>
-                </i>
-              </ng-template>
-
-              <ngb-rating
-                [(rate)]="currentRate"
-                [starTemplate]="t"
-                [max]="5"
-                [readonly]="true"
-              ></ngb-rating>
-            </div>
-            <div class="total-rating">(123)</div>
-          </div>
-          <button class="btn bestdeal-btn__add">Add to Cart</button>
         </div>
       </ng-template>
     </swiper>
@@ -394,7 +226,7 @@
 <!-- best deal section end -->
 
 <!-- brand choose begin -->
-<section class="brand-area">
+<!-- <section class="brand-area">
   <div class="match-height container brand-container">
     <div class="brand-title">
       <h3>Choose By Brand</h3>
@@ -476,7 +308,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- brand choose end -->
 
 <!-- discount banner start -->
@@ -503,14 +335,18 @@
     </div>
     <div>
       <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-        <li [ngbNavItem]="1">
-          <button ngbNavLink>One</button>
+        <li [ngbNavItem]="'Samsung'" (click)="fetchDataProductBrand('Samsung')">
+          <button ngbNavLink>Samsung</button>
           <ng-template ngbNavContent>
             <div class="d-flex flex-wrap">
-              <div class="bestproduct-item">
+              <div
+                *ngFor="let item of dataProductBrand"
+                class="bestproduct-item"
+                (click)="navigateDetailPage(item.product_type, item.id)"
+              >
                 <div class="bestdeal-product">
                   <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
+                    <img [src]="item.product_images[0]" alt="" />
                     <div class="bestdeal-product-wishlist">
                       <span
                         ><i class="fa fa-heart-o" aria-hidden="true"></i
@@ -520,361 +356,14 @@
                 </div>
                 <div class="bestdeal-content">
                   <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
+                    <h3 class="bestdeal-content-title">
+                      {{ item.product_header.title }}
+                    </h3>
                     <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
-                    </div>
-                  </div>
-                  <div class="bestdeal-description">
-                    Table with air purifier, stained veneer/black
-                  </div>
-                  <div class="bestdeal-rating">
-                    <div class="bestdeal-icon__wrap">
-                      <ng-template #t let-fill="fill">
-                        <i
-                          class="fa fa-star bestdeal-icon__rating"
-                          aria-hidden="true"
-                        >
-                          <i
-                            *ngIf="fill > 0"
-                            class="fa fa-star filled"
-                            [style.width.%]="fill"
-                          ></i>
-                        </i>
-                      </ng-template>
-
-                      <ngb-rating
-                        [(rate)]="currentRate"
-                        [starTemplate]="t"
-                        [max]="5"
-                        [readonly]="true"
-                      ></ngb-rating>
-                    </div>
-                    <div class="total-rating">(123)</div>
-                  </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
-                </div>
-              </div>
-              <div class="bestproduct-item">
-                <div class="bestdeal-product">
-                  <div class="bestdeal-product-thumbnail">
-                    <img src="../../../assets/img/head-phone.png" alt="" />
-                    <div class="bestdeal-product-wishlist">
-                      <span
-                        ><i class="fa fa-heart-o" aria-hidden="true"></i
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bestdeal-content">
-                  <div class="bestdeal-content-wrap">
-                    <h3 class="bestdeal-content-title">abc</h3>
-                    <div class="bestdeal-price">
-                      <span class="text-span">$</span>
-                      <span>100</span>
-                      <span class="text-span">.00</span>
+                      <span>{{
+                        item.product_header.price
+                          | currency : "VND" : "symbol" : "1.0"
+                      }}</span>
                     </div>
                   </div>
                   <div class="bestdeal-description">
@@ -910,40 +399,133 @@
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="2">
-          <button ngbNavLink>Two</button>
+        <li [ngbNavItem]="'Xiaomi'" (click)="fetchDataProductBrand('Xiaomi')">
+          <button ngbNavLink>Xiaomi</button>
           <ng-template ngbNavContent>
-            <p>
-              Exercitation +1 labore velit, blog sartorial PBR leggings next
-              level wes anderson artisan four loko farm-to-table craft beer
-              twee. Qui photo booth letterpress, commodo enim craft beer mlkshk
-              aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud
-              organic, assumenda labore aesthetic magna delectus mollit. Keytar
-              helvetica VHS salvia yr, vero magna velit sapiente labore
-              stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-              sustainable jean shorts beard ut DIY ethical culpa terry
-              richardson biodiesel. Art party scenester stumptown, tumblr
-              butcher vero sint qui sapiente accusamus tattooed echo park.
-            </p>
+            <div class="d-flex flex-wrap">
+              <div
+                *ngFor="let item of dataProductBrand"
+                class="bestproduct-item"
+                (click)="navigateDetailPage(item.product_type, item.id)"
+              >
+                <div class="bestdeal-product">
+                  <div class="bestdeal-product-thumbnail">
+                    <img [src]="item.product_images[0]" alt="" />
+                    <div class="bestdeal-product-wishlist">
+                      <span
+                        ><i class="fa fa-heart-o" aria-hidden="true"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bestdeal-content">
+                  <div class="bestdeal-content-wrap">
+                    <h3 class="bestdeal-content-title">
+                      {{ item.product_header.title }}
+                    </h3>
+                    <div class="bestdeal-price">
+                      <span>{{
+                        item.product_header.price
+                          | currency : "VND" : "symbol" : "1.0"
+                      }}</span>
+                    </div>
+                  </div>
+                  <div class="bestdeal-description">
+                    Table with air purifier, stained veneer/black
+                  </div>
+                  <div class="bestdeal-rating">
+                    <div class="bestdeal-icon__wrap">
+                      <ng-template #t let-fill="fill">
+                        <i
+                          class="fa fa-star bestdeal-icon__rating"
+                          aria-hidden="true"
+                        >
+                          <i
+                            *ngIf="fill > 0"
+                            class="fa fa-star filled"
+                            [style.width.%]="fill"
+                          ></i>
+                        </i>
+                      </ng-template>
+
+                      <ngb-rating
+                        [(rate)]="currentRate"
+                        [starTemplate]="t"
+                        [max]="5"
+                        [readonly]="true"
+                      ></ngb-rating>
+                    </div>
+                    <div class="total-rating">(123)</div>
+                  </div>
+                  <button class="btn bestdeal-btn__add">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            >
           </ng-template>
         </li>
-        <li [ngbNavItem]="3">
-          <button ngbNavLink>Three</button>
+        <li [ngbNavItem]="'Apple'" (click)="fetchDataProductBrand('Apple')">
+          <button ngbNavLink>Apple</button>
           <ng-template ngbNavContent>
-            <p>
-              Sed commodo, leo at suscipit dictum, quam est porttitor sapien,
-              eget sodales nibh elit id diam. Nulla facilisi. Donec egestas
-              ligula vitae odio interdum aliquet. Duis lectus turpis, luctus
-              eget tincidunt eu, congue et odio. Duis pharetra et nisl at
-              faucibus. Quisque luctus pulvinar arcu, et molestie lectus
-              ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat
-              volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus
-              nisl enim, nec tristique ipsum euismod facilisis. Morbi ut
-              bibendum est, eu tincidunt odio. Orci varius natoque penatibus et
-              magnis dis parturient montes, nascetur ridiculus mus. Mauris
-              aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus
-              nec tortor vel tellus pulvinar feugiat.
-            </p>
+            <div class="d-flex flex-wrap">
+              <div
+                *ngFor="let item of dataProductBrand"
+                class="bestproduct-item"
+                (click)="navigateDetailPage(item.product_type, item.id)"
+              >
+                <div class="bestdeal-product">
+                  <div class="bestdeal-product-thumbnail">
+                    <img [src]="item.product_images[0]" alt="" />
+                    <div class="bestdeal-product-wishlist">
+                      <span
+                        ><i class="fa fa-heart-o" aria-hidden="true"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bestdeal-content">
+                  <div class="bestdeal-content-wrap">
+                    <h3 class="bestdeal-content-title">
+                      {{ item.product_header.title }}
+                    </h3>
+                    <div class="bestdeal-price">
+                      <span>{{
+                        item.product_header.price
+                          | currency : "VND" : "symbol" : "1.0"
+                      }}</span>
+                    </div>
+                  </div>
+                  <div class="bestdeal-description">
+                    Table with air purifier, stained veneer/black
+                  </div>
+                  <div class="bestdeal-rating">
+                    <div class="bestdeal-icon__wrap">
+                      <ng-template #t let-fill="fill">
+                        <i
+                          class="fa fa-star bestdeal-icon__rating"
+                          aria-hidden="true"
+                        >
+                          <i
+                            *ngIf="fill > 0"
+                            class="fa fa-star filled"
+                            [style.width.%]="fill"
+                          ></i>
+                        </i>
+                      </ng-template>
+
+                      <ngb-rating
+                        [(rate)]="currentRate"
+                        [starTemplate]="t"
+                        [max]="5"
+                        [readonly]="true"
+                      ></ngb-rating>
+                    </div>
+                    <div class="total-rating">(123)</div>
+                  </div>
+                  <button class="btn bestdeal-btn__add">Add to Cart</button>
+                </div>
+              </div>
+            </div>
           </ng-template>
         </li>
       </ul>

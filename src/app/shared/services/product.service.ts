@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map } from 'rxjs/operators';
-import { User } from 'firebase/auth';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -31,6 +30,70 @@ export class ProductService {
     // if (!productId) return;
     return this.afs.collection(`/products/`).doc(productId).valueChanges();
   }
+  getRandomProducts(numberProduct: number): Observable<any[]> {
+    return this.afs
+      .collection('products')
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          const products = documentChanges.map((doc) => {
+            const data = doc.payload.doc.data();
+            const id = doc.payload.doc.id;
+            return { id, ...data };
+          });
+
+          const randomProducts: any[] = [];
+
+          while (randomProducts.length < 5) {
+            const randomIndex = Math.floor(Math.random() * products.length);
+            if (!randomProducts.includes(products[randomIndex])) {
+              randomProducts.push(products[randomIndex]);
+            }
+          }
+
+          return randomProducts;
+        })
+      );
+
+    // .valueChanges()
+    // .pipe(
+    //   map((products) => {
+    //     const randomProducts: any[] = [];
+
+    //     while (randomProducts.length < numberProduct) {
+    //       const randomIndex = Math.floor(Math.random() * products.length);
+    //       if (!randomProducts.includes(products[randomIndex])) {
+    //         randomProducts.push(products[randomIndex]);
+    //       }
+    //     }
+
+    //     return randomProducts;
+    //   })
+    // );
+  }
+
+  getProductbyBrand(brand: string) {
+    let query = (ref: CollectionReference) => {
+      let collection = ref.where('product_header.brand', '==', brand).limit(12);
+
+      return collection;
+    };
+    return this.afs
+      .collection('/products/', query)
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          return documentChanges.map(
+            (documentChange: DocumentChangeAction<any>) => {
+              const documentId = documentChange.payload.doc.id;
+              const documentData = documentChange.payload.doc.data();
+              return { id: documentId, ...documentData };
+            }
+          );
+        })
+      );
+  }
+
   getProductSegment(type: string, productPrice: number) {
     let query = (ref: CollectionReference) => {
       let collection = ref.where('product_type', '==', type);
@@ -70,7 +133,7 @@ export class ProductService {
   ): Observable<any> {
     let query = (ref: CollectionReference) => {
       let collection = ref.where('product_type', '==', type);
-      console.log(type);
+
       if (brands && brands.length > 0) {
         collection = collection.where('product_header.brand', 'in', brands);
         console.log(brands);
