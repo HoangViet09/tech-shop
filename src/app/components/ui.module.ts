@@ -5,6 +5,7 @@ import {
   NgbRatingModule,
   NgbNavModule,
   NgbDatepickerModule,
+  NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -22,6 +23,8 @@ import { OrderListComponent } from './account/order-list/order-list.component';
 import { ProductsPageComponent } from './products/products-page/products-page/products-page.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { CartComponent } from './cart/cart/cart.component';
+import { QRCheckoutComponent } from './cart/cart/qrcheckout/qrcheckout.component';
+import { ProductViewedComponent } from './product-viewed/product-viewed/product-viewed.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import { CartComponent } from './cart/cart/cart.component';
     ProductsPageComponent,
     ProductDetailComponent,
     CartComponent,
+    QRCheckoutComponent,
+    ProductViewedComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +52,7 @@ import { CartComponent } from './cart/cart/cart.component';
     NgSelectModule,
     NgbCollapseModule,
     NgbDatepickerModule,
+    NgbAccordionModule,
   ],
 })
 export class UiModule {}

@@ -190,7 +190,21 @@ export class ProductsPageComponent implements OnInit {
     }
   }
 
-  navigateDetailPage(productId: string) {
-    this.router.navigate(['/products', this.type, productId]);
+  navigateDetailPage(
+    productType: String,
+    productId: string,
+    product_image?: string,
+    product_title?: string,
+    product_price?: number
+  ) {
+    const dataProduct = {
+      productType,
+      productId,
+      product_title,
+      product_price,
+      product_image,
+    };
+    this.router.navigate(['/products', productType, productId]);
+    this.productS.saveProductToLocal(dataProduct);
   }
 }

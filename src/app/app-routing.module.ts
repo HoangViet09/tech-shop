@@ -13,6 +13,7 @@ import { OrderListComponent } from './components/account/order-list/order-list.c
 import { ProductsPageComponent } from './components/products/products-page/products-page/products-page.component';
 import { ProductDetailComponent } from './components/products/product-detail/product-detail.component';
 import { CartComponent } from './components/cart/cart/cart.component';
+import { ProductViewedComponent } from './components/product-viewed/product-viewed/product-viewed.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsPageComponent },
   { path: 'products/:type', component: ProductsPageComponent },
   { path: 'products/:type/:id', component: ProductDetailComponent },
+  { path: 'products-viewed', component: ProductViewedComponent },
 ];
 
 @NgModule({

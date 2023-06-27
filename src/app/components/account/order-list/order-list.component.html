@@ -1,8 +1,121 @@
 <div class="account">
   <div class="container">
     <div class="row">
-      <div class="col-4">test</div>
-      <div class="col-8">test</div>
+      <div class="col-4">
+        <div class="account-sidebar">
+          <h2 class="account-name title">{{ userInfo[0]?.displayName }}</h2>
+          <div class="acount-sidebar__items">
+            <div class="account-sidebar__item">Thông tin cá nhân</div>
+            <div class="account-sidebar__item active">danh sách đơn hàng</div>
+            <div class="account-sidebar__item">thoát</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div ngbAccordion *ngIf="orderData$ | async">
+          <div
+            ngbAccordionItem
+            [collapsed]="false"
+            *ngFor="let item of orderData$ | async; index as i"
+          >
+            <div ngbAccordionHeader>
+              <button ngbAccordionButton>
+                #{{ item.orderItem.orderTime }}
+              </button>
+            </div>
+
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div
+                    class="order-item"
+                    *ngFor="let item of orderItem[i]; index as i"
+                  >
+                    <div class="order-item__left col-md-4">
+                      <div class="order-item__thumbnail-block">
+                        <img
+                          [src]="item.productData.product_images[0]"
+                          alt="product img"
+                          class="order-item__thumnail"
+                        />
+                        <span class="order-item__thumbnail-quantity">{{
+                          item.productQuantity
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="order-item__right col-md-8">
+                      <div class="order-item__block">
+                        <div class="order-item__info">
+                          <a
+                            href=""
+                            target="_blank"
+                            class="order-item__title"
+                            >{{ item.productData.product_header.title }}</a
+                          >
+                          <div class="order-item__variant">Xanh</div>
+                        </div>
+                        <div class="order-item__actions">
+                          <div class="order-item__actions-bottom">
+                            <div class="order-item__price">
+                              <span>{{
+                                getProductColorPrice(
+                                  item.colorProduct,
+                                  item.productQuantity
+                                ) | currency : "VND" : "symbol" : "1.0"
+                              }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="order-item">
+                    <div class="order-item__left col-md-4">
+                      <div class="order-item__thumbnail-block">
+                        <img
+                          src=""
+                          alt="product img"
+                          class="order-item__thumnail"
+                        />
+                        <span class="order-item__thumbnail-quantity">2</span>
+                      </div>
+                    </div>
+                    <div class="order-item__right col-md-8">
+                      <div class="order-item__block">
+                        <div class="order-item__info">
+                          <a href="" target="_blank" class="order-item__title"
+                            >test</a
+                          >
+                          <div class="order-item__variant">Xanh</div>
+                        </div>
+                        <div class="order-item__actions">
+                          <div class="order-item__actions-bottom">
+                            <div class="order-item__price">
+                              <span>{{
+                                10000000 | currency : "VND" : "symbol" : "1.0"
+                              }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                </ng-template>
+              </div>
+            </div>
+            <div class="accordion-footer">
+              <div>
+                Tổng đơn hàng:
+                <span>{{
+                  item.orderItem.totalPrice
+                    | currency : "VND" : "symbol" : "1.0"
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

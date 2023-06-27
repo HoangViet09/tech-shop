@@ -16,9 +16,12 @@
   &-item {
     position: relative;
     display: flex;
-    min-height: 160px;
-    margin-bottom: 25px;
-
+    // min-height: 160px;
+    &:not(:last-child) {
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+    }
     &__thumbnail-block {
       position: relative;
       padding: 8px;
@@ -258,6 +261,7 @@
     }
     &-item {
       padding: 15px 30px;
+      margin-bottom: 15px;
       border: 1px solid #eee;
       border-radius: 16px;
       cursor: pointer;
@@ -277,7 +281,7 @@
         & > img {
           display: inline-block;
           max-width: 10%;
-          max-height: 50%;
+          max-height: 40px;
           margin: 0 20px;
         }
       }

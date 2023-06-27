@@ -167,7 +167,17 @@
         swiperSlide
         style="margin-right: 0"
       >
-        <div (click)="navigateDetailPage(item.product_type, item.id)">
+        <div
+          (click)="
+            navigateDetailPage(
+              item.product_type,
+              item.id,
+              item.product_images[0],
+              item.product_header.title,
+              item.product_header.price
+            )
+          "
+        >
           <div class="bestdeal-product">
             <div class="bestdeal-product-thumbnail">
               <img [src]="item.product_images[0]" alt="product img" />

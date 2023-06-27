@@ -9,7 +9,7 @@ import {
   CollectionReference,
   DocumentChangeAction,
 } from '@angular/fire/compat/firestore';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
@@ -22,6 +22,28 @@ export class ProductService {
     public afAuth: AngularFireAuth,
     private route: ActivatedRoute
   ) {}
+
+  search(term: string) {
+    if (term == '') return of([]);
+    return this.afs
+      .collection('products')
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          const products = documentChanges.map((doc) => {
+            const data = doc.payload.doc.data();
+            const id = doc.payload.doc.id;
+            const productType = data.product_type;
+            const productImage = data.product_images[0];
+            const productName = data.product_header.title;
+            return { id, productName, productType, productImage };
+          });
+          console.log(products);
+          return products;
+        })
+      );
+  }
+
   getProducts() {
     return this.afs.collection(`/products/`).valueChanges();
   }
@@ -175,5 +197,27 @@ export class ProductService {
           );
         })
       );
+  }
+
+  saveProductToLocal(product: any) {
+    const dataLocal = localStorage.getItem('products');
+
+    if (!dataLocal) {
+      localStorage.setItem('products', JSON.stringify([product]));
+      return;
+    }
+
+    const arrData: any[] = JSON.parse(dataLocal);
+
+    if (
+      arrData.findIndex((item) => {
+        console.log(item.productId, product.productId);
+        return item.productId === product.productId;
+      }) !== -1
+    ) {
+      return;
+    }
+    arrData.unshift(product);
+    localStorage.setItem('products', JSON.stringify(arrData));
   }
 }

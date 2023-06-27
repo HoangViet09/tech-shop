@@ -109,7 +109,7 @@
         </div>
         <div class="cart-section">
           <h2 class="cart-checkout-title">Hình thức thanh toán</h2>
-          <div
+          <!-- <div
             class="cart-radio-item"
             (click)="onCheckRadio(vnpayRadio.value)"
             [ngClass]="radioSelectedValue == vnpayRadio.value ? 'checked' : ''"
@@ -129,6 +129,54 @@
                     src="assets/img/logo-brand/vnpay.svg"
                     alt="logo-brand"
                   />Thẻ ATM/Thẻ Tín Dụng</label
+                >
+              </div>
+            </div>
+          </div> -->
+          <div
+            class="cart-radio-item"
+            (click)="onCheckRadio(zaloRadio.value)"
+            [ngClass]="radioSelectedValue == zaloRadio.value ? 'checked' : ''"
+          >
+            <div class="cart-radio">
+              <div class="cart-radio-input-group">
+                <input
+                  type="radio"
+                  name="radio"
+                  id="ZALOPAY"
+                  value="ZALOPAY"
+                  #zaloRadio
+                />
+
+                <label for="ZALOPAY"
+                  ><img
+                    src="assets/img/logo-brand/zalopay.png"
+                    alt="logo-brand"
+                  />Mã QR</label
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="cart-radio-item"
+            (click)="onCheckRadio(momoRadio.value)"
+            [ngClass]="radioSelectedValue == momoRadio.value ? 'checked' : ''"
+          >
+            <div class="cart-radio">
+              <div class="cart-radio-input-group">
+                <input
+                  type="radio"
+                  name="radio"
+                  id="MOMO"
+                  value="MOMO"
+                  #momoRadio
+                />
+
+                <label for="MOMO"
+                  ><img
+                    src="assets/img/logo-brand/momo.svg"
+                    alt="logo-brand"
+                  />Mã QR</label
                 >
               </div>
             </div>

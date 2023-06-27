@@ -1,0 +1,55 @@
+<div class="products">
+  <div class="container">
+    <div class="product-list">
+      <div class="product-item" *ngFor="let item of dataProduct$ | async">
+        <div
+          class="product-item__container"
+          (click)="navigateDetailPage(item.productId, item.productType)"
+        >
+          <div class="product-thumbnail">
+            <img [src]="item.product_image" alt="product img" />
+          </div>
+
+          <div class="product-content">
+            <div class="product-content-wrap">
+              <h3 class="product-content-title">
+                {{ item.product_title }}
+              </h3>
+              <div class="product-price">
+                <!-- <span class="text-span"></span> -->
+                <span>{{
+                  item.product_price | currency : "VND" : "symbol" : "1.0"
+                }}</span>
+                <!-- <span class="text-span">.00</span> -->
+              </div>
+            </div>
+            <div class="product-description">
+              Table with air purifier, stained veneer/black
+            </div>
+            <div class="product-rating">
+              <div class="product-icon__wrap">
+                <ng-template #t let-fill="fill">
+                  <i class="fa fa-star product-icon__rating" aria-hidden="true">
+                    <i
+                      *ngIf="fill > 0"
+                      class="fa fa-star filled"
+                      [style.width.%]="fill"
+                    ></i>
+                  </i>
+                </ng-template>
+                <ngb-rating
+                  [(rate)]="currentRate"
+                  [starTemplate]="t"
+                  [max]="5"
+                  [readonly]="true"
+                ></ngb-rating>
+              </div>
+              <div class="total-rating">(123)</div>
+            </div>
+            <!-- <button class="btn product-btn__add">Add to Cart</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import {
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 
 import { Router } from '@angular/router';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -169,7 +170,17 @@ export class UserService {
         });
     });
   }
-
+  removeCart(userId: string) {
+    const userDocRef = this.afs.collection('users').doc(userId);
+    userDocRef.get().subscribe((userDocSnapShot) => {
+      const userData = userDocSnapShot.data() as { cart?: any[] };
+      let cart: any = userData.cart;
+      cart = [];
+      userDocRef.update({ cart }).catch((error) => {
+        console.error('Error updating cart:', error);
+      });
+    });
+  }
   removeCartItem(cartItem: any, userId: string) {
     const userDocRef = this.afs.collection('users').doc(userId);
 

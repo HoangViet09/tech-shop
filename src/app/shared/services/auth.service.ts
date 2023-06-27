@@ -9,6 +9,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -154,9 +155,18 @@ export class AuthService {
 
   // Sign out
   SignOut() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
-    });
+    return this.afAuth
+      .signOut()
+      .then(() => {
+        localStorage.removeItem('user');
+        // this.router.navigate(['sign-in']);
+      })
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Bạn đã đăng xuất',
+          timer: 1500,
+        });
+      });
   }
 }

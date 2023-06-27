@@ -91,7 +91,15 @@
           <div class="product-item" *ngFor="let item of dataProduct$ | async">
             <div
               class="product-item__container"
-              (click)="navigateDetailPage(item.id)"
+              (click)="
+                navigateDetailPage(
+                  item.product_type,
+                  item.id,
+                  item.product_images[0],
+                  item.product_header.title,
+                  item.product_header.price
+                )
+              "
             >
               <div class="product-thumbnail">
                 <img

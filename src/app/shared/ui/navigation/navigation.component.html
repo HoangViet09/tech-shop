@@ -9,7 +9,7 @@
         +84382641194
       </div>
       <div class="nav-promotion__content">
-        <a href="" target="_blank">
+        <a href="/products-viewed" target="_blank">
           Get 50% Off on Selected Items | shop now
         </a>
       </div>
@@ -62,17 +62,31 @@
     <div class="nav d-flex col-6">
       <ul class="nav col-4">
         <li class="nav-header__item">
-          <a class="nav-header__link" href="#">Products viewed</a>
+          <a class="nav-header__link" href="products-viewed">Products viewed</a>
         </li>
       </ul>
       <div class="has-icon-left search-input col-8">
         <input
           class="form-control shadow-none bg-transparent"
           placeholder="Search products"
-          id="timesheetinput1"
           name="employeename"
+          [ngbTypeahead]="search"
+          [resultTemplate]="rt"
+          [inputFormatter]="formatter"
+          (selectItem)="navigateToProduct($event)"
           type="text"
         />
+        <ng-template #rt let-r="result" let-t="term">
+          <img
+            [src]="r['productImage']"
+            class="me-1"
+            style="width: 16px; display: inline-block; margin-right: 10px"
+          />
+          <ngb-highlight [result]="r.productName" [term]="t"></ngb-highlight>
+        </ng-template>
+        <small *ngIf="searching" class="form-text text-muted"
+          >searching...</small
+        >
         <button class="search-button bg-transparent">
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
@@ -81,7 +95,13 @@
     <div>
       <ul class="nav">
         <li class="nav-header__item">
-          <img src="assets/img/cart.svg" alt="cart img" class="nav-img" />
+          <img
+            src="assets/img/cart.svg"
+            alt="cart img"
+            class="nav-img"
+            (click)="navigateToCart()"
+          />
+          <span *ngIf="totalProduct">{{ totalProduct }}</span>
         </li>
         <li class="nav-header__item">
           <img

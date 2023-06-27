@@ -33,9 +33,9 @@ export class UserInfoComponent implements OnInit {
   defaultWard: any = {};
   public isCollapsed: boolean = false;
   constructor(
-    private auth: AuthService,
-    private provinceS: ProvincesService,
     private fb: FormBuilder,
+    private provinceS: ProvincesService,
+    private auth: AuthService,
     private userS: UserService
   ) {}
   ngOnInit(): void {

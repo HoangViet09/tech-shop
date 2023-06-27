@@ -4,12 +4,16 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { QRCheckoutComponent } from './qrcheckout/qrcheckout.component';
+import { OderService } from 'src/app/shared/services/order.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -37,8 +41,10 @@ export class CartComponent {
   constructor(
     private auth: AuthService,
     private provinceS: ProvincesService,
+    private modalService: NgbModal,
     private fb: FormBuilder,
-    private userS: UserService
+    private userS: UserService,
+    private oderS: OderService
   ) {}
   ngOnInit(): void {
     this.provinceS.getDataProvinces().subscribe((res) => {
@@ -201,6 +207,67 @@ export class CartComponent {
   }
 
   onCheckout() {
-    console.log(this.userInfo, this.totalAmount);
+    if (this.radioSelectedValue === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Xin mời chọn hình thức thanh toán',
+      });
+      return;
+    }
+    const orderTime = this.vnPayDateFormat(new Date());
+    console.log(
+      this.formUserInfo.value,
+      this.totalAmount,
+      orderTime,
+      this.userAuth.uid
+    );
+    this.oderS
+      .addOrder(
+        this.userAuth.uid,
+        orderTime,
+        this.radioSelectedValue,
+        this.userInfo[0].cart,
+        this.formUserInfo.value,
+        this.totalAmount
+      )
+      .then(() => {
+        this.openModal();
+        this.userS.removeCart(this.userAuth.uid);
+      });
+  }
+
+  to2DigitNumber(number: number) {
+    if (isNaN(number)) {
+      throw new Error('to2DigitNumber:param must be a number');
+    }
+    if (!number) {
+      return '00';
+    }
+
+    return `0${number}`.substr(-2, 2);
+  }
+  vnPayDateFormat(date: any) {
+    if (date.constructor.name !== 'Date') {
+      throw new Error('vnPayDateFormat:param must be a date');
+    }
+
+    let result = '';
+    result += date.getFullYear().toString();
+    result += this.to2DigitNumber(date.getMonth() + 1);
+    result += this.to2DigitNumber(date.getDate());
+    result += this.to2DigitNumber(date.getHours());
+    result += this.to2DigitNumber(date.getMinutes());
+    result += this.to2DigitNumber(date.getSeconds());
+
+    return result;
+  }
+
+  openModal() {
+    console.log('run');
+    const modalRef = this.modalService.open(QRCheckoutComponent, {
+      size: 'sm',
+    });
+    //
+    modalRef.componentInstance.paymentUserChoose = this.radioSelectedValue;
   }
 }

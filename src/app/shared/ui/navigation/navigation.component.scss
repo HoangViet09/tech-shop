@@ -56,7 +56,7 @@ h1 {
     color: #000;
   }
   &-product {
-    justify-content: center;
+    justify-content: center !important;
     align-items: center;
     background-color: #ededed;
     min-height: 50px;
@@ -80,6 +80,9 @@ h1 {
       font-size: 15px;
       font-weight: 500;
       line-height: 16px;
+      &:hover {
+        color: #000;
+      }
     }
   }
   &-img {
@@ -122,6 +125,23 @@ h1 {
       padding: 8px;
       text-align: center;
       color: inherit;
+      &:first-child {
+        position: relative;
+        & span {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          top: 5px;
+          right: 0;
+          min-width: 15px;
+          height: 15px;
+          border-radius: 15px;
+          font-size: 12px;
+          color: white;
+          background-color: #000;
+        }
+      }
     }
     &__link {
       text-decoration: none;
@@ -129,6 +149,9 @@ h1 {
       font-size: 18px;
       font-weight: 600;
       line-height: 16px;
+      &:hover {
+        color: #000;
+      }
       // letter-spacing: 10px;
     }
   }
@@ -198,3 +221,25 @@ nav.scrolled {
   background-color: #000;
 }
 //style for toggle end
+
+.ngb-highlight {
+  font-weight: 500 !important;
+}
+.dropdown-menu {
+  transform: translate3d(0px, 51.3333px, 0px) !important;
+  width: 800px !important;
+  & button {
+    padding: 8px 16px !important;
+    margin-bottom: 5px !important;
+    &:not(:last-child) {
+      border-bottom: 1px solid #ccc !important;
+    }
+  }
+}
+
+.nav-header__item {
+  & > div div {
+    // transform: translate3d(0px, 32px, 0px) !important;
+    width: unset !important;
+  }
+}
