@@ -8,10 +8,14 @@
             alt="filter icon"
             class="product-filter__icon"
           />
-          <div class="product-filter-header__text">BỘ LỌC TÌM KIẾM</div>
+          <div class="product-filter-header__text">
+            {{ translate.instant("FILTER PRODUCT") }}
+          </div>
         </div>
         <div class="product-filter-group">
-          <div class="product-filter-group__header">Theo Danh Mục</div>
+          <div class="product-filter-group__header">
+            {{ translate.instant("By Categories") }}
+          </div>
           <div class="product-filter-group__body">
             <div class="product-checkbox-filter">
               <div *ngIf="brand$ | async as brands">
@@ -32,7 +36,9 @@
           </div>
         </div>
         <div class="product-filter-group">
-          <div class="product-filter-group__header">Theo Khoảng Giá</div>
+          <div class="product-filter-group__header">
+            {{ translate.instant("By Price Range") }}
+          </div>
           <div class="product-filter-group__body">
             <div class="product-range-filter__inputs">
               <input
@@ -64,13 +70,15 @@
             class="product-filter-group__btn-range"
             (click)="filterByFrice()"
           >
-            ÁP DỤNG
+            {{ translate.instant("Apply") }}
           </button>
         </div>
       </div>
       <div class="col-10 product-content">
         <div class="product-sort-bar">
-          <span class="product-sort-header">Sắp xếp theo</span>
+          <span class="product-sort-header">{{
+            translate.instant("Sort by")
+          }}</span>
           <div class="product-sort-option">
             <ng-select
               class="nav-select__language"
@@ -81,9 +89,15 @@
               [(ngModel)]="selectedSortOption"
               (click)="onChangeSortValue()"
             >
-              <ng-option [value]="1"> Mặc định</ng-option>
-              <ng-option [value]="2"> Từ thấp đến cao</ng-option>
-              <ng-option [value]="3"> Từ cao đến thấp</ng-option>
+              <ng-option [value]="1">{{
+                translate.instant("Default")
+              }}</ng-option>
+              <ng-option [value]="2">{{
+                translate.instant("Low to High")
+              }}</ng-option>
+              <ng-option [value]="3">{{
+                translate.instant("High to Low")
+              }}</ng-option>
             </ng-select>
           </div>
         </div>

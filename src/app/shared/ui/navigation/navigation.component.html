@@ -10,7 +10,7 @@
       </div>
       <div class="nav-promotion__content">
         <a href="/products-viewed" target="_blank">
-          Get 50% Off on Selected Items | shop now
+          {{ "Discount 50% on selected items in the cart" | translate }}
         </a>
       </div>
       <div class="nav-menu col-2">
@@ -21,8 +21,9 @@
           [closeOnSelect]="true"
           [clearable]="false"
           [(ngModel)]="selectedLanguage"
+          (change)="onChangeLanguage($event)"
         >
-          <ng-option [value]="1"
+          <ng-option [value]="'en'"
             ><img
               class="img-flag"
               src="assets/img/flag/America.png"
@@ -30,7 +31,7 @@
             />
             EN</ng-option
           >
-          <ng-option [value]="2"
+          <ng-option [value]="'vi'"
             ><img
               class="img-flag"
               src="assets/img/flag/VietNam.webp"
@@ -62,13 +63,15 @@
     <div class="nav d-flex col-6">
       <ul class="nav col-4">
         <li class="nav-header__item">
-          <a class="nav-header__link" href="products-viewed">Products viewed</a>
+          <a class="nav-header__link" href="products-viewed">{{
+            "Products viewed" | translate
+          }}</a>
         </li>
       </ul>
       <div class="has-icon-left search-input col-8">
         <input
           class="form-control shadow-none bg-transparent"
-          placeholder="Search products"
+          [placeholder]="'Search products' | translate"
           name="employeename"
           [ngbTypeahead]="search"
           [resultTemplate]="rt"
@@ -134,7 +137,7 @@
                     alt="sign out img"
                     class="nav-drd-img"
                     style="display: inline-block"
-                  />User profile
+                  />{{ "User profile" | translate }}
                 </button>
                 <button ngbDropdownItem (click)="navigateOrderList()">
                   <img
@@ -143,7 +146,7 @@
                     class="nav-drd-img"
                     style="display: inline-block"
                   />
-                  Order list
+                  {{ "Order list" | translate }}
                 </button>
                 <button (click)="authService.SignOut()" ngbDropdownItem>
                   <img
@@ -152,7 +155,7 @@
                     class="nav-drd-img"
                     style="display: inline-block"
                   />
-                  Log-out
+                  {{ "Log-out" | translate }}
                 </button>
               </div>
             </div>
@@ -189,28 +192,28 @@
   <div class="container container-lg px-4 nav-product">
     <ul class="nav col-10">
       <li class="nav-product__item" (click)="onClickProducts('Phone')">
-        <a class="nav-product__link">Phone</a>
+        <a class="nav-product__link">{{ "Phone" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Watch')">
-        <a class="nav-product__link">Watch</a>
+        <a class="nav-product__link">{{ "Watch" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Laptop')">
-        <a class="nav-product__link">Laptop</a>
+        <a class="nav-product__link">{{ "Laptop" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Screen')">
-        <a class="nav-product__link">Screen</a>
+        <a class="nav-product__link">{{ "Screen" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Smart-tv')">
-        <a class="nav-product__link">Smart TV</a>
+        <a class="nav-product__link">{{ "Smart TV" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Tablet')">
-        <a class="nav-product__link">Tablet</a>
+        <a class="nav-product__link">{{ "Tablet" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Speaker')">
-        <a class="nav-product__link">Speaker</a>
+        <a class="nav-product__link">{{ "Speaker" | translate }}</a>
       </li>
       <li class="nav-product__item" (click)="onClickProducts('Smart-home')">
-        <a class="nav-product__link">Smart Home</a>
+        <a class="nav-product__link">{{ "Smart Home" | translate }}</a>
       </li>
     </ul>
   </div>

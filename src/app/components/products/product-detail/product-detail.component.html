@@ -32,7 +32,9 @@
             }}</del>
             <!-- <span>-15 %</span> -->
           </div>
-          <strong class="product-item-color__title">Lựa chọn màu</strong>
+          <strong class="product-item-color__title">{{
+            translate.instant("Choose color")
+          }}</strong>
           <div class="product-item-color__price" #radioColor>
             <div
               *ngFor="
@@ -61,7 +63,9 @@
             <!-- </ng-template> -->
           </div>
           <div class="product-item-offer-include">
-            <strong class="product-item-offer-title">Khuyến Mãi</strong>
+            <strong class="product-item-offer-title">{{
+              translate.instant("Promotion")
+            }}</strong>
             <ul>
               <li
                 *ngFor="let item of dataProduct.product_header?.offer_include"
@@ -93,7 +97,7 @@
               </button>
             </div>
             <button (click)="addToCart()" class="product-btn-add">
-              Add to cart
+              {{ translate.instant("Add to cart") }}
             </button>
           </div>
         </div>
@@ -102,9 +106,9 @@
         <div class="col-md-7">
           <div class="product-item-offer-info">
             <div class="product-item-payment-incentives">
-              <strong class="product-item-payment-incentives__title"
-                >Ưu đãi thanh toán</strong
-              >
+              <strong class="product-item-payment-incentives__title">{{
+                translate.instant("Payment incentives")
+              }}</strong>
               <ul>
                 <li
                   *ngFor="
@@ -122,8 +126,8 @@
             </div>
             <div class="product-item-promotions">
               <strong class="product-item-promotion-title"
-                >Ưu đãi đi kèm</strong
-              >
+                >{{ translate.instant("Bundled offers") }}
+              </strong>
               <ul>
                 <li *ngFor="let item of dataProduct.product_header?.promotion">
                   <img
@@ -158,7 +162,7 @@
         </div>
       </div>
       <div class="row product-suggest">
-        <h3>Products in the same segment</h3>
+        <h3>{{ translate.instant("Products in the same segment") }}</h3>
         <swiper
           [config]="configBestDeal"
           (swiper)="onSwiper($event)"

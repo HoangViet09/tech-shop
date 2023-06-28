@@ -5,15 +5,26 @@
         <div class="account-sidebar">
           <h2 class="account-name title">{{ userInfo[0]?.displayName }}</h2>
           <div class="acount-sidebar__items">
-            <div class="account-sidebar__item active">Thông tin cá nhân</div>
-            <div class="account-sidebar__item">danh sách đơn hàng</div>
-            <div class="account-sidebar__item">thoát</div>
+            <div
+              class="account-sidebar__item active"
+              (click)="navigateToUserInfo()"
+            >
+              {{ translate.instant("User Info") }}
+            </div>
+            <div class="account-sidebar__item" (click)="navigateToOrderList()">
+              {{ translate.instant("Oders list") }}
+            </div>
+            <div class="account-sidebar__item" (click)="signOut()">
+              {{ translate.instant("Sign out") }}
+            </div>
           </div>
         </div>
       </div>
       <div class="col-8" *ngIf="userInfo">
         <div class="account-info__tab">
-          <h2 class="account-info title">Thông tin tài khoản</h2>
+          <h2 class="account-info title">
+            {{ translate.instant("Account Info") }}
+          </h2>
           <form
             class="striped-rows"
             [formGroup]="formUserInfo"
@@ -23,7 +34,7 @@
               <label
                 class="col-md-3 account-info__label label-control"
                 for="displayName"
-                >Họ Tên</label
+                >{{ translate.instant("Full Name") }}</label
               >
               <div class="col-md-9">
                 <input
@@ -60,7 +71,7 @@
               <label
                 class="col-md-3 account-info__label label-control"
                 for="striped-form-4"
-                >Email</label
+                >{{ translate.instant("Email") }}</label
               >
               <div class="col-md-9">
                 <input
@@ -77,7 +88,7 @@
               <label
                 class="col-md-3 account-info__label label-control"
                 for="phoneNumber"
-                >Số điện thoại</label
+                >{{ translate.instant("Phone Number") }}</label
               >
               <div class="col-md-9">
                 <input
@@ -94,7 +105,7 @@
               <label
                 class="col-md-3 account-info__label label-control"
                 for="striped-form-2"
-                >Địa chỉ</label
+                >{{ translate.instant("Address") }}</label
               >
               <div class="col-md-9">
                 <input
@@ -111,7 +122,7 @@
               <label
                 class="col-md-3 account-info__label label-control"
                 for="striped-form-3"
-                >Tỉnh/Thành</label
+                >{{ translate.instant("Provinces/District") }}</label
               >
               <div class="account-info__province">
                 <div class="col-md-4 me-2">
@@ -153,9 +164,9 @@
             </div>
 
             <div class="form-group row account-info__item last mb-3">
-              <label class="col-md-3 account-info__label label-control"
-                >Giới tính</label
-              >
+              <label class="col-md-3 account-info__label label-control">{{
+                translate.instant("Gender")
+              }}</label>
               <div class="col-md-9">
                 <div class="input-group col-md-6">
                   <div class="radio d-inline-block me-2 mb-1">
@@ -166,7 +177,9 @@
                       formControlName="gender"
                       value="male"
                     />
-                    <label for="striped-form-6" class="radio-label">Nam</label>
+                    <label for="striped-form-6" class="radio-label">{{
+                      translate.instant("Male")
+                    }}</label>
                   </div>
                   <div class="radio d-inline-block">
                     <input
@@ -177,7 +190,9 @@
                       formControlName="gender"
                       value="feMale"
                     />
-                    <label for="striped-form-7" class="radio-label">Nữ</label>
+                    <label for="striped-form-7" class="radio-label">{{
+                      translate.instant("Female")
+                    }}</label>
                   </div>
                 </div>
               </div>
@@ -244,7 +259,8 @@
               </div>
             </div> -->
             <button type="submit" class="account-btn__submit">
-              <i class="ft-check-square mr-1"></i>Cập nhật thông tin
+              <i class="ft-check-square mr-1"></i
+              >{{ translate.instant("Update Info") }}
             </button>
           </form>
         </div>

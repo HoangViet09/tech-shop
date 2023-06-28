@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Title } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -36,7 +38,9 @@ export class UserInfoComponent implements OnInit {
     private fb: FormBuilder,
     private provinceS: ProvincesService,
     private auth: AuthService,
-    private userS: UserService
+    private userS: UserService,
+    public translate: TranslateService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.provinceS.getDataProvinces().subscribe((res) => {
@@ -131,5 +135,15 @@ export class UserInfoComponent implements OnInit {
       .catch((err) => {
         console.log(err);
       });
+  }
+  navigateToUserInfo() {
+    this.router.navigate(['/account/user-info']);
+  }
+  navigateToOrderList() {
+    this.router.navigate(['/account/order-list']);
+  }
+  signOut() {
+    this.auth.SignOut();
+    this.router.navigate(['/dashboard']);
   }
 }

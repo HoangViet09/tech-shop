@@ -12,6 +12,8 @@ import { SwiperOptions } from 'swiper';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -32,8 +34,11 @@ export class DashboardComponent implements OnInit {
     private productS: ProductService,
     private el: ElementRef,
     private renderer: Renderer2,
-    private router: Router
-  ) {}
+    private router: Router,
+    public translate: TranslateService
+  ) {
+    translate.setDefaultLang('vi');
+  }
   ngOnInit(): void {
     this.productS.getRandomProducts(5).subscribe((res) => {
       this.dataProductToDay = res;

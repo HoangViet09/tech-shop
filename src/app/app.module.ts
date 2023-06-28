@@ -7,7 +7,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 // routing
@@ -24,10 +24,22 @@ import {
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
 @NgModule({
   declarations: [AppComponent, NavigationComponent, FooterComponent],
   imports: [
+    TranslateModule.forRoot({
+      defaultLanguage: 'vi', // Set the default language
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
     HttpClientModule,
     NgbTypeaheadModule,
     NgbDropdownModule,

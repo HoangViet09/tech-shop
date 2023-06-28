@@ -6,6 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProductService } from 'src/app/shared/services/product.service';
@@ -57,7 +58,8 @@ export class ProductDetailComponent implements OnInit {
     private productS: ProductService,
     private window: WindowService,
     private authS: AuthService,
-    private userS: UserService
+    private userS: UserService,
+    public translate: TranslateService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

@@ -476,13 +476,17 @@ h1 {
   border-color: transparent;
 }
 .card-body {
-  padding: 40px;
   background-color: #f5f6f6;
+  & p {
+    display: block;
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 .card-title {
   max-width: 230px;
   margin-top: 0px;
-  margin-bottom: 24px;
+  margin-bottom: 0px !important;
   font-size: 22px;
   font-weight: 600;
   line-height: 32px;
@@ -783,5 +787,14 @@ figure.effect-zoe {
     opacity: 0;
     transition: opacity 0.35s;
     -webkit-backface-visibility: hidden;
+  }
+}
+
+.card {
+  justify-content: space-between;
+  max-height: 450px;
+  min-height: 450px;
+  &-body {
+    padding-top: 40px !important;
   }
 }

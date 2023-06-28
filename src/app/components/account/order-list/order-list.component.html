@@ -5,9 +5,18 @@
         <div class="account-sidebar">
           <h2 class="account-name title">{{ userInfo[0]?.displayName }}</h2>
           <div class="acount-sidebar__items">
-            <div class="account-sidebar__item">Thông tin cá nhân</div>
-            <div class="account-sidebar__item active">danh sách đơn hàng</div>
-            <div class="account-sidebar__item">thoát</div>
+            <div class="account-sidebar__item" (click)="navigateToUserInfo()">
+              {{ translate.instant("User Info") }}
+            </div>
+            <div
+              class="account-sidebar__item active"
+              (click)="navigateToOrderList()"
+            >
+              {{ translate.instant("Oders list") }}
+            </div>
+            <div class="account-sidebar__item" (click)="signOut()">
+              {{ translate.instant("Sign out") }}
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +115,7 @@
             </div>
             <div class="accordion-footer">
               <div>
-                Tổng đơn hàng:
+                {{ translate.instant("Total Bill:") }}
                 <span>{{
                   item.orderItem.totalPrice
                     | currency : "VND" : "symbol" : "1.0"

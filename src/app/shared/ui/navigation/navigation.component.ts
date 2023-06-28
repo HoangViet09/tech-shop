@@ -19,6 +19,7 @@ import { Observable, of, OperatorFunction } from 'rxjs';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navigation',
@@ -31,7 +32,7 @@ export class NavigationComponent implements OnInit {
   isScrollTop: Boolean = false;
   previosScrollPosition: number =
     document.documentElement.scrollTop || document.body.scrollTop;
-  selectedLanguage: number = 1;
+  selectedLanguage: string = 'vi';
   searching: boolean = false;
   searchFailed: boolean = false;
   totalProduct: number = 0;
@@ -40,7 +41,8 @@ export class NavigationComponent implements OnInit {
     private router: Router,
     private productS: ProductService,
     private authS: AuthService,
-    private userS: UserService
+    private userS: UserService,
+    private translate: TranslateService
   ) {}
   ngOnInit(): void {
     this.authS.userAuth$.subscribe((res) => {
@@ -142,4 +144,8 @@ export class NavigationComponent implements OnInit {
       tap(() => (this.searching = false))
     );
   formatter = (x: { name: string }) => x.name;
+  onChangeLanguage(event: any) {
+    console.log(event);
+    this.translate.use(event);
+  }
 }

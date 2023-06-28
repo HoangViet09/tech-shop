@@ -1,5 +1,6 @@
 import { Component, HostListener, Inject, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class AppComponent {
   isScrollTopVisible: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private translate: TranslateService) {
+    translate.setDefaultLang('vi');
+  }
   title = 'aley-tech-shop';
   ngOnInit() {}
   isSignInRoute(): boolean {

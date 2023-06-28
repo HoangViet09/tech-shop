@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { ProductService } from 'src/app/shared/services/product.service';
 interface CheckboxChangeEvent {
@@ -25,7 +26,8 @@ export class ProductsPageComponent implements OnInit {
   constructor(
     private productS: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

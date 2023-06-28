@@ -17,11 +17,16 @@
           >
         </div>
         <p class="paragraph">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius labore
-          exercitationem inventore esse omnis eos numquamng s
+          {{
+            translate.instant(
+              "Aley is a great place for you to discover and shop for top technology products with diversity, uniqueness and quality."
+            )
+          }}
         </p>
         <div class="footer-payment">
-          <h3 class="footer-payment__title">Accepted Payment</h3>
+          <h3 class="footer-payment__title">
+            {{ translate.instant("Accepted Payment") }}
+          </h3>
           <div class="footer-payment-thumb__wrap">
             <div class="footer-payment__item">
               <img
@@ -83,16 +88,24 @@
         </div>
       </div>
       <div class="col-md-2">
-        <h3 class="footer-list__title">Department</h3>
+        <h3 class="footer-list__title">
+          {{ translate.instant("Department") }}
+        </h3>
         <ul class="footer-list">
-          <li class="footer-list__item">Phone</li>
-          <li class="footer-list__item">Laptop</li>
-          <li class="footer-list__item">Tablets</li>
-          <li class="footer-list__item">Watch</li>
+          <li class="footer-list__item">{{ translate.instant("Phone") }}</li>
+          <li class="footer-list__item">{{ translate.instant("Watch") }}</li>
+          <li class="footer-list__item">{{ translate.instant("laptop") }}</li>
+          <li class="footer-list__item">{{ translate.instant("Screen") }}</li>
+          <li class="footer-list__item">{{ translate.instant("Smart TV") }}</li>
+          <li class="footer-list__item">{{ translate.instant("Tablet") }}</li>
+          <li class="footer-list__item">{{ translate.instant("Speaker") }}</li>
+          <li class="footer-list__item">
+            {{ translate.instant("Smart Home") }}
+          </li>
         </ul>
       </div>
       <div class="col-md-2">
-        <h3 class="footer-list__title">About Us</h3>
+        <h3 class="footer-list__title">{{ translate.instant("About Us") }}</h3>
         <ul class="footer-list">
           <li class="footer-list__item">About Shopcart</li>
           <li class="footer-list__item">Careers</li>

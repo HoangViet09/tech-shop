@@ -4,6 +4,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
 import { OderService } from 'src/app/shared/services/order.service';
 import { Observable, of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
@@ -20,7 +22,9 @@ export class OrderListComponent implements OnInit {
     private auth: AuthService,
     private userS: UserService,
     config: NgbAccordionConfig,
-    private orderS: OderService
+    private orderS: OderService,
+    public translate: TranslateService,
+    private router: Router
   ) {
     config.closeOthers = true;
   }
@@ -56,5 +60,15 @@ export class OrderListComponent implements OnInit {
   ) {
     const price: number = Object.values(productColorPrice)[0];
     return price * productQuantity;
+  }
+  navigateToUserInfo() {
+    this.router.navigate(['/account/user-info']);
+  }
+  navigateToOrderList() {
+    this.router.navigate(['/account/order-list']);
+  }
+  signOut() {
+    this.auth.SignOut();
+    this.router.navigate(['/dashboard']);
   }
 }

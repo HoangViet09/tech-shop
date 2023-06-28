@@ -6,7 +6,9 @@
       <div class="banner-content col-lg-10 text-center">
         <h5 class="text-white text-uppercase">Now you can feel the Heat</h5>
         <h1 class="main-text">Smart New Future</h1>
-        <a href="#" class="btn btn-primary text-uppercase">Buy Now</a>
+        <a href="#" class="btn btn-primary text-uppercase">{{
+          translate.instant("Buy Now")
+        }}</a>
       </div>
     </div>
   </div>
@@ -16,7 +18,7 @@
 <section class="category-area">
   <div class="match-height container category-container">
     <div class="category-title">
-      <h3>Shop Our Top Category</h3>
+      <h3>{{ translate.instant("Shop Our Top Catagories") }}</h3>
     </div>
     <div class="grid-hover">
       <div class="row">
@@ -44,8 +46,11 @@
                 ></a>
               </p>
               <p class="description">
-                They provide instant access to information, news, and
-                entertainment through the internet.
+                {{
+                  translate.instant(
+                    "They provide instant access to information, news, and entertainment through the internet"
+                  )
+                }}
               </p>
             </figcaption>
           </figure>
@@ -74,8 +79,11 @@
                 ></a>
               </p>
               <p class="description">
-                Headphones are audio devices worn over the ears to listen to
-                music, podcasts, and other audio content privately.
+                {{
+                  translate.instant(
+                    "Headphones are audio devices worn over the ears to listen to music, podcasts, and other audio content privately."
+                  )
+                }}
               </p>
             </figcaption>
           </figure>
@@ -104,8 +112,11 @@
                 ></a>
               </p>
               <p class="description">
-                High-resolution screens offer sharp and vibrant visuals with
-                rich color reproduction
+                {{
+                  translate.instant(
+                    "High-resolution screens offer sharp and vibrant visuals with rich color reproduction"
+                  )
+                }}
               </p>
             </figcaption>
           </figure>
@@ -134,8 +145,11 @@
                 ></a>
               </p>
               <p class="description">
-                They can track workouts, provide exercise guidance, and monitor
-                progress towards fitness goals.
+                {{
+                  translate.instant(
+                    "They can track workouts, provide exercise guidance, and monitor progress towards fitness goals."
+                  )
+                }}
               </p>
             </figcaption>
           </figure>
@@ -155,7 +169,7 @@
 <section class="bestdeal-area">
   <div class="match-height container bestdeal-container">
     <div class="bestdeal-title">
-      <h3>Todays Best Deals For You!</h3>
+      <h3>{{ translate.instant("Todays Best Deals For You!") }}</h3>
     </div>
     <swiper
       [config]="config"
@@ -225,12 +239,14 @@
               </div>
               <div class="total-rating">(123)</div>
             </div>
-            <button class="btn bestdeal-btn__add">Add to Cart</button>
+            <button class="btn bestdeal-btn__add">
+              {{ translate.instant("Add to cart") }}
+            </button>
           </div>
         </div>
       </ng-template>
     </swiper>
-    <div id="cursor">Drag</div>
+    <div id="cursor">{{ translate.instant("Drag") }}</div>
   </div>
 </section>
 <!-- best deal section end -->
@@ -326,12 +342,19 @@
   <div class="discount-banner__img"></div>
   <div class="discount-container">
     <div class="discount-banner__content">
-      <h2 class="discount-banner__title">Get 5% Cash back on $200</h2>
+      <h2 class="discount-banner__title">
+        {{ translate.instant("Get 5% Cash back on $200") }}
+      </h2>
       <p class="discount-banner__para">
-        Shopping is a bit of a relaxing hobby for me, which is sometimes
-        troubling for the bank balance.
+        {{
+          translate.instant(
+            "Shopping is a bit of a relaxing hobby for me, which is sometimes troubling for the bank balance."
+          )
+        }}
       </p>
-      <button class="discount-banner__button">Learn More</button>
+      <button class="discount-banner__button">
+        {{ translate.instant("Learn More") }}
+      </button>
     </div>
   </div>
 </section>
@@ -341,7 +364,7 @@
 <section class="bestproduct-area">
   <div class="match-height container bestproduct-container">
     <div class="bestproduct-title">
-      <h3>Best Products For You!</h3>
+      <h3>{{ translate.instant("Best Products For You!") }}</h3>
     </div>
     <div>
       <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
@@ -403,7 +426,9 @@
                     </div>
                     <div class="total-rating">(123)</div>
                   </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
+                  <button class="btn bestdeal-btn__add">
+                    {{ translate.instant("Add to cart") }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -532,7 +557,9 @@
                     </div>
                     <div class="total-rating">(123)</div>
                   </div>
-                  <button class="btn bestdeal-btn__add">Add to Cart</button>
+                  <button class="btn bestdeal-btn__add">
+                    {{ translate.instant("Add to cart") }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -550,51 +577,57 @@
 <section class="service-area">
   <div class="match-height container service-container">
     <div class="service-title">
-      <h3>Services To Help You!</h3>
+      <h3>{{ translate.instant("Services To Help You!") }}</h3>
     </div>
     <div class="service-content">
       <div class="service-content__item">
         <div class="card overflow-hidden">
-          <div class="card-content">
-            <img
-              class="card-img-top img-fluid"
-              src="assets/img/user-question.png"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Frequently Asked Question</h4>
-              <p class="card-text">Updates on safe Shopping in our Stores</p>
-            </div>
+          <img
+            class="card-img-top img-fluid"
+            src="assets/img/user-question.png"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h4 class="card-title">
+              {{ translate.instant("Frequently Asked Question") }}
+            </h4>
+            <p class="card-text">
+              {{ translate.instant("Updates on safe Shopping in our Stores") }}
+            </p>
           </div>
         </div>
       </div>
       <div class="service-content__item">
         <div class="card overflow-hidden">
-          <div class="card-content">
-            <img
-              class="card-img-top img-fluid"
-              src="assets/img/payment.png"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Online Payment Process</h4>
-              <p class="card-text">Updates on safe Shopping in our Stores</p>
-            </div>
+          <img
+            class="card-img-top img-fluid"
+            src="assets/img/payment.png"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h4 class="card-title">
+              {{ translate.instant("Online Payment Process") }}
+            </h4>
+            <p class="card-text">
+              {{ translate.instant("The bests choice for you!") }}
+            </p>
           </div>
         </div>
       </div>
       <div class="service-content__item">
         <div class="card overflow-hidden">
-          <div class="card-content">
-            <img
-              class="card-img-top img-fluid"
-              src="assets/img/deliver.png"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h4 class="card-title">Home Delivery Options</h4>
-              <p class="card-text">Updates on safe Shopping in our Stores</p>
-            </div>
+          <img
+            class="card-img-top img-fluid"
+            src="assets/img/deliver.png"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h4 class="card-title">
+              {{ translate.instant("Home Delivery Options") }}
+            </h4>
+            <p class="card-text">
+              {{ translate.instant("Convenient and fast") }}
+            </p>
           </div>
         </div>
       </div>
