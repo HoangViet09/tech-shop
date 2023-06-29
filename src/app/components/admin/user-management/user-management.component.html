@@ -1,0 +1,258 @@
+<div class="container-fluid">
+  <div class="row flex-nowrap admin">
+    <div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0 admin-sidebar">
+      <div
+        class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100"
+      >
+        <a
+          href="/"
+          class="d-block align-items-center pb-3 text-white text-decoration-none admin-title"
+        >
+          <span class="d-none d-sm-inline">Aley</span>
+        </a>
+        <ul
+          class="nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start admin-items"
+          id="menu"
+        >
+          <li class="nav-item admin-item">
+            <a href="#" class="nav-link align-middle px-0">
+              <i class="fa fa-tachometer" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item admin-item">
+            <a href="#" class="nav-link px-0 align-middle active-item">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">User</span></a
+            >
+          </li>
+
+          <li class="nav-item admin-item">
+            <a href="#" class="nav-link px-0 align-middle">
+              <i class="fa fa-list-alt" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">Orders</span></a
+            >
+          </li>
+
+          <li class="nav-item admin-item">
+            <a
+              href="#submenu3"
+              data-bs-toggle="collapse"
+              class="nav-link px-0 align-middle"
+            >
+              <i class="fa fa-archive" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">Products</span>
+            </a>
+          </li>
+        </ul>
+        <hr />
+        <div class="dropdown pb-4">
+          <a
+            href="#"
+            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="https://github.com/mdo.png"
+              alt="hugenerd"
+              width="30"
+              height="30"
+              class="rounded-circle"
+            />
+            <span class="d-none d-sm-inline mx-1">loser</span>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark text-small shadow"
+            aria-labelledby="dropdownUser1"
+          >
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col py-3">
+      <section id="basic-input">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Tìm kiếm</h4>
+              </div>
+              <form [formGroup]="form" (click)="onSearch()">
+                <div class="card-content">
+                  <div class="card-body" style="padding-top: unset">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <!-- <div class="mt-2">
+                                                 <div class="form">
+                                                     
+                                                 </div>
+                                             </div> -->
+                        <div class="mt-2">
+                          <div class="input-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Nhập trường cần tìm"
+                              ngModel
+                              formControlName="code"
+                            />
+                            <div class="input-group-append dropup" ngbDropdown>
+                              <button
+                                type="button"
+                                class="btn btn-primary dropdown-toggle"
+                                ngbDropdownToggle
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                {{ selectedItem }}
+                              </button>
+                              <div class="dropdown-menu" ngbDropdownMenu>
+                                <a
+                                  class="dropdown-item"
+                                  (click)="updateSelected('Tất cả')"
+                                  ngbDropdownItem
+                                  >Tất cả</a
+                                >
+                                <a
+                                  class="dropdown-item"
+                                  (click)="updateSelected('Mã')"
+                                  ngbDropdownItem
+                                  >Mã</a
+                                >
+                                <a
+                                  class="dropdown-item"
+                                  (click)="updateSelected('Biển số xe')"
+                                  ngbDropdownItem
+                                  >Biển số xe</a
+                                >
+                                <a
+                                  class="dropdown-item"
+                                  (click)="updateSelected('Loại phương tiện')"
+                                  ngbDropdownItem
+                                  >Loại phương tiện</a
+                                >
+                                <a
+                                  class="dropdown-item"
+                                  (click)="updateSelected('Chủ sở hữu')"
+                                  ngbDropdownItem
+                                  >Chủ sở hữu</a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 text-right">
+                        <div class="mt-2">
+                          <button
+                            type="submit"
+                            class="btn btn-primary mr-1 mb-1"
+                          >
+                            <i
+                              class="icon icon-search fa fa-search"
+                              aria-hidden="true"
+                            ></i
+                            >Tìm kiếm
+                          </button>
+
+                          <button
+                            type="button"
+                            class="btn btn-success mr-1 mb-1"
+                          >
+                            <i
+                              class="icon icon-create fa fa-plus"
+                              aria-hidden="true"
+                            ></i
+                            >Thêm mới
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <table
+              class="table table-bordered table-striped"
+              style="margin-top: 30px"
+            >
+              <thead>
+                <tr class="text-center">
+                  <th [ngStyle]="{ width: '0px' }">
+                    #
+                    <span>
+                      <i class="fa fa-sort" aria-hidden="true"></i>
+                    </span>
+                  </th>
+                  <th
+                    [ngClass]="{ fixed: true, width: '0' }"
+                    [ngStyle]="{ width: '0' }"
+                  >
+                    Mã
+                    <span>
+                      <i class="fa fa-sort" aria-hidden="true"></i>
+                    </span>
+                  </th>
+                  <th [ngStyle]="{ width: '100px' }">
+                    Biển số xe
+                    <span>
+                      <i class="fa fa-sort" aria-hidden="true"></i>
+                    </span>
+                  </th>
+                  <th [ngStyle]="{ width: '0px' }">
+                    Loại phương tiện
+                    <span>
+                      <i class="fa fa-sort" aria-hidden="true"></i>
+                    </span>
+                  </th>
+                  <th [ngStyle]="{ width: '0px' }">
+                    Chủ sở hữu
+                    <span>
+                      <i class="fa fa-sort" aria-hidden="true"></i>
+                    </span>
+                  </th>
+                  <th [ngStyle]="{ width: '0px' }">Hành động</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <!-- <tr *ngFor="let item of dataVehicles$ | async">
+                           <td>{{ item.Id }}</td>
+                           <td [ngClass]="{ fixed: true, width: '0' }">
+                              {{ item.Code }}
+                           </td>
+                           <td [ngStyle]="{ width: '200px' }">{{ item.LicensePlate }}</td>
+                           <td [ngStyle]="{ width: '0px' }">{{ item.Name }}</td>
+                           <td [ngStyle]="{ width: '0px' }">{{ item.Owner }}</td>
+                           <td [ngStyle]="{ width: '0px' }">
+                              <div style="display: block">
+                                 <div style="display: flex; gap: 10px; justify-content: center">
+                                    <a class="success p-0" (click)="openEditModal()">
+                                       <i class="ft-edit font-medium-3"></i>
+                                    </a>
+                                    <a class="danger p-0" (click)="onDelete(item.Id)">
+                                       <i class="ft-trash-2 font-medium-3"></i>
+                                    </a>
+                                 </div>
+                              </div>
+                           </td>
+                        </tr> -->
+              </tbody>
+            </table>
+
+            <!-- <ngb-pagination style="display: flex; justify-content: end" [collectionSize]="total" [(page)]="pageIndex"
+                     [pageSize]="pageSize"></ngb-pagination> -->
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

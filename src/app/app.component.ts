@@ -9,14 +9,26 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   isScrollTopVisible: boolean = false;
-
+  notMainPageUrl: string[] = [
+    '/sign-in',
+    '/register-user',
+    '/forgot-password',
+    '/verify-email-address',
+    '/admin/users',
+    '/admin/products',
+    '/admin/orders',
+  ];
   constructor(private router: Router, private translate: TranslateService) {
     translate.setDefaultLang('vi');
   }
   title = 'aley-tech-shop';
   ngOnInit() {}
-  isSignInRoute(): boolean {
-    return this.router.url === '/sign-in';
+  isNotMainPage(): boolean {
+    const isNotMainPage = this.notMainPageUrl.some((item) => {
+      return item === this.router.url;
+    });
+    console.log(isNotMainPage);
+    return isNotMainPage;
   }
   scrollToTop() {
     window.scroll({

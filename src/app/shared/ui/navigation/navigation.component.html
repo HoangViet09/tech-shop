@@ -108,14 +108,14 @@
         </li>
         <li class="nav-header__item">
           <img
-            *ngIf="!authService.userData; else userData"
+            *ngIf="!authService.userData; else dropTemplate"
             src="assets/img/user.svg"
             alt="user img"
             class="nav-img"
             (click)="navigateSignIn()"
           />
 
-          <ng-template #userData>
+          <ng-template #dropTemplate>
             <div
               class="d-inline-block"
               ngbDropdown
@@ -138,6 +138,18 @@
                     class="nav-drd-img"
                     style="display: inline-block"
                   />{{ "User profile" | translate }}
+                </button>
+                <button
+                  ngbDropdownItem
+                  (click)="navigateAdmin()"
+                  *ngIf="userData[0].role === 'Super Admin' || 'Admin'"
+                >
+                  <img
+                    src="assets/img/user.svg"
+                    alt="sign out img"
+                    class="nav-drd-img"
+                    style="display: inline-block"
+                  />{{ "Admin" | translate }}
                 </button>
                 <button ngbDropdownItem (click)="navigateOrderList()">
                   <img

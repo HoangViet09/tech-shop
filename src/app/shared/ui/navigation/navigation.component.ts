@@ -28,7 +28,7 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class NavigationComponent implements OnInit {
-  userData: any;
+  userData: any[] = [];
   isScrollTop: Boolean = false;
   previosScrollPosition: number =
     document.documentElement.scrollTop || document.body.scrollTop;
@@ -116,7 +116,9 @@ export class NavigationComponent implements OnInit {
       `/products/${event.item.productType}/${event.item.id}`,
     ]);
   }
-
+  navigateAdmin() {
+    this.router.navigate(['/admin/users']);
+  }
   search: OperatorFunction<string, readonly string[]> = (
     text$: Observable<string>
   ): Observable<any[]> =>

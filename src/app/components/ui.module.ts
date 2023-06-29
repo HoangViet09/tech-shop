@@ -25,6 +25,9 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { CartComponent } from './cart/cart/cart.component';
 import { QRCheckoutComponent } from './cart/cart/qrcheckout/qrcheckout.component';
 import { ProductViewedComponent } from './product-viewed/product-viewed/product-viewed.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { ProductsManagementComponent } from './admin/products-management/products-management.component';
+import { OrdersManagementComponent } from './admin/orders-management/orders-management.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { ProductViewedComponent } from './product-viewed/product-viewed/product-
     CartComponent,
     QRCheckoutComponent,
     ProductViewedComponent,
+    UserManagementComponent,
+    ProductsManagementComponent,
+    OrdersManagementComponent,
   ],
   imports: [
     CommonModule,
