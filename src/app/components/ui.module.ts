@@ -12,6 +12,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SwiperModule } from 'swiper/angular';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
@@ -28,6 +35,11 @@ import { ProductViewedComponent } from './product-viewed/product-viewed/product-
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { ProductsManagementComponent } from './admin/products-management/products-management.component';
 import { OrdersManagementComponent } from './admin/orders-management/orders-management.component';
+
+import { EditUserComponent } from './admin/user-management/edit-user/edit-user.component';
+import { AddProductComponent } from './admin/products-management/add-product/add-product.component';
+import { EditProductComponent } from './admin/products-management/edit-product/edit-product.component';
+import { DateFormatPipe } from '../shared/pipe/dateFormat.pipe';
 
 @NgModule({
   declarations: [
@@ -46,6 +58,10 @@ import { OrdersManagementComponent } from './admin/orders-management/orders-mana
     UserManagementComponent,
     ProductsManagementComponent,
     OrdersManagementComponent,
+    EditUserComponent,
+    AddProductComponent,
+    EditProductComponent,
+    DateFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -59,6 +75,13 @@ import { OrdersManagementComponent } from './admin/orders-management/orders-mana
     NgbCollapseModule,
     NgbDatepickerModule,
     NgbAccordionModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
   ],
 })
 export class UiModule {}

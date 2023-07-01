@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProvincesService } from 'src/app/shared/services/provinces.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { QRCheckoutComponent } from './qrcheckout/qrcheckout.component';
-import { OderService } from 'src/app/shared/services/order.service';
+import { OrderService } from 'src/app/shared/services/order.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -44,7 +44,7 @@ export class CartComponent {
     private modalService: NgbModal,
     private fb: FormBuilder,
     private userS: UserService,
-    private oderS: OderService
+    private oderS: OrderService
   ) {}
   ngOnInit(): void {
     this.provinceS.getDataProvinces().subscribe((res) => {

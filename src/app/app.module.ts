@@ -26,6 +26,8 @@ import {
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DateFormatPipe } from './shared/pipe/dateFormat.pipe';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -55,6 +57,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

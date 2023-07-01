@@ -15,8 +15,24 @@ import { ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class OderService {
+export class OrderService {
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {}
+
+  getAllOrder() {
+    return this.afs
+      .collection('/orders')
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          return documentChanges.map(
+            (documentChange: DocumentChangeAction<any>) => {
+              const documentData = documentChange.payload.doc.data();
+              return documentData;
+            }
+          );
+        })
+      );
+  }
 
   getOrderByUser(userId: string) {
     let query = (ref: CollectionReference) => {

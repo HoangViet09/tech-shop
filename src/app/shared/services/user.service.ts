@@ -43,9 +43,13 @@ export class UserService {
       .subscribe((res) => {});
   }
 
+  getListUser() {
+    return this.afs.collection('/users').valueChanges();
+  }
+
   updateProfile(userId: string, profileData: any) {
-    console.log('user playload', profileData);
-    console.log('user id', userId);
+    // console.log('user playload', profileData);
+    // console.log('user id', userId);
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${userId}`
     );
@@ -60,6 +64,13 @@ export class UserService {
       .catch((error) => {
         console.error('Error updating profile:', error);
       });
+  }
+
+  removeUser(userId: string) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${userId}`
+    );
+    return userRef.delete();
   }
 
   addToCart(

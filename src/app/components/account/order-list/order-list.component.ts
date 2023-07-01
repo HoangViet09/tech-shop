@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
-import { OderService } from 'src/app/shared/services/order.service';
+import { OrderService } from 'src/app/shared/services/order.service';
 import { Observable, of } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class OrderListComponent implements OnInit {
     private auth: AuthService,
     private userS: UserService,
     config: NgbAccordionConfig,
-    private orderS: OderService,
+    private orderS: OrderService,
     public translate: TranslateService,
     private router: Router
   ) {

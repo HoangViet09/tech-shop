@@ -27,7 +27,6 @@ export class AppComponent {
     const isNotMainPage = this.notMainPageUrl.some((item) => {
       return item === this.router.url;
     });
-    console.log(isNotMainPage);
     return isNotMainPage;
   }
   scrollToTop() {
