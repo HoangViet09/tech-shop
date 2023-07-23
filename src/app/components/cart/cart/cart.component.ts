@@ -58,7 +58,6 @@ export class CartComponent {
       province: [''],
       dicstrict: [''],
       ward: [''],
-      gender: [''],
       notes: [''],
     });
 
@@ -76,11 +75,14 @@ export class CartComponent {
       this.fetchCartData();
       this.getTotalAmount(this.userInfo[0].cart);
 
-      this.defaultProvinces.code = this.userInfo[0].province;
-      this.defaultDicstrict.code = this.userInfo[0].dicstrict;
-      this.defaultWard.code = this.userInfo[0].ward;
-      this.startGetDataDictricts(this.defaultProvinces);
-      this.startGetDataWards(this.defaultDicstrict);
+      if (this.userInfo[0].ward) {
+        this.defaultProvinces.code = this.userInfo[0].province;
+        this.defaultDicstrict.code = this.userInfo[0].dicstrict;
+        this.defaultWard.code = this.userInfo[0].ward;
+        this.startGetDataDictricts(this.defaultProvinces);
+        this.startGetDataWards(this.defaultDicstrict);
+      }
+
       console.log('fetch user data', this.userInfo);
       this.getColorPrice(this.userInfo[0].cart);
 
@@ -92,7 +94,6 @@ export class CartComponent {
         province: this.defaultProvinces.code,
         dicstrict: this.defaultDicstrict.code,
         ward: this.defaultWard.code,
-        gender: this.userInfo[0].gender,
       });
     });
   }
@@ -197,6 +198,7 @@ export class CartComponent {
   }
 
   getTotalAmount(arrCart: any[]) {
+    this.totalAmount = 0;
     let arrAmount: any[] = arrCart.map((item) => {
       return Object.values<number>(item.colorProduct)[0] * item.productQuantity;
     });

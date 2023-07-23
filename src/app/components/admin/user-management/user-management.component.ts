@@ -58,19 +58,37 @@ export class UserManagementComponent implements OnInit {
   }
   deleteRow(userData: any) {
     Swal.fire({
-      title: 'Bạn có chắc muốn xoá user này?',
+      title: 'Are you sure you want to delete this user?',
       icon: 'warning',
       showConfirmButton: true,
       showDenyButton: true,
-      denyButtonText: 'Quay lại',
+      denyButtonText: 'Back',
     }).then((user) => {
-      if (user.isConfirmed) return this.userS.removeUser(userData.uid);
+      if (user.isConfirmed)
+        return this.userS.removeUser(userData.uid).then(
+          () => {
+            Swal.fire({
+              title: 'delete product successful!',
+              timer: 1000,
+              icon: 'success',
+            });
+          },
+          (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: err,
+            });
+          }
+        );
       return;
     });
     console.log(userData);
   }
 
-  navigateAdminOrder() {
+  navigateAdminOrders() {
     this.router.navigate(['admin/orders']);
+  }
+  navigateAdminProducts() {
+    this.router.navigate(['admin/products']);
   }
 }

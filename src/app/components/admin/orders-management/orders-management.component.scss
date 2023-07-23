@@ -43,7 +43,6 @@
     max-height: 20px;
   }
   &-action-group {
-    display: flex;
     min-height: 52px;
   }
 }
@@ -102,4 +101,48 @@ body {
   list-style: none;
   justify-content: end;
   border-radius: 0.35rem;
+}
+.table-container {
+  max-width: 1030px;
+  overflow-x: scroll;
+}
+
+/* Include these styles in your component's CSS file or global styles */
+.mat-sort-header {
+  cursor: pointer;
+}
+
+.mat-sort-header-arrow {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.mat-sort-header-arrow-up,
+.mat-sort-header-arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 2px;
+  opacity: 0.5;
+}
+
+.mat-sort-header-arrow-up {
+  border-bottom: 4px solid;
+}
+
+.mat-sort-header-arrow-down {
+  border-top: 4px solid;
+}
+
+.admin-order-confirm_btn {
+  min-height: 35px;
+  padding: 10px;
+  background-color: #975aff;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 15px;
 }

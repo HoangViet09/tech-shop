@@ -47,14 +47,14 @@ export class UserInfoComponent implements OnInit {
       this.provinces = res;
     });
     this.formUserInfo = this.fb.group({
-      displayName: [''],
-      email: [''],
-      phoneNumber: [''],
-      address: [''],
-      province: [''],
-      dicstrict: [''],
-      ward: [''],
-      gender: [''],
+      displayName: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      phoneNumber: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      province: ['', Validators.compose([Validators.required])],
+      dicstrict: ['', Validators.compose([Validators.required])],
+      ward: ['', Validators.compose([Validators.required])],
+      gender: ['', Validators.compose([Validators.required])],
     });
 
     this.fetchUserData();
@@ -68,13 +68,19 @@ export class UserInfoComponent implements OnInit {
     this.userS.userData$.subscribe((res) => {
       if (Object.keys(res).length === 0) return;
       this.userInfo = res;
-
-      this.defaultProvinces.code = this.userInfo[0].province;
-      this.defaultDicstrict.code = this.userInfo[0].dicstrict;
-      this.defaultWard.code = this.userInfo[0].ward;
-      console.log(this.defaultDicstrict, this.defaultProvinces);
-      this.startGetDataDictricts(this.defaultProvinces);
-      this.startGetDataWards(this.defaultDicstrict);
+      if (this.userInfo[0].ward) {
+        this.defaultProvinces.code = this.userInfo[0].province;
+        this.defaultDicstrict.code = this.userInfo[0].dicstrict;
+        this.defaultWard.code = this.userInfo[0].ward;
+        console.log(this.defaultDicstrict, this.defaultProvinces);
+        this.startGetDataDictricts(this.defaultProvinces);
+        this.startGetDataWards(this.defaultDicstrict);
+        this.formUserInfo.patchValue({
+          province: this.defaultProvinces.code,
+          dicstrict: this.defaultDicstrict.code,
+          ward: this.defaultWard.code,
+        });
+      }
 
       console.log('fetch user data', this.userInfo);
       this.formUserInfo.patchValue({
@@ -82,9 +88,7 @@ export class UserInfoComponent implements OnInit {
         email: this.userInfo[0].email,
         phoneNumber: this.userInfo[0].phoneNumber,
         address: this.userInfo[0].address,
-        province: this.defaultProvinces.code,
-        dicstrict: this.defaultDicstrict.code,
-        ward: this.defaultWard.code,
+
         gender: this.userInfo[0].gender,
       });
     });
@@ -118,10 +122,18 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  onSubmitUserInfo(formUserInfo: any): void {
+  onSubmitUserInfo(formUserInfo: any): Promise<any> {
     // console.log(formUserInfo);
     // console.log(this.userInfo.uid);
-    this.userS
+    this.formUserInfo.markAllAsTouched();
+    if (formUserInfo.valid == false) {
+      return Swal.fire({
+        title: 'Có lỗi trong quá trình nhập liệu',
+        icon: 'error',
+        timer: 700,
+      });
+    }
+    return this.userS
       .updateProfile(this.userAuth.uid, formUserInfo.value)
       .then((res) => {
         this.fetchUserData();

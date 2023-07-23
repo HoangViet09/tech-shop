@@ -17,15 +17,18 @@ import Swal from 'sweetalert2';
 })
 export class OrdersManagementComponent {
   displayedColumns: string[] = [
+    'orderId',
     'userId',
     'email',
     'userName',
     'phone',
     'payment',
     'orderTime',
+    'state',
     'totalPrice',
   ];
   dataSource!: MatTableDataSource<any>;
+  resData: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -34,9 +37,9 @@ export class OrdersManagementComponent {
 
   ngOnInit() {
     this.orderS.getAllOrder().subscribe((res) => {
+      this.resData = res;
+
       this.dataSource = new MatTableDataSource(res);
-      console.log(this.dataSource);
-      console.log(this.dataSource.filter);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -44,28 +47,46 @@ export class OrdersManagementComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    if (filterValue === '') {
+      this.dataSource = new MatTableDataSource(this.resData);
+      this.dataSource.filter = '';
+      return;
+    }
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     let filterData = this.dataSource.data.filter((item) => {
-      // console.log(
-      //   item.orderItem.orderDesc.displayName
-      //     .toLowerCase()
-      //     .includes(filterValue.trim().toLocaleLowerCase())
-      // );
-      return item.orderItem.orderDesc.displayName
-        .normalize('NFD')
-        .toLowerCase()
-        .includes(filterValue.trim().normalize('NFD').toLocaleLowerCase());
+      return (
+        this.removeDiacritics(
+          item.orderItem.orderDesc.displayName.toLowerCase()
+        ).includes(
+          this.removeDiacritics(filterValue.trim().toLocaleLowerCase())
+        ) ||
+        item.orderItem.userId
+          .toLocaleLowerCase()
+          .includes(filterValue.trim().toLocaleLowerCase()) ||
+        item.id
+          .toLocaleLowerCase()
+          .includes(filterValue.trim().toLocaleLowerCase())
+      );
     });
-    console.log(filterData);
-    // console.log(filterValue.trim().toLocaleLowerCase());
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+    return (this.dataSource = new MatTableDataSource(filterData));
   }
 
-  navigateAdminUser() {
+  changeOrderState(orderId: string) {
+    // console.log(orderId);
+    this.orderS.changeStateOrder(orderId);
+  }
+  removeDiacritics(str: string) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  navigateAdminUsers() {
     this.router.navigate(['admin/users']);
+  }
+  navigateAdminProducts() {
+    this.router.navigate(['admin/products']);
   }
 }

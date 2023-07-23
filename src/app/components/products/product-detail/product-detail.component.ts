@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WindowService } from 'src/app/shared/services/window.service';
+import Swal from 'sweetalert2';
 import { SwiperOptions } from 'swiper';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
@@ -130,12 +131,25 @@ export class ProductDetailComponent implements OnInit {
       colorChoosed[objectKey] = Number(objectValue);
       console.log(colorChoosed);
     }
-    this.userS.addToCart(
-      this.userId,
-      this.productId,
-      this.quantityNumber,
-      colorChoosed,
-      this.dataProduct
-    );
+    if (this.authS.isLoggedIn) {
+      this.userS.addToCart(
+        this.userId,
+        this.productId,
+        this.quantityNumber,
+        colorChoosed,
+        this.dataProduct
+      );
+    }
+    return Swal.fire({
+      icon: 'warning',
+      title: 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng',
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Đăng nhập',
+      cancelButtonText: 'Chưa phải lúc',
+    }).then((result) => {
+      if (result.isConfirmed) return this.router.navigate(['/sign-in']);
+      return;
+    });
   }
 }

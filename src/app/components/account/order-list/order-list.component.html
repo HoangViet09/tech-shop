@@ -30,6 +30,18 @@
             <div ngbAccordionHeader>
               <button ngbAccordionButton>
                 #{{ item.orderItem.orderTime }}
+                <span
+                  style="
+                    display: inline-block;
+                    margin-left: auto;
+                    margin-right: 20px;
+                  "
+                  >{{
+                    item.orderItem.state
+                      ? translate.instant(item.orderItem.state)
+                      : translate.instant("Confirming order")
+                  }}</span
+                >
               </button>
             </div>
 

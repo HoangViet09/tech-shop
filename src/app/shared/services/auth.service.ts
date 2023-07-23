@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
 })
 export class AuthService {
   userData: any;
+  totalProduct: number = 0;
+
   userAuthSubject: Subject<any> = new BehaviorSubject<any>({}); // Save logged in user data
   get userAuth$(): Observable<any> {
     return this.userAuthSubject;
@@ -70,6 +72,13 @@ export class AuthService {
 
   // Sign up with email/password
   SignUp(email: string, password: string) {
+    // const userData: User = {
+    //   uid: user.uid,
+    //   email: user.email,
+    //   displayName: user.displayName,
+    //   photoURL: user?.photoURL,
+    //   emailVerified: user?.emailVerified,
+    // };
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -106,8 +115,9 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
+    console.log('user loggin');
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null ? true : false;
   }
 
   // Sign in with Google
@@ -158,6 +168,8 @@ export class AuthService {
     return this.afAuth
       .signOut()
       .then(() => {
+        this.totalProduct = 0;
+        this.userData = undefined;
         localStorage.removeItem('user');
         // this.router.navigate(['sign-in']);
       })
@@ -167,6 +179,7 @@ export class AuthService {
           title: 'Bạn đã đăng xuất',
           timer: 1500,
         });
+        return this.router.navigate(['dashboard']);
       });
   }
 }

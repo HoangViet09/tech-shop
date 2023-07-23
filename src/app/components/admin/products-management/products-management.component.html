@@ -1,1 +1,209 @@
-<p>products-management works!</p>
+<div class="container-fluid">
+  <div class="row flex-nowrap admin">
+    <div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0 admin-sidebar">
+      <div
+        class="d-flex flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100"
+      >
+        <a
+          href="/"
+          class="d-block align-items-center pb-3 text-white text-decoration-none admin-title"
+        >
+          <span class="d-none d-sm-inline">Aley</span>
+        </a>
+        <ul
+          class="nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start admin-items"
+          id="menu"
+        >
+          <li class="nav-item admin-item">
+            <a href="#" class="nav-link align-middle px-0">
+              <i class="fa fa-tachometer" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item admin-item">
+            <a class="nav-link px-0 align-middle" (click)="navigateAdminUser()">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">User</span></a
+            >
+          </li>
+
+          <li class="nav-item admin-item">
+            <a
+              class="nav-link px-0 align-middle"
+              (click)="navigateAdminOrder()"
+            >
+              <i class="fa fa-list-alt" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">Orders</span></a
+            >
+          </li>
+
+          <li class="nav-item admin-item">
+            <a
+              href="#submenu3"
+              data-bs-toggle="collapse"
+              class="nav-link px-0 align-middle active-item"
+            >
+              <i class="fa fa-archive" aria-hidden="true"></i>
+              <span class="ms-1 d-none d-sm-inline">Products</span>
+            </a>
+          </li>
+        </ul>
+        <hr />
+        <div class="dropdown pb-4">
+          <a
+            href="#"
+            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="https://github.com/mdo.png"
+              alt="hugenerd"
+              width="30"
+              height="30"
+              class="rounded-circle"
+            />
+            <span class="d-none d-sm-inline mx-1">loser</span>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-dark text-small shadow"
+            aria-labelledby="dropdownUser1"
+          >
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col py-3">
+      <div class="admin-topbar-container">
+        <div class="col-4">
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder=""
+              #input
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <button class="admin-addproduct-btn" (click)="openAddModal()">
+            Add Product
+          </button>
+        </div>
+      </div>
+
+      <div class="mat-elevation-z8 table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Name Column -->
+          <ng-container matColumnDef="productID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Product ID
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.id ? row.id : "Đang cập nhật..." }}
+            </td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Product Name
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{
+                row.product_header.title
+                  ? row.product_header.title
+                  : "Đang cập nhật..."
+              }}
+            </td>
+          </ng-container>
+
+          <!-- Gender Column -->
+          <ng-container matColumnDef="productBrand">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Product Brand
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{
+                row.product_header.brand
+                  ? row.product_header.brand
+                  : "Đang cập nhật..."
+              }}
+            </td>
+          </ng-container>
+
+          <!-- Phone Column -->
+          <ng-container matColumnDef="productType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Product Type
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.product_type ? row.product_type : "Đang cập nhật.." }}
+            </td>
+          </ng-container>
+
+          <!-- Address Column -->
+          <ng-container matColumnDef="productPrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Product Price
+            </th>
+            <td mat-cell *matCellDef="let row">
+              {{
+                row.product_header.price | currency : "VND" : "symbol" : "1.0"
+              }}
+            </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="productImg">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Price</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.product_header.price ? row.product_header.price : "Đang cập nhật..." }}
+            </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let row" class="admin-action-group">
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="openEditModal(row)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteRow(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Define the table rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <!-- Row shown when there is no matching data -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="5">
+              No data matching the filter "{{ input.value }}"
+            </td>
+          </tr>
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page of users"
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

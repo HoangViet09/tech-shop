@@ -104,7 +104,9 @@
             class="nav-img"
             (click)="navigateToCart()"
           />
-          <span *ngIf="totalProduct">{{ totalProduct }}</span>
+          <span *ngIf="authService.totalProduct">{{
+            authService.totalProduct
+          }}</span>
         </li>
         <li class="nav-header__item">
           <img
@@ -123,7 +125,11 @@
               #myDrop="ngbDropdown"
             >
               <img
-                src="{{ authService.userData.photoURL }}"
+                [src]="
+                  userData[0].photoURL
+                    ? userData[0].photoURL
+                    : 'assets/img/user.svg'
+                "
                 alt="user img"
                 class="nav-img"
                 ngbDropdownAnchor
@@ -142,7 +148,7 @@
                 <button
                   ngbDropdownItem
                   (click)="navigateAdmin()"
-                  *ngIf="userData[0].role === 'Super Admin' || 'Admin'"
+                  *ngIf="userData[0].role === 'Super Admin'"
                 >
                   <img
                     src="assets/img/user.svg"

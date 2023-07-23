@@ -233,3 +233,7 @@
     font-weight: 500;
   }
 }
+
+.accordion-button::after {
+  margin-left: unset !important;
+}

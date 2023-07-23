@@ -21,7 +21,10 @@
             </a>
           </li>
           <li class="nav-item admin-item">
-            <a class="nav-link px-0 align-middle" (click)="navigateAdminUser()">
+            <a
+              class="nav-link px-0 align-middle"
+              (click)="navigateAdminUsers()"
+            >
               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
               <span class="ms-1 d-none d-sm-inline">User</span></a
             >
@@ -39,6 +42,7 @@
               href="#submenu3"
               data-bs-toggle="collapse"
               class="nav-link px-0 align-middle"
+              (click)="navigateAdminProducts()"
             >
               <i class="fa fa-archive" aria-hidden="true"></i>
               <span class="ms-1 d-none d-sm-inline">Products</span>
@@ -81,11 +85,23 @@
     <div class="col py-3">
       <mat-form-field>
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input />
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          #input
+          placeholder="filter by User Id or Order Id or User name"
+        />
       </mat-form-field>
 
-      <div class="mat-elevation-z8">
+      <div class="mat-elevation-z8 table-container">
         <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Order Id Column -->
+          <ng-container matColumnDef="orderId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</th>
+            <td mat-cell *matCellDef="let row">
+              {{ row.id }}
+            </td>
+          </ng-container>
           <!-- User Id Column -->
           <ng-container matColumnDef="userId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
@@ -150,13 +166,29 @@
             </td>
           </ng-container>
 
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let row" class="admin-action-group">
+              <button
+                class="admin-order-confirm_btn"
+                (click)="changeOrderState(row.id)"
+              >
+                {{
+                  row.orderItem.state ? row.orderItem.state : "Chưa xác nhận"
+                }}
+              </button>
+            </td>
+          </ng-container>
+
           <!-- totalPrice Column -->
           <ng-container matColumnDef="totalPrice">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
               Total Price
             </th>
             <td mat-cell *matCellDef="let row">
-              {{ row.orderItem.totalPrice }}
+              {{
+                row.orderItem.totalPrice | currency : "VND" : "symbol" : "1.0"
+              }}
             </td>
           </ng-container>
 

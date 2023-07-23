@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +27,9 @@ export class OrderService {
         map((documentChanges: DocumentChangeAction<any>[]) => {
           return documentChanges.map(
             (documentChange: DocumentChangeAction<any>) => {
+              const id = documentChange.payload.doc.id;
               const documentData = documentChange.payload.doc.data();
-              return documentData;
+              return { id, ...documentData };
             }
           );
         })
@@ -74,5 +76,53 @@ export class OrderService {
 
     const userDocRef = this.afs.collection('orders');
     return userDocRef.add({ orderItem });
+  }
+
+  changeStateOrder(orderId: string) {
+    const orderRef = this.afs.collection('orders').doc(orderId);
+
+    orderRef.get().subscribe((userDocSnapshot) => {
+      const orderData = userDocSnapshot.data() as {
+        orderItem: { state?: string };
+      };
+
+      switch (orderData.orderItem.state) {
+        case undefined:
+          orderData.orderItem.state = 'Confirm';
+          console.log(orderData);
+          orderRef.update(orderData);
+          break;
+        case 'Confirm':
+          orderData.orderItem.state = 'Delivering';
+          console.log(orderData);
+          orderRef.update(orderData);
+          break;
+        case 'Delivering':
+          Swal.fire({
+            icon: 'question',
+            title: 'Has the product delivered successfully?',
+            showDenyButton: true,
+            showCloseButton: true,
+            // showCancelButton: true,
+            confirmButtonText: 'Successful delivery',
+            denyButtonText: `return to warehouse`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              orderData.orderItem.state = 'Delivered';
+              console.log(orderData);
+              orderRef.update(orderData);
+            } else {
+              orderData.orderItem.state = 'Confirm';
+              console.log(orderData);
+              orderRef.update(orderData);
+            }
+            Swal.close();
+          });
+
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

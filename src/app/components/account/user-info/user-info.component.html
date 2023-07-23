@@ -44,6 +44,18 @@
                   name="displayName"
                   formControlName="displayName"
                   placeholder="Họ và Tên của bạn"
+                  [ngClass]="{
+                    'is-invalid':
+                      formUserInfo.controls['displayName'].hasError(
+                        'required'
+                      ) && formUserInfo.controls['displayName'].touched,
+                    'is-valid':
+                      formUserInfo.controls['displayName'].touched &&
+                      !formUserInfo.controls['displayName'].hasError(
+                        'required'
+                      ),
+                    'form-control': true
+                  }"
                 />
               </div>
             </div>
@@ -81,6 +93,15 @@
                   formControlName="email"
                   name="email"
                   placeholder="E-mail của bạn"
+                  [ngClass]="{
+                    'is-invalid':
+                      formUserInfo.controls['email'].hasError('required') &&
+                      formUserInfo.controls['email'].touched,
+                    'is-valid':
+                      formUserInfo.controls['email'].touched &&
+                      !formUserInfo.controls['email'].hasError('required'),
+                    'form-control': true
+                  }"
                 />
               </div>
             </div>
@@ -98,6 +119,18 @@
                   formControlName="phoneNumber"
                   name="phoneNumber"
                   placeholder="Số điên thoại của bạn"
+                  [ngClass]="{
+                    'is-invalid':
+                      formUserInfo.controls['phoneNumber'].hasError(
+                        'required'
+                      ) && formUserInfo.controls['phoneNumber'].touched,
+                    'is-valid':
+                      formUserInfo.controls['phoneNumber'].touched &&
+                      !formUserInfo.controls['phoneNumber'].hasError(
+                        'required'
+                      ),
+                    'form-control': true
+                  }"
                 />
               </div>
             </div>
@@ -115,6 +148,15 @@
                   formControlName="address"
                   name="address"
                   placeholder="Địa chỉ của bạn"
+                  [ngClass]="{
+                    'is-invalid':
+                      formUserInfo.controls['address'].hasError('required') &&
+                      formUserInfo.controls['address'].touched,
+                    'is-valid':
+                      formUserInfo.controls['address'].touched &&
+                      !formUserInfo.controls['address'].hasError('required'),
+                    'form-control': true
+                  }"
                 />
               </div>
             </div>
@@ -129,11 +171,17 @@
                   <ng-select
                     [items]="provinces"
                     bindLabel="name"
-                    autofocus
                     bindValue="code"
                     [(ngModel)]="provinceCode"
                     (change)="startGetDataDictricts($event)"
                     formControlName="province"
+                    [ngClass]="{
+                      'is-invalid':
+                        formUserInfo.controls['province'].hasError('required'),
+                      'is-valid':
+                        !formUserInfo.controls['province'].hasError('required'),
+                      'form-control': true
+                    }"
                   >
                   </ng-select>
                 </div>
@@ -141,11 +189,19 @@
                   <ng-select
                     [items]="districts"
                     bindLabel="name"
-                    autofocus
                     bindValue="code"
                     (change)="startGetDataWards($event)"
                     formControlName="dicstrict"
                     placeholder="Quận/huyện"
+                    [ngClass]="{
+                      'is-invalid':
+                        formUserInfo.controls['dicstrict'].hasError('required'),
+                      'is-valid':
+                        !formUserInfo.controls['dicstrict'].hasError(
+                          'required'
+                        ),
+                      'form-control': true
+                    }"
                   >
                   </ng-select>
                 </div>
@@ -153,10 +209,16 @@
                   <ng-select
                     [items]="wards"
                     bindLabel="name"
-                    autofocus
                     bindValue="code"
                     formControlName="ward"
                     placeholder="Phường/xã"
+                    [ngClass]="{
+                      'is-invalid':
+                        formUserInfo.controls['ward'].hasError('required'),
+                      'is-valid':
+                        !formUserInfo.controls['ward'].hasError('required'),
+                      'form-control': true
+                    }"
                   >
                   </ng-select>
                 </div>
@@ -176,6 +238,16 @@
                       name="gender"
                       formControlName="gender"
                       value="male"
+                      [ngClass]="{
+                        'is-invalid':
+                          formUserInfo.controls['gender'].hasError(
+                            'required'
+                          ) && formUserInfo.controls['gender'].touched,
+                        'is-valid':
+                          formUserInfo.controls['gender'].touched &&
+                          !formUserInfo.controls['gender'].hasError('required'),
+                        'form-control': true
+                      }"
                     />
                     <label for="striped-form-6" class="radio-label">{{
                       translate.instant("Male")
@@ -189,6 +261,16 @@
                       name="gender"
                       formControlName="gender"
                       value="feMale"
+                      [ngClass]="{
+                        'is-invalid':
+                          formUserInfo.controls['gender'].hasError(
+                            'required'
+                          ) && formUserInfo.controls['gender'].touched,
+                        'is-valid':
+                          formUserInfo.controls['gender'].touched &&
+                          !formUserInfo.controls['gender'].hasError('required'),
+                        'form-control': true
+                      }"
                     />
                     <label for="striped-form-7" class="radio-label">{{
                       translate.instant("Female")

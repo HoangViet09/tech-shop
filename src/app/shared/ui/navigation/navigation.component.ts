@@ -35,7 +35,6 @@ export class NavigationComponent implements OnInit {
   selectedLanguage: string = 'vi';
   searching: boolean = false;
   searchFailed: boolean = false;
-  totalProduct: number = 0;
   constructor(
     public authService: AuthService,
     private router: Router,
@@ -51,6 +50,7 @@ export class NavigationComponent implements OnInit {
     this.userS.userData$.subscribe((res) => {
       this.userData = res;
       console.log(this.userData);
+      console.log(this.userData[0].role === 'Super Admin');
       this.getTotalProductQuantity();
     });
   }
@@ -69,15 +69,15 @@ export class NavigationComponent implements OnInit {
     this.previosScrollPosition = currenScrollPosition;
   }
   getTotalProductQuantity() {
-    this.totalProduct = 0;
+    this.authService.totalProduct = 0;
     let productQuantityArr: any[] = [];
     this.userData[0].cart.map((item: any) => {
       return productQuantityArr.push(item.productQuantity);
     });
     productQuantityArr.forEach((item: number) => {
-      this.totalProduct += item;
+      this.authService.totalProduct += item;
     });
-    console.log(this.totalProduct);
+    // console.log(this.totalProduct);
   }
   signOut() {
     this.authS.SignOut();

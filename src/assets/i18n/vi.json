@@ -64,5 +64,9 @@
   "Update Info": "Cập nhật thông tin",
   "Sign out": "Đăng xuất",
   "Total Bill:": "Tổng đơn hàng",
-  "Admin": "Trang quản trị"
+  "Admin": "Trang quản trị",
+  "Confirming order": "Đang xác thực đơn hàng",
+  "Confirm": "Đã xác thực đơn hàng",
+  "Delevering": "Đang giao hàng",
+  "Delivered": "Đã giao"
 }

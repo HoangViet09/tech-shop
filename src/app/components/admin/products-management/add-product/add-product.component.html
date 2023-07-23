@@ -1,1 +1,531 @@
-<p>add-product works!</p>
+<div class="modal-header">
+  <h5 class="modal-title">Add product</h5>
+  <button class="modal-btn-close" type="button" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" (submit)="onSubmit(form)">
+    <div style="display: flex; gap: 15px">
+      <div class="mb-1 w-100">
+        <div class="form-group m-0">
+          <label for="brand">Brand</label>
+          <span class="text-danger">(*)</span>
+          <input
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                form.controls['brand'].hasError('required') &&
+                form.controls['brand'].touched,
+              'is-valid':
+                form.controls['brand'].touched &&
+                !form.controls['brand'].hasError('required'),
+              'form-control': true
+            }"
+            type="text"
+            id="brand"
+            placeholder="Brand"
+            formControlName="brand"
+          />
+          <ng-container
+            class="invalid-feedback"
+            *ngIf="form.controls['brand'].hasError('required')"
+          >
+            <div class="invalid-feedback" style="margin-top: unset">
+              <!-- <span class="style-error">{{ VALIDATOR_VISITOR.name }}</span> -->
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="mb-1 w-100">
+        <label for="title">Name of Product</label>
+        <span class="text-danger">(*)</span>
+        <input
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.controls['title'].hasError('required') &&
+              form.controls['title'].touched,
+            'is-valid':
+              form.controls['title'].touched &&
+              !form.controls['title'].hasError('required'),
+            'form-control': true
+          }"
+          type="phone"
+          id="title"
+          placeholder=""
+          formControlName="title"
+        />
+        <ng-container
+          class="invalid-feedback"
+          *ngIf="form.controls['title'].hasError('required')"
+        >
+          <div class="invalid-feedback" style="margin-top: unset">
+            <!-- <span class="style-error">{{ VALIDATOR_VISITOR.title }}</span> -->
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div style="display: flex; gap: 15px">
+      <div class="mb-1 w-100">
+        <label for="price">Price</label>
+        <span class="text-danger">(*)</span>
+        <input
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.controls['price'].hasError('required') &&
+              form.controls['price'].touched,
+            'is-valid':
+              form.controls['price'].touched &&
+              !form.controls['price'].hasError('required'),
+            'form-control': true
+          }"
+          type="text"
+          id="price"
+          placeholder="Price"
+          formControlName="price"
+        />
+        <ng-container
+          class="invalid-feedback"
+          *ngIf="form.controls['price'].hasError('required')"
+        >
+          <div class="invalid-feedback" style="margin-top: unset">
+            <!-- <span class="style-error">{{ VALIDATOR_VISITOR.price }}</span> -->
+          </div>
+        </ng-container>
+      </div>
+      <div class="mb-1 w-100">
+        <label for="product_type">Type</label>
+        <span class="text-danger">(*)</span>
+        <input
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.controls['product_type'].hasError('required') &&
+              form.controls['product_type'].touched,
+            'is-valid':
+              form.controls['product_type'].touched &&
+              !form.controls['product_type'].hasError('required'),
+            'form-control': true
+          }"
+          product_type="text"
+          id="product_type"
+          placeholder="product_type"
+          formControlName="product_type"
+        />
+        <ng-container
+          class="invalid-feedback"
+          *ngIf="form.controls['product_type'].hasError('required')"
+        >
+          <div class="invalid-feedback" style="margin-top: unset">
+            <!-- <span class="style-error">{{ VALIDATOR_VISITOR.product_type }}</span> -->
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="admin-spectinput-group">
+      <div class="mb-1 w-100">
+        <label for="spect_header">Spect Header</label>
+        <span class="text-danger">(*)</span>
+        <input
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              form.controls['spect_header'].hasError('required') &&
+              form.controls['spect_header'].touched,
+            'is-valid':
+              form.controls['spect_header'].touched &&
+              !form.controls['spect_header'].hasError('required'),
+            'form-control': true
+          }"
+          type="text"
+          id="spect_header"
+          placeholder=""
+          formControlName="spect_header"
+        />
+        <ng-container
+          class="invalid-feedback"
+          *ngIf="form.controls['spect_header'].hasError('required')"
+        >
+          <div class="invalid-feedback" style="margin-top: unset">
+            <!-- <span class="style-error">{{ VALIDATOR_VISITOR.spect_header }}</span> -->
+          </div>
+        </ng-container>
+      </div>
+      <div formArrayName="productSpectsArr" class="">
+        <div class="productspect-title row">
+          <p class="label mr-2">
+            Spect Title <span class="text-danger">(*)</span>
+          </p>
+          <p class="label">
+            Spect Content <span class="text-danger">(*)</span>
+          </p>
+        </div>
+
+        <div
+          class="productspect-row mb-1"
+          *ngFor="let item of productSpectsArr.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="mr-2 productspect-col">
+            <input
+              class="productspect-textfields__item form-control"
+              type="text"
+              placeholder=""
+              formControlName="techTitle"
+              [ngClass]="{
+                'is-invalid':
+                  item.get('techTitle')?.invalid &&
+                  item.get('techTitle')?.touched,
+                'is-valid':
+                  item.get('techTitle')?.valid && item.get('techTitle')?.touched
+              }"
+            />
+            <ng-container
+              *ngIf="
+                item.get('techTitle')?.invalid && item.get('techTitle')?.touched
+              "
+            >
+              <span class="valid-error mt-1">Title is required</span>
+            </ng-container>
+          </div>
+          <div class="productspect-col">
+            <input
+              class="productspect-textfields__item form-control"
+              type="text"
+              placeholder=""
+              formControlName="techContent"
+              [ngClass]="{
+                'is-invalid':
+                  item.get('techContent')?.invalid &&
+                  item.get('techContent')?.touched,
+                'is-valid':
+                  item.get('techContent')?.valid &&
+                  item.get('techContent')?.touched
+              }"
+            />
+            <ng-container
+              *ngIf="
+                item.get('techContent')?.invalid &&
+                item.get('techContent')?.touched
+              "
+            >
+              <span class="valid-error mt-1">Content is required</span>
+            </ng-container>
+          </div>
+
+          <!-- Add button in the first row -->
+          <button
+            *ngIf="i === 0"
+            (click)="addProductSpectRow()"
+            class="productspect-addbtn"
+            type="button"
+          >
+            +
+          </button>
+
+          <!-- Delete button for rows 2 and onwards -->
+          <button
+            *ngIf="i > 0"
+            (click)="deleteProductSpectRow(i)"
+            class="productspect-closeBtn"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- color option input -->
+    <div formArrayName="productColorOptionsArr" class="admin-coloroption-group">
+      <div class="productspect-title row">
+        <p class="label mr-2">
+          Color label <span class="text-danger">(*)</span>
+        </p>
+        <p class="label">Color price <span class="text-danger">(*)</span></p>
+      </div>
+      <div
+        class="productspect-row mb-1"
+        *ngFor="let item of productColorOptionsArr.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="mr-2 productspect-col">
+          <input
+            class="productspect-textfields__item form-control"
+            type="text"
+            placeholder=""
+            formControlName="color_label"
+            [ngClass]="{
+              'is-invalid':
+                item.get('color_label')?.invalid &&
+                item.get('color_label')?.touched,
+              'is-valid':
+                item.get('color_label')?.valid &&
+                item.get('color_label')?.touched
+            }"
+          />
+          <ng-container
+            *ngIf="
+              item.get('color_label')?.invalid &&
+              item.get('color_label')?.touched
+            "
+          >
+            <span class="valid-error mt-1">Color label is required</span>
+          </ng-container>
+        </div>
+        <div class="productspect-col">
+          <input
+            class="productspect-textfields__item form-control"
+            type="number"
+            placeholder=""
+            formControlName="color_price"
+            [ngClass]="{
+              'is-invalid':
+                item.get('color_price')?.invalid &&
+                item.get('color_price')?.touched,
+              'is-valid':
+                item.get('color_price')?.valid &&
+                item.get('color_price')?.touched
+            }"
+          />
+          <ng-container
+            *ngIf="
+              item.get('color_price')?.invalid &&
+              item.get('color_price')?.touched
+            "
+          >
+            <span class="valid-error mt-1">Color price is required</span>
+          </ng-container>
+        </div>
+
+        <!-- Add button in the first row -->
+        <button
+          *ngIf="i === 0"
+          (click)="addColorOptionRow()"
+          class="productspect-addbtn"
+          type="button"
+        >
+          +
+        </button>
+
+        <!-- Delete button for rows 2 and onwards -->
+        <button
+          *ngIf="i > 0"
+          (click)="deleteColorOptionRow(i)"
+          class="productspect-closeBtn"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+    <!-- offer include input -->
+    <div
+      formArrayName="productOfferIncludeArr"
+      class="admin-offerinclude-group"
+    >
+      <div class="productspect-title row">
+        <p class="label mr-2">Offer Include</p>
+      </div>
+      <div
+        class="productspect-row mb-1"
+        *ngFor="let item of productOfferIncludeArr.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="productspect" style="width: 90%">
+          <input
+            class="productspect-textfields__item form-control"
+            type="text"
+            placeholder=""
+            formControlName="offer_include"
+            [ngClass]="{
+              'is-invalid':
+                item.get('offer_include')?.invalid &&
+                item.get('offer_include')?.touched,
+              'is-valid':
+                item.get('offer_include')?.valid &&
+                item.get('offer_include')?.touched
+            }"
+          />
+          <ng-container
+            *ngIf="
+              item.get('offer_include')?.invalid &&
+              item.get('offer_include')?.touched
+            "
+          >
+            <span class="valid-error mt-1">Offer include is required</span>
+          </ng-container>
+        </div>
+
+        <!-- Add button in the first row -->
+        <button
+          *ngIf="i === 0"
+          (click)="addOfferIncludeRow()"
+          class="productspect-addbtn"
+          type="button"
+        >
+          +
+        </button>
+
+        <!-- Delete button for rows 2 and onwards -->
+        <button
+          *ngIf="i > 0"
+          (click)="deleteOfferIncludeRow(i)"
+          class="productspect-closeBtn"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+    <!-- payment incentives input -->
+    <div
+      formArrayName="productPaymentIncentivesArr"
+      class="admin-offerinclude-group"
+    >
+      <div class="productspect-title row">
+        <p class="label mr-2">Payment Incentives</p>
+      </div>
+      <div
+        class="productspect-row mb-1"
+        *ngFor="let item of productPaymentIncentivesArr.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="productspect" style="width: 90%">
+          <input
+            class="productspect-textfields__item form-control"
+            type="text"
+            placeholder=""
+            formControlName="payment_incentives"
+            [ngClass]="{
+              'is-invalid':
+                item.get('payment_incentives')?.invalid &&
+                item.get('payment_incentives')?.touched,
+              'is-valid':
+                item.get('payment_incentives')?.valid &&
+                item.get('payment_incentives')?.touched
+            }"
+          />
+        </div>
+
+        <!-- Add button in the first row -->
+        <button
+          *ngIf="i === 0"
+          (click)="addPaymentIncentivesRow()"
+          class="productspect-addbtn"
+          type="button"
+        >
+          +
+        </button>
+
+        <!-- Delete button for rows 2 and onwards -->
+        <button
+          *ngIf="i > 0"
+          (click)="deletePaymentIncentivesRow(i)"
+          class="productspect-closeBtn"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- promotion input -->
+    <div formArrayName="productPromotionArr" class="admin-offerinclude-group">
+      <div class="productspect-title row">
+        <p class="label mr-2">Promotions</p>
+      </div>
+      <div
+        class="productspect-row mb-1"
+        *ngFor="let item of productPromotionArr.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="productspect" style="width: 90%">
+          <input
+            class="productspect-textfields__item form-control"
+            type="text"
+            placeholder=""
+            formControlName="promotion"
+            [ngClass]="{
+              'is-invalid':
+                item.get('promotion')?.invalid &&
+                item.get('promotion')?.touched,
+              'is-valid':
+                item.get('promotion')?.valid && item.get('promotion')?.touched
+            }"
+          />
+        </div>
+
+        <!-- Add button in the first row -->
+        <button
+          *ngIf="i === 0"
+          (click)="addPromotionRow()"
+          class="productspect-addbtn"
+          type="button"
+        >
+          +
+        </button>
+
+        <!-- Delete button for rows 2 and onwards -->
+        <button
+          *ngIf="i > 0"
+          (click)="deletePromotionRow(i)"
+          class="productspect-closeBtn"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+    <!-- Image input -->
+    <div formArrayName="productImageArr" class="admin-offerinclude-group">
+      <div class="productspect-title row">
+        <p class="label mr-2">Images <span class="text-danger">(*)</span></p>
+      </div>
+      <div
+        class="productspect-row mb-1"
+        *ngFor="let item of productImageArr.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="productspect" style="width: 90%">
+          <input
+            class="productspect-textfields__item form-control"
+            type="text"
+            placeholder=""
+            formControlName="Image"
+            [ngClass]="{
+              'is-invalid':
+                item.get('Image')?.invalid && item.get('Image')?.touched,
+              'is-valid': item.get('Image')?.valid && item.get('Image')?.touched
+            }"
+          />
+          <ng-container
+            *ngIf="item.get('Image')?.invalid && item.get('Image')?.touched"
+          >
+            <span class="valid-error mt-1">Image is required</span>
+          </ng-container>
+        </div>
+
+        <!-- Add button in the first row -->
+        <button
+          *ngIf="i === 0"
+          (click)="addImageRow()"
+          class="productspect-addbtn"
+          type="button"
+        >
+          +
+        </button>
+
+        <!-- Delete button for rows 2 and onwards -->
+        <button
+          *ngIf="i > 0"
+          (click)="deleteImageRow(i)"
+          class="productspect-closeBtn"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn-submit">Save</button>
+    </div>
+  </form>
+</div>

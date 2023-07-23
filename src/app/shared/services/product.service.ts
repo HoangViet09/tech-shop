@@ -9,8 +9,9 @@ import {
   CollectionReference,
   DocumentChangeAction,
 } from '@angular/fire/compat/firestore';
-import { BehaviorSubject, Observable, Subject, tap, of } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap, of, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +46,20 @@ export class ProductService {
   }
 
   getProducts() {
-    return this.afs.collection(`/products/`).valueChanges();
+    return this.afs
+      .collection('/products/')
+      .snapshotChanges()
+      .pipe(
+        map((documentChanges: DocumentChangeAction<any>[]) => {
+          return documentChanges.map(
+            (documentChange: DocumentChangeAction<any>) => {
+              const documentId = documentChange.payload.doc.id;
+              const documentData = documentChange.payload.doc.data();
+              return { id: documentId, ...documentData };
+            }
+          );
+        })
+      );
   }
 
   getProduct(productId: string) {
@@ -219,5 +233,64 @@ export class ProductService {
     }
     arrData.unshift(product);
     localStorage.setItem('products', JSON.stringify(arrData));
+  }
+
+  addProduct(productData: any) {
+    console.log('run');
+    return this.afs
+      .collection('products')
+      .add(productData)
+      .then(
+        () => {
+          Swal.fire({
+            title: 'Add product successful!',
+            timer: 1000,
+            icon: 'success',
+          });
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: err,
+          });
+        }
+      );
+  }
+
+  updateProduct(productItem: any, productId: string) {
+    const productDocRef = this.afs.collection('products').doc(productId);
+
+    console.log(productItem, productId);
+    return this.deleteProduct(productId).then(() => {
+      this.afs
+        .collection('products')
+        .add(productItem)
+        .then(() => {
+          Swal.fire({
+            title: 'update product successful!',
+            timer: 1000,
+            icon: 'success',
+          });
+        })
+        .catch((error) => {
+          console.error('Error updating product:', error);
+        });
+    });
+  }
+
+  deleteProduct(productId: string) {
+    const productDocRef = this.afs.collection('products').doc(productId);
+
+    return productDocRef.delete();
+    // .then(() => {
+    //   Swal.fire({
+    //     title: 'update product successful!',
+    //     timer: 1000,
+    //     icon: 'success',
+    //   });
+    // })
+    // .catch((error) => {
+    //   console.error('Error updating cart:', error);
+    // });
   }
 }
