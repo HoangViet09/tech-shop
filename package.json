@@ -29,6 +29,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "firebase": "^9.6.7",
+    "firebase-tools": "^11.30.0",
     "rxjs": "~7.8.0",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.7.12",
